@@ -1,0 +1,70 @@
+---
+// src/pages/404.astro - Versión integrada con Layout
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="404 - Page Not Found | Your Service">
+  <section class="min-h-[80vh] bg-[#FAF8F5] flex flex-col justify-center overflow-hidden relative px-6 py-16">
+    
+    <div class="absolute top-10 left-10 w-72 h-75 bg-brand-blue/5 rounded-full blur-3xl pointer-events-none float-slow"></div>
+    <div class="absolute bottom-10 right-10 w-96 h-96 bg-brand-green/5 rounded-full blur-3xl pointer-events-none float-delayed"></div>
+
+    <main class="mx-auto max-w-2xl text-center relative z-10 flex flex-col items-center gap-8">
+      
+      <div class="relative">
+        <h1 class="text-xl md:text-6xl font-black text-brand-blue tracking-tight relative z-10 select-none animate-pulse-slow">
+          404
+        </h1>
+      </div>
+
+      <div class="flex flex-col gap-3 max-w-md">
+        <h2 class="text-3xl md:text-5xl font-extrabold text-[#3d1d0e] tracking-tight">
+          Oops! Page <span class="text-brand-green">Not Found</span>
+        </h2>
+        <p class="text-gray-500 font-medium text-md md:text-lg leading-relaxed">
+          The link you followed might be broken, or the page may have been removed. Let's get you back on track!
+        </p>
+      </div>
+
+      <button 
+        onclick="history.back()" 
+        class="inline-flex items-center gap-2 text-md md:text-xl hover:cursor-pointer hover:text-brand-green font-bold text-gray-500 transition-colors duration-200 focus:outline-none"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12l7.5-7.5M21 12H3" />
+        </svg>
+        Back to Previous Page
+      </button>
+
+    </main>
+  </section>
+</Layout>
+
+<style>
+  @keyframes floatSlow {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-15px) scale(1.05); }
+  }
+
+  @keyframes floatDelayed {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(15px) scale(0.95); }
+  }
+
+  .float-slow {
+    animation: floatSlow 8s ease-in-out infinite;
+  }
+
+  .float-delayed {
+    animation: floatDelayed 10s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .95; }
+  }
+</style>
