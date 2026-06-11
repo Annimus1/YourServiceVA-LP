@@ -1,0 +1,146 @@
+---
+const roles = [
+  {
+    title: 'Administrative VAs',
+    icon: 'briefcase', // Representación lógica para el icono
+    tasks: [
+      'Calendar & meeting scheduling',
+      'Email & inbox organization',
+      'Document formatting',
+      'Travel coordination'
+    ]
+  },
+  {
+    title: 'Sales & CRM VAs',
+    icon: 'users',
+    tasks: [
+      'Lead follow-up',
+      'CRM entry & pipeline updates',
+      'Appointment setting',
+      'Proposal formatting'
+    ]
+  },
+  {
+  title: 'Dialer & Telemarketing VAs',
+  icon: 'headset', // Representación lógica para el icono de llamadas
+  tasks: [
+    'Cold calling & outbound prospecting',
+    'Inbound call handling & lead routing',
+    'Follow-up calls & sequence automation',
+    'Call logging & performance tracking'
+  ]
+},
+  {
+    title: 'Marketing & Content VAs',
+    icon: 'megaphone',
+    tasks: [
+      'Social media scheduling',
+      'Blog formatting',
+      'Research & keyword tracking',
+      'Canva graphics & basic editing'
+    ]
+  }
+];
+---
+
+<section class="w-full bg-[#FAF8F5] py-20 md:py-28 px-6 lg:px-48 border-b border-gray-100">
+  <div class="mx-auto max-w-7xl">
+    
+    <div class="text-center flex flex-col items-center gap-4 mb-16 scroll-reveal-header">
+      <h2 class="text-3xl md:text-5xl font-extrabold text-[#3d1d0e] tracking-tight">
+        Roles & Tasks Our VAs <br class="hidden sm:inline"/> Handle
+      </h2>
+      <p class="text-gray-600 font-medium text-base md:text-lg max-w-2xl leading-relaxed">
+        Our agents offer services designed to fit your needs, whether that be a dedicated assistant or a team of assistants.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      {roles.map((role, index) => (
+        <div 
+          class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col gap-6 group scroll-reveal-card"
+          style={`--delay: ${index * 0.1}s`}
+        >
+          <div class="w-14 h-14 mx-auto rounded-xl bg-brand-green/10 flex items-center justify-center text-brand-green group-hover:bg-brand-green group-hover:text-white transition-colors duration-300">
+            {role.icon === 'briefcase' && (
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 self-center" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            )}
+            {role.icon === 'users' && (
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            )}
+            {role.icon === 'headset' && (
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            )}
+            {role.icon === 'megaphone' && (
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+              </svg>
+            )}
+          </div>
+
+          <div class="flex flex-col gap-4">
+            <h3 class="text-xl text-center font-bold text-brand-blue group-hover:text-brand-green transition-colors">
+              {role.title}
+            </h3>
+            <ul class="flex flex-col gap-3">
+              {role.tasks.map((task) => (
+                <li class="flex items-start gap-2 text-gray-600 text-sm md:text-base leading-snug">
+                  <span class="text-brand-green font-bold mt-1 text-xs">•</span>
+                  <span>{task}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ==========================================================================
+     ANIMACIONES POR SCROLL (Scroll-Driven Animations)
+     ========================================================================== */
+  
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @supports (animation-timeline: view()) {
+    .scroll-reveal-header {
+      animation: fadeUp linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 30%;
+    }
+
+    .scroll-reveal-card {
+      animation: fadeUp linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 25%;
+      /* Aplicamos el retraso configurado en el style inline */
+      animation-delay: var(--delay); 
+    }
+  }
+
+  /* Fallback para navegadores antiguos */
+  @not supports (animation-timeline: view()) {
+    .scroll-reveal-header, .scroll-reveal-card {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
