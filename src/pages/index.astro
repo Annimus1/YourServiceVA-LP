@@ -1,10 +1,22 @@
 ---
-import Layout from '../layouts/Layout.astro';
-
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Home/Hero.astro";
+import TrustedBy from "../components/Home/TrustedBy.astro";
+import FullTimeSection from "../components/Home/FullTimeSection.astro";
+import RolesTasks from "../components/Home/RolesTasks.astro";
+import HowItWorks from "../components/Home/HowItWorks.astro";
+import ClientReviews from "../components/Common/ClientReviews.astro";
+import WeInvestInPeople from "../components/Home/WeInvestInPeople.astro";
+import FAQ from "../components/Home/FAQ.astro";
 ---
 
-<Layout>
-  <div class="container max-w-4xl mx-auto px-4 py-16 min-h-screen">
-    <h1 class="text-2xl text-brand-green">Welcome to Your Service VA</h1>
-  </div>
+<Layout   title="Your Service | Virtual Assistant & Corporate Outsourcing Solutions">
+  <Hero />
+  <TrustedBy />
+  <FullTimeSection />
+  <RolesTasks />
+  <FAQ />
+  <HowItWorks />
+  <ClientReviews />
+  <WeInvestInPeople />
 </Layout>
