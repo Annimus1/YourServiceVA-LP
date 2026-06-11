@@ -1,0 +1,68 @@
+---
+const companies = [
+  { name: 'FOX', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/2b/Fox_Broadcasting_Company_logo.svg' },
+  { name: 'HP', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/ad/HP_logo_2012.svg' },
+  { name: 'Forbes', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Forbes_logo.svg' },
+  { name: 'Entrepreneur', logo: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Entrepreneur_magazine_logo.svg' },
+  { name: 'Yahoo!', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Yahoo_logo_2019.svg' },
+  { name: 'CNN', logo: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/CNN.svg' },
+];
+---
+
+<section class="w-full bg-[#FAF8F5] py-10 overflow-hidden border-b border-gray-100">
+  <div class="mx-auto max-w-7xl px-6">
+    
+    <h2 class="text-center text-xs font-bold tracking-widest text-[#3d1d0e]/60 uppercase mb-8">
+      TRUSTED BY 1,000+ ENTREPRENEURS, AGENCIES, AND GROWING COMPANIES
+    </h2>
+
+    <div class="relative w-full overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-24 before:bg-linear-to-r before:from-[#FAF8F5] before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-24 after:bg-linear-to-l after:from-[#FAF8F5] after:to-transparent">
+      
+      <div class="flex w-max animate-marquee">
+        
+        <div class="flex items-center gap-16 pr-16 shrink-0">
+          {companies.map((company) => (
+            <img 
+              src={company.logo} 
+              alt={`${company.name} logo`} 
+              class="h-7 sm:h-9 w-32 object-contain opacity-40 grayscale hover:opacity-80 hover:grayscale-0 transition-all duration-300"
+            />
+          ))}
+        </div>
+
+        <div class="flex items-center gap-16 pr-16 shrink-0" aria-hidden="true">
+          {companies.map((company) => (
+            <img 
+              src={company.logo} 
+              alt={`${company.name} logo`} 
+              class="h-7 sm:h-9 w-32 object-contain opacity-40 grayscale hover:opacity-80 hover:grayscale-0 transition-all duration-300"
+            />
+          ))}
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .animate-marquee {
+    /* Ajusta los segundos (20s) si quieres que vaya más rápido o lento */
+    animation: marquee 20s linear infinite;
+  }
+
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      /* Se traslada exactamente el 50% de la pista completa (un bloque exacto con su respectivo padding de cierre) */
+      transform: translateX(-50%);
+    }
+  }
+</style>
