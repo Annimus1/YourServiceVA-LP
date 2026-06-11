@@ -5,3 +5,8 @@
   --color-brand-blue: #0072b0;
   --color-brand-white: #FAFAFA;
 }
+
+html {
+  scrollbar-color: var(--color-brand-green) #FAF8F5;
+  scroll-behavior: smooth;
+}
