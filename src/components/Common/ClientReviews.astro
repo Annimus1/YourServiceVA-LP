@@ -27,16 +27,16 @@ const reviews = [
 ];
 ---
 
-<section class="w-full bg-[#FAF8F5] py-20 md:py-28 px-6 overflow-hidden border-b border-gray-100">
+<section class="w-full bg-[#FAF8F5] py-20 md:py-28 px-0 md:px-6 overflow-hidden border-b border-gray-100">
   <div class="mx-auto max-w-7xl">
     
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 px-6 md:px-0">
       <div class="flex flex-col gap-2">
         <h2 class="text-3xl md:text-5xl font-extrabold text-[#3d1d0e] tracking-tight">
           Client <span class="text-brand-green">Reviews</span>
         </h2>
-        <div class="flex items-center gap-3 mt-2">
-          <span class="font-bold text-[#3d1d0e] text-lg">Your Service Reviews</span>
+        <div class="flex flex-wrap items-center gap-3 mt-2">
+          <span class="font-bold text-[#3d1d0e] text-base md:text-lg">Your Service Reviews</span>
           <span class="font-extrabold text-brand-green text-lg">4.8</span>
           <div class="flex text-amber-500 text-lg">★★★★★</div>
           <span class="text-gray-500 text-sm font-medium">189 reviews</span>
@@ -44,64 +44,62 @@ const reviews = [
       </div>
     </div>
 
-    <div class="relative w-full md:px-12 group">
+    <div class="relative w-full md:px-12 group/slider">
       
       <button 
         id="clutch-prev-btn" 
-        class="absolute -left-2 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-700 shadow-md hover:bg-brand-blue hover:text-white transition-all duration-300 disabled:opacity-30 disabled:pointer-events-none"
+        class="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white border border-gray-200 hidden md:flex items-center justify-center text-gray-700 shadow-md hover:bg-[#0066cc] hover:text-white transition-all duration-300 select-none cursor-pointer"
         aria-label="Previous page"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
         </svg>
       </button>
 
-      <div class="w-full overflow-hidden">
-        <div 
-          id="clutch-grid" 
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-500"
-        >
-          {reviews.map((review, index) => (
-            <div 
-              class="clutch-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col justify-between gap-6 hover:shadow-md transition-all duration-300"
-              data-index={index}
-            >
-              <div class="flex flex-col gap-4">
-                <div class="flex items-center gap-2">
-                  <span class="font-extrabold text-brand-green">{review.rating}</span>
-                  <div class="flex text-amber-500 text-sm">★★★★★</div>
-                </div>
-                <p class="text-gray-600 font-medium text-base leading-relaxed">
-                  {review.text}
-                </p>
+      <div 
+        id="clutch-slider" 
+        class="flex flex-row overflow-x-auto flex-nowrap gap-6 pb-6 px-[6vw] md:px-0 snap-x snap-mandatory md:snap-none scroll-smooth scrollbar-none [&::-webkit-scrollbar]:hidden"
+      >
+        {reviews.map((review, index) => (
+          <div 
+            class="clutch-card w-[82vw] sm:w-85 lg:w-90 shrink-0 bg-white rounded-2xl p-6 md:p-8 border border-gray-100 shadow-sm flex flex-col justify-between gap-6 snap-center md:snap-start hover:shadow-md transition-all duration-300"
+            data-index={index}
+          >
+            <div class="flex flex-col gap-4">
+              <div class="flex items-center gap-2">
+                <span class="font-extrabold text-brand-green">{review.rating}</span>
+                <div class="flex text-amber-500 text-sm">★★★★★</div>
               </div>
-              
-              <div class="border-t border-gray-100 pt-4 flex flex-col">
-                <span class="font-bold text-[#3d1d0e] text-sm">{review.author}</span>
-                <span class="text-gray-400 text-xs font-semibold">{review.company}</span>
-                <div class="flex items-center gap-1.5 text-brand-green text-xs font-bold mt-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-                    <path fill-rule="evenodd" d="M16.403 12.652a3 3 0 000-5.304 3 3 0 00-3.75-3.751 3 3 0 00-5.305 0 3 3 0 00-3.751 3.75 3 3 0 000 5.305 3 3 0 003.75 3.751 3 3 0 005.305 0 3 3 0 003.751-3.75zm-7.446-2.15a.75.75 0 00-1.064-1.054L6.16 11.18l-.947-.948a.75.75 0 10-1.06 1.06l1.477 1.477a.75.75 0 001.06 0l2.266-2.265z" clip-rule="evenodd" />
-                  </svg>
-                  Verified Review
-                </div>
+              <p class="text-gray-600 font-medium text-base leading-relaxed">
+                "{review.text}"
+              </p>
+            </div>
+            
+            <div class="border-t border-gray-100 pt-4 flex flex-col">
+              <span class="font-bold text-[#3d1d0e] text-sm">{review.author}</span>
+              <span class="text-gray-400 text-xs font-semibold">{review.company}</span>
+              <div class="flex items-center gap-1.5 text-brand-green text-xs font-bold mt-3">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                  <path fill-rule="evenodd" d="M16.403 12.652a3 3 0 000-5.304 3 3 0 00-3.75-3.751 3 3 0 00-5.305 0 3 3 0 00-3.751 3.75 3 3 0 000 5.305 3 3 0 003.75 3.751 3 3 0 005.305 0 3 3 0 003.751-3.75zm-7.446-2.15a.75.75 0 00-1.064-1.054L6.16 11.18l-.947-.948a.75.75 0 10-1.06 1.06l1.477 1.477a.75.75 0 001.06 0l2.266-2.265z" clip-rule="evenodd" />
+                </svg>
+                Verified Review
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
 
       <button 
         id="clutch-next-btn" 
-        class="absolute -right-2 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-700 shadow-md hover:bg-brand-blue hover:text-white transition-all duration-300 disabled:opacity-30 disabled:pointer-events-none"
+        class="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white border border-gray-200 hidden md:flex items-center justify-center text-gray-700 shadow-md hover:bg-[#0066cc] hover:text-white transition-all duration-300 select-none cursor-pointer"
         aria-label="Next page"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
         </svg>
       </button>
 
-      <div id="clutch-dots" class="flex justify-center items-center gap-2 mt-8"></div>
+      <div id="clutch-dots" class="flex justify-center items-center gap-2 mt-6"></div>
 
     </div>
 
@@ -110,106 +108,118 @@ const reviews = [
 
 <script>
   function initClutchSlider() {
+    const slider = document.getElementById('clutch-slider');
     const prevBtn = document.getElementById('clutch-prev-btn') as HTMLButtonElement;
     const nextBtn = document.getElementById('clutch-next-btn') as HTMLButtonElement;
     const dotsContainer = document.getElementById('clutch-dots');
-    const cards = document.querySelectorAll('.clutch-card') as NodeListOf<HTMLElement>;
+    const cards = document.querySelectorAll('.clutch-card');
     
-    if (!prevBtn || !nextBtn || !dotsContainer || cards.length === 0) return;
+    if (!slider || !prevBtn || !nextBtn || !dotsContainer || cards.length === 0) return;
 
-    let page = 0;
+    let lastActiveIndex = 0;
 
-    function getItemsPerPage() {
-      if (window.innerWidth >= 1024) return 3; // Desktop
-      if (window.innerWidth >= 640) return 2;  // Tablet
-      return 1;                                // Mobile
-    }
+    const getScrollAmount = () => {
+      const firstCard = slider.firstElementChild as HTMLElement;
+      return firstCard ? firstCard.offsetWidth + 24 : 360;
+    };
 
-    function getTotalPages() {
-      return Math.ceil(cards.length / getItemsPerPage());
-    }
+    // FUNCIÓN CORREGIDA: Detecta cuántas tarjetas se ven según el breakpoint
+    const getVisibleCardsCount = () => {
+      if (window.innerWidth >= 1024) return 3; // Desktop (lg)
+      if (window.innerWidth >= 640) return 2;  // Tablet (sm)
+      return 1;                                // Mobile (Mantiene tu lógica intacta)
+    };
 
-    // Renderiza los puntos de forma dinámica según las páginas calculadas
-    function updateDots() {
-      if (!dotsContainer) return;
+    const renderDots = () => {
       dotsContainer.innerHTML = '';
-      const totalPages = getTotalPages();
+      
+      const visibleCards = getVisibleCardsCount();
+      
+      const totalDotsNeeded = visibleCards === 1 
+        ? cards.length 
+        : Math.max(1, cards.length - visibleCards + 1);
 
-      // Si todo cabe en una sola pantalla, ocultamos los dots y las flechas
-      if (totalPages <= 1) {
-        prevBtn.style.display = 'none';
-        nextBtn.style.display = 'none';
+      if (totalDotsNeeded <= 1) {
+        dotsContainer.classList.add('hidden');
         return;
       } else {
-        prevBtn.style.display = 'flex';
-        nextBtn.style.display = 'flex';
+        dotsContainer.classList.remove('hidden');
       }
 
-      for (let i = 0; i < totalPages; i++) {
+      for (let idx = 0; idx < totalDotsNeeded; idx++) {
         const dot = document.createElement('button');
+        dot.className = `clutch-dot h-2.5 rounded-full transition-all duration-300 cursor-pointer ${idx === lastActiveIndex ? 'w-6 bg-[#0066cc]' : 'w-2.5 bg-gray-300'}`;
+        dot.setAttribute('aria-label', `Go to slide ${idx + 1}`);
+        dot.setAttribute('data-index', idx.toString());
         
-        // Estilo expandido tipo cápsula si es el punto activo (como en Clutch)
-        if (i === page) {
-          dot.className = 'w-5 h-2 rounded-full bg-brand-blue transition-all duration-300';
-        } else {
-          dot.className = 'w-2 h-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-all duration-300';
-        }
-        
-        dot.setAttribute('aria-label', `Go to page ${i + 1}`);
         dot.addEventListener('click', () => {
-          page = i;
-          updateView();
+          slider.scrollTo({
+            left: idx * getScrollAmount(),
+            behavior: 'smooth'
+          });
         });
         
         dotsContainer.appendChild(dot);
       }
-    }
+    };
 
-    function updateView() {
-      const itemsPerPage = getItemsPerPage();
-      const maxPages = getTotalPages() - 1;
+    // Control dinámico del scroll
+    slider.addEventListener('scroll', () => {
+      const scrollLeft = slider.scrollLeft;
+      const cardWidth = getScrollAmount();
+      
+      let activeIndex = Math.round(scrollLeft / cardWidth);
+      
+      const visibleCards = getVisibleCardsCount();
+      
+      if (visibleCards > 1) {
+        const maxIndex = cards.length - visibleCards;
+        if (activeIndex > maxIndex) activeIndex = maxIndex;
+      }
+      
+      lastActiveIndex = activeIndex;
 
-      if (page > maxPages) page = maxPages;
-      if (page < 0) page = 0;
-
-      const startIndex = page * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-
-      // Filtrar visibilidad de tarjetas
-      cards.forEach((card, idx) => {
-        if (idx >= startIndex && idx < endIndex) {
-          card.style.display = 'flex';
-          // Pequeño timeout para suavizar la transición de opacidad
-          setTimeout(() => card.style.opacity = '1', 10);
+      const allDots = dotsContainer.querySelectorAll('.clutch-dot');
+      allDots.forEach((dot, idx) => {
+        if (idx === activeIndex) {
+          dot.classList.remove('w-2.5', 'bg-gray-300');
+          dot.classList.add('w-6', 'bg-[#0066cc]');
         } else {
-          card.style.display = 'none';
-          card.style.opacity = '0';
+          dot.classList.remove('w-6', 'bg-[#0066cc]');
+          dot.classList.add('w-2.5', 'bg-gray-300');
         }
       });
 
-      // Actualizar estado de las flechas y repintar los dots
-      prevBtn.disabled = page === 0;
-      nextBtn.disabled = page >= maxPages;
-      
-      updateDots();
-    }
+      const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
+      prevBtn.disabled = scrollLeft <= 5;
+      nextBtn.disabled = scrollLeft >= maxScrollLeft - 5;
+    });
 
     nextBtn.addEventListener('click', () => {
-      page++;
-      updateView();
+      slider.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
     });
 
     prevBtn.addEventListener('click', () => {
-      page--;
-      updateView();
+      slider.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
     });
 
-    // Escuchar el cambio de tamaño de pantalla para recalcular columnas y dots
-    window.addEventListener('resize', updateView);
-    updateView();
+    let resizeTimeout: any;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        renderDots();
+      }, 150);
+    });
+
+    renderDots();
+    
+    setTimeout(() => {
+      const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
+      prevBtn.disabled = slider.scrollLeft <= 5;
+      nextBtn.disabled = slider.scrollLeft >= maxScrollLeft - 5;
+    }, 100);
   }
 
-  // Inicialización compatible con ciclos SPA e hidratación parcial en Astro
   initClutchSlider();
   document.addEventListener('astro:after-swap', initClutchSlider);
 </script>
