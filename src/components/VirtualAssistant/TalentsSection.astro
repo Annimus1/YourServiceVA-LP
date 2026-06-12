@@ -40,10 +40,10 @@ const talents: Talent[] = [
 ];
 ---
 
-<section class="bg-[#FAF8F5] py-20 px-6 md:px-12 w-full text-[#3d1d0e] overflow-hidden">
-  <div class="max-w-7xl mx-auto flex flex-col gap-12 relative">
+<section class="bg-[#FAF8F5] py-16 px-0 md:px-12 w-full text-[#3d1d0e] overflow-hidden">
+  <div class="max-w-7xl mx-auto flex flex-col gap-10 relative">
     
-    <div class="text-center flex flex-col gap-4 max-w-3xl mx-auto">
+    <div class="text-center flex flex-col gap-4 max-w-3xl mx-auto px-6 md:px-0">
       <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
         Work With a Virtual Assistant Company That Pre-trains VAs to Meet Your Needs
       </h2>
@@ -53,14 +53,14 @@ const talents: Talent[] = [
     </div>
 
     <div class="relative w-full group/slider">
-            <div 
+      <div 
         id="talent-slider"
-        class="flex flex-row overflow-x-auto flex-nowrap gap-6 pb-8 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        class="flex flex-row overflow-x-auto flex-nowrap gap-5 pb-6 px-[6vw] md:px-0 snap-x snap-mandatory scroll-smooth scrollbar-none [&::-webkit-scrollbar]:hidden"
       >
         {talents.map((talent) => (
-          <div class="w-[290px] sm:w-[320px] flex-shrink-0 bg-white rounded-2xl border border-gray-100/70 shadow-sm p-4 flex flex-col gap-4 snap-start transition-all duration-300 hover:shadow-md">
+          <div class="w-[82vw] sm:w-[320px] shrink-0 bg-white rounded-2xl border border-gray-100/70 shadow-sm p-4 flex flex-col gap-4 snap-center md:snap-start transition-all duration-300 hover:shadow-md">
             
-            <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-gray-50 relative">
+            <div class="w-full aspect-4/3 rounded-xl overflow-hidden bg-gray-50 relative">
               <img 
                 src={talent.image} 
                 alt={talent.name}
@@ -69,7 +69,7 @@ const talents: Talent[] = [
               />
             </div>
 
-            <div class="flex flex-col gap-2 flex-grow">
+            <div class="flex flex-col gap-2 grow">
               <div class="inline-flex items-center gap-1.5 self-start bg-emerald-50 text-emerald-600 px-2.5 py-1 rounded-md text-[11px] font-extrabold uppercase tracking-wide border border-emerald-100/50">
                 <svg class="w-3 h-3 fill-emerald-500" viewBox="0 0 24 24">
                   <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
@@ -97,7 +97,7 @@ const talents: Talent[] = [
 
       <button 
         id="prev-btn"
-        class="hidden md:flex absolute left-[-20px] top-1/2 transform -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg border border-gray-100 items-center justify-center cursor-pointer transition-all hover:scale-105 z-20"
+        class="hidden md:flex absolute -left-5 top-1/2 transform -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg border border-gray-100 items-center justify-center cursor-pointer transition-all hover:scale-105 z-20"
         aria-label="Previous slide"
       >
         <svg class="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -107,7 +107,7 @@ const talents: Talent[] = [
 
       <button 
         id="next-btn"
-        class="hidden md:flex absolute right-[-20px] top-1/2 transform -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg border border-gray-100 items-center justify-center cursor-pointer transition-all hover:scale-105 z-20"
+        class="hidden md:flex absolute -right-5 top-1/2 transform -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg border border-gray-100 items-center justify-center cursor-pointer transition-all hover:scale-105 z-20"
         aria-label="Next slide"
       >
         <svg class="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -115,6 +115,16 @@ const talents: Talent[] = [
         </svg>
       </button>
       
+    </div>
+
+    <div id="slider-dots" class="flex items-center justify-center gap-2 mt-2">
+      {talents.map((_, index) => (
+        <button
+          class={`slider-dot h-2.5 rounded-full transition-all duration-300 ${index === 0 ? 'w-7 bg-brand-blue' : 'w-2.5 bg-gray-300'}`}
+          data-index={index}
+          aria-label={`Go to slide ${index + 1}`}
+        />
+      ))}
     </div>
 
   </div>
@@ -125,38 +135,62 @@ const talents: Talent[] = [
     const slider = document.getElementById('talent-slider');
     const nextBtn = document.getElementById('next-btn');
     const prevBtn = document.getElementById('prev-btn');
+    const dots = document.querySelectorAll('.slider-dot');
 
-    if (!slider || !nextBtn || !prevBtn) return;
+    if (!slider) return;
 
-    // Calculamos cuánto avanzar (ancho de una tarjeta + el gap)
     const getScrollAmount = () => {
       const firstCard = slider.firstElementChild as HTMLElement;
-      if (firstCard) {
-        return firstCard.offsetWidth + 24; // 24px es el equivalente a gap-6
-      }
-      return 344;
+      return firstCard ? firstCard.offsetWidth + 20 : 340;
     };
 
-    // Eventos de los botones
-    nextBtn.addEventListener('click', () => {
-      slider.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
-    });
+    if (nextBtn && prevBtn) {
+      nextBtn.addEventListener('click', () => {
+        slider.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+      });
+      prevBtn.addEventListener('click', () => {
+        slider.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+      });
+    }
 
-    prevBtn.addEventListener('click', () => {
-      slider.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
-    });
-
-    // Opcional: Ocultar o mostrar la flecha izquierda según la posición del scroll
     slider.addEventListener('scroll', () => {
-      if (slider.scrollLeft > 10) {
-        prevBtn.classList.remove('md:hidden');
-      } else {
-        prevBtn.classList.add('md:hidden');
+      const scrollLeft = slider.scrollLeft;
+      const cardWidth = getScrollAmount();
+      
+      const activeIndex = Math.round(scrollLeft / cardWidth);
+
+      dots.forEach((dot, idx) => {
+        if (idx === activeIndex) {
+          dot.classList.remove('w-2.5', 'bg-gray-300');
+          // Cambia 'bg-brand-blue' por tu color primario (ej: bg-emerald-600 o el que uses)
+          dot.classList.add('w-7', 'bg-[#0066cc]'); 
+        } else {
+          dot.classList.remove('w-7', 'bg-[#0066cc]');
+          dot.classList.add('w-2.5', 'bg-gray-300');
+        }
+      });
+
+      if (prevBtn) {
+        if (scrollLeft > 10) {
+          prevBtn.classList.remove('md:hidden');
+        } else {
+          prevBtn.classList.add('md:hidden');
+        }
       }
+    });
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLElement;
+        const index = parseInt(target.dataset.index || '0');
+        slider.scrollTo({
+          left: index * getScrollAmount(),
+          behavior: 'smooth'
+        });
+      });
     });
   };
 
-  // Se ejecuta en la carga inicial y es compatible con transiciones de Astro (ViewTransitions)
   setupSlider();
   document.addEventListener('astro:after-swap', setupSlider);
 </script>
