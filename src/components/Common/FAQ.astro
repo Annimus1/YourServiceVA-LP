@@ -1,30 +1,14 @@
 ---
-const faqs = [
-  {
-    question: "What types of tasks can your VAs handle?",
-    answer: "Our virtual assistants are highly trained to manage administrative duties, customer support, data entry, CRM updates, calendar management, email optimization, social media scheduling, and specialized technical or sales workflows tailored to your operational requirements."
-  },
-  {
-    question: "How fast can I get started?",
-    answer: "The onboarding workflow is built for swift integration. Once we match your operational needs with our ideal agents, standard setup and strategic kickoff transitions can be fully finalized within 24 to 48 hours."
-  },
-  {
-    question: "Are your VAs dedicated or shared?",
-    answer: "We offer dedicated solutions. Your assigned assistant integrates directly into your business, aligning seamlessly with your daily operational procedures, company culture, and communication channels."
-  },
-  {
-    question: "Can I scale hours up or down later?",
-    answer: "Absolutely. Our solutions are highly adaptable, letting you expand or downscale active task allocations as your dynamic quarterly targets or business scale requirements change."
-  },
-  {
-    question: "How do I communicate my VA's work?",
-    answer: "You maintain total collaborative oversight through your preferred channels, whether utilizing Slack, Microsoft Teams, Zoom, email, or your internal project management boards."
-  },
-  {
-    question: "How can I track my VA's performance and time?",
-    answer: "Every single task is documented via industry-standard time-tracking software. You receive comprehensive, transparent performance summaries mapping out every logged minute and completed deliverable."
-  }
-];
+interface FAQType {
+  title: string;
+  description: string;
+  questions: [{
+    question: string;
+    answer: string;
+  }]
+}
+
+const FAQs: FAQType = Astro.props.FAQs;
 ---
 
 <section class="w-full bg-[#FAF8F5] py-20 md:py-28 px-6 border-b border-gray-100">
@@ -32,16 +16,15 @@ const faqs = [
     
     <div class="text-center max-w-2xl mb-16 flex flex-col gap-4">
       <h2 class="text-3xl md:text-5xl font-extrabold text-[#3d1d0e] tracking-tight leading-tight">
-        Virtual Assistant <br class="sm:hidden" />
-        Outsourcing: <span class="text-brand-green">FAQs</span>
+        {FAQs.title}: <span class="text-brand-green">FAQs</span>
       </h2>
       <p class="text-gray-500 font-medium text-base md:text-lg">
-        From virtual assistants and customer support to sales, marketing, bookkeeping, and tech.
+        {FAQs.description}
       </p>
     </div>
 
     <div class="w-full flex flex-col gap-4">
-      {faqs.map((faq) => (
+      {FAQs.questions.map((faq) => (
         <details class="group bg-white rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 [&_summary::-webkit-details-marker]:hidden open:shadow-md">
           
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer select-none list-none gap-4">
