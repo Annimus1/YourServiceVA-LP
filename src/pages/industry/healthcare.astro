@@ -1,0 +1,213 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Common/Hero.astro';
+import TrustedBy from '../../components/Common/TrustedBy.astro';
+import GenericSection from '../../components/Common/GenericSection.astro';
+import HowItWorks from '../../components/Common/HowItWorks.astro';
+import ClientReview from '../../components/Common/ClientReviews.astro';
+import RolesSupported from '../../components/Common/RolesSupported.astro';
+import BenefitsIndustry from '../../components/Common/BenefitsIndustry.astro';
+import FAQ from '../../components/Common/FAQ.astro';
+
+const heroData = {
+  titleA: "Healthcare & Medical",
+  titleB: "Virtual Assistants",
+  items: [
+    "Our HIPAA-compliant medical virtual assistants help practices, clinics, telehealth providers, and specialists optimize patient care pipelines by handling scheduling, insurance verification, medical billing, and administrative documentation.",
+    "By offloading time-consuming front-desk operations and charting workflows, your clinical team can eliminate administrative burnout and refocus entirely on deliver-quality patient health outcomes."
+  ],
+  btn: {
+    text: "Build Your Healthcare Support Team",
+    link: "/contact"
+  },
+  photo: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1170&auto=format&fit=crop",
+}
+const healthcareOperations = {
+  title: "Outsource Healthcare Administration to Reduce Burnout and Improve Patient Care",
+  description: "YourServiceva takes over the time-consuming administrative workflows, front-desk scheduling, and billing coordination, allowing your clinical staff to focus entirely on patient health outcomes. Our operations are tailored to uphold data privacy standards and maximize practice efficiency.",
+  image: "https://images.unsplash.com/photo-1758691463333-c79215e8bc3b?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  flow: "reverse"
+}
+const rolesSupported = {
+  title: "Healthcare Virtual Assistant Roles We Support",
+  description: "Our specialized medical assistants integrate industry-leading practices into your electronic health record (EHR) systems and daily operational workflows. Here are some of our core services:",
+  items: [
+  {
+    title: "Patient intake, triaging & live scheduling",
+    description: "Manage inbound inquiries, register new patient demographic forms, perform baseline triaging, and coordinate physician appointment calendars.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg>`
+  },
+  {
+    title: "Insurance verification & prior authorizations",
+    description: "Reach out to insurance companies directly to audit patient coverage breakdown, confirm co-pays, and submit urgent prior authorization packets.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>`
+  },
+  {
+    title: "Medical billing, invoicing & claims follow-up",
+    description: "Generate clean client balance statements, follow up on aging receivable claims, log partial payments, and handle charge entry adjustments.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5Z" /></svg>`
+  },
+  {
+    title: "EHR management & medical scribing intake",
+    description: "Organize digital healthcare charts, insert external lab results, clean metadata logs, and prepare files before active patient encounters.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12" /></svg>`
+  },
+  {
+    title: "Healthcare CRM maintenance & feedback",
+    description: "Keep communication channels clear, update active clinical status tags, and archive secure digital records without friction.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25A2.25 2.25 0 0 1 5.25 3h13.5A2.25 2.25 0 0 1 21 5.25Z" /></svg>`
+  },
+  {
+    title: "Patient recall & care loop coordination",
+    description: "Follow up with existing patients regarding upcoming routine labs, issue prescription refill checkins, and track preventive checkup cycles.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>`
+  }
+]
+}
+const FAQs = {
+  title: "Medical Virtual Assistant",
+  description: "From certified patient intake specialists to dedicated medical billing support staff.",
+  questions: [
+  {
+    question: "What medical office tasks can I outsource to a virtual assistant?",
+    answer: "You can outsource a broad spectrum of administrative tasks, including medical scheduling, live patient recall check-ins, insurance eligibility verification, claims processing follow-ups, and managing basic records in your EHR platform."
+  },
+  {
+    question: "How do your medical virtual assistants handle patient privacy and HIPAA guidelines?",
+    answer: "Compliance and security are fundamental. Our healthcare-focused virtual assistants undergo comprehensive data privacy orientation, logging into your secure, existing EHR infrastructure through encrypted environments and MFA protocols."
+  },
+  {
+    question: "Are your assistants experienced with standard EHR and medical software?",
+    answer: "Yes, our assistants are trained to adapt quickly to industry-standard modern applications such as Athenahealth, Practice Fusion, eClinicalWorks, SimplePractice, and common digital telephony layouts."
+  },
+  {
+    question: "Can your staff help manage prescription refills or pharmacy follow-ups?",
+    answer: "Our assistants handle administrative processing. They can compile incoming refill inquiries from patients or pharmacies, log them cleanly into the patient’s chart, and present them directly to your licensed provider for clinical approval."
+  },
+  {
+    question: "How quickly can we integrate a specialist into our medical practice?",
+    answer: "After an initial discovery consultation to pinpoint your specific care workflows, we can match your clinic with a dedicated administrative specialist within a few business days."
+  }
+]}
+const Benefits = {
+  title: "Why Outsourcing Medical Administration Works",
+  description: "Optimize patient throughput, clean up outstanding collection lines, and minimize clinical burnout with specialized back-office support.",
+  image: "https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  items: [
+    {
+      title: "Save 60–70% on administrative overhead",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-5.4a2 2 0 0 0-3-2.7L15 13"/><path d="M5 22h14"/></svg>`
+    },
+    {
+      title: "Reduce provider documentation burnout",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`
+    },
+    {
+      title: "Strict data privacy compliance",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>`
+    },
+    {
+      title: "Accelerated insurance authorization turnarounds",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`
+    },
+    {
+      title: "Scalable support for peak medical seasons",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5"/><path d="M3 11v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V11"/><path d="M12 14v2"/></svg>`
+    },
+    {
+      title: "Seamless patient intake experience",
+      icon: `<svg xmlns="http://www.w3.org/2000/xl" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`
+    }
+  ],
+  slogan: "Healthcare Support Reimagined"
+}
+---
+
+<Layout title="YourServiceva | Healthcare Industry Support">
+  <Hero heroData={heroData}>
+    
+    <div class="absolute top-[-15%] md:top-[40%] -left-2 md:-left-10 sm:-left-12 z-20 bg-white/95 backdrop-blur-xs rounded-2xl p-4 shadow-xl border border-gray-100 flex flex-col gap-3 max-w-45 sm:max-w-52.5 animate-bounce-slow">
+      <div class="flex items-center gap-2">
+        <span class="text-brand-green text-lg">🏥</span>
+        <h4 class="font-extrabold text-[#3d1d0e] text-sm sm:text-md tracking-tight">Patient Desk</h4>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <label class="flex items-center gap-2 bg-[#FAF8F5] px-3 py-2 rounded-xl border border-gray-100/80 cursor-pointer">
+          <input type="checkbox" checked class="accent-brand-green h-4 w-4 rounded-sm" disabled />
+          <span class="text-xs font-bold text-gray-600">Insurance Active</span>
+        </label>
+        <label class="flex items-center gap-2 bg-[#FAF8F5] px-3 py-2 rounded-xl border border-gray-100/80 cursor-pointer">
+          <input type="checkbox" checked class="accent-brand-green h-4 w-4 rounded-sm" disabled />
+          <span class="text-xs font-bold text-gray-600">Prior Auth Cleared</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="hidden absolute -top-16 md:right-5 -right-16 z-20 bg-white/95 backdrop-blur-xs rounded-2xl p-4 shadow-xl border border-gray-100 md:flex flex-col gap-3 min-w-50 sm:min-w-60">
+      <h4 class="font-extrabold text-[#3d1d0e] text-xs sm:text-sm tracking-tight border-b border-gray-50 pb-2">Administrative Chart Tracker</h4>
+      
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <div class="h-8 w-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xs">📋</div>
+            <div class="flex flex-col">
+              <span class="text-xs font-bold text-[#3d1d0e]">Claim Submission</span>
+              <span class="text-[10px] text-gray-400 font-medium">Clearinghouse routing</span>
+            </div>
+          </div>
+          <span class="text-xs font-black text-amber-500">Processing</span>
+        </div>
+
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <div class="h-8 w-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs">🩺</div>
+            <div class="flex flex-col">
+              <span class="text-xs font-bold text-[#3d1d0e]">EHR Intake Complete</span>
+              <span class="text-[10px] text-gray-400 font-medium">Demographics updated</span>
+            </div>
+          </div>
+          <span class="text-xs font-black text-emerald-500">Ready</span>
+        </div>
+
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <div class="h-8 w-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs">💊</div>
+            <div class="flex flex-col">
+              <span class="text-xs font-bold text-[#3d1d0e]">Refill Ticket Routed</span>
+              <span class="text-[10px] text-gray-400 font-medium">Pending provider sign</span>
+            </div>
+          </div>
+          <span class="text-xs font-black text-emerald-500">Sent</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-[-15%] md:bottom-[0%] -right-3 md:-right-8 sm:-right-12 z-20 bg-white/95 backdrop-blur-xs rounded-2xl p-4 shadow-xl border border-gray-100 flex flex-col gap-2 max-w-40 sm:max-w-47.5 [animation-delay:2s] animate-bounce-slow">
+      <div class="flex flex-col">
+        <h4 class="font-extrabold text-[#3d1d0e] text-xs">Practice Volume</h4>
+        <p class="text-[10px] text-gray-400 font-semibold">Appointment optimization</p>
+      </div>
+
+      <div class="relative flex items-center justify-center h-24 w-24 mx-auto mt-2">
+        <div 
+          class="w-full h-full rounded-full flex items-center justify-center"
+          style="background: conic-gradient(#eab308 0% 15%, #22c55e 25% 85%, #f3f4f6 85% 100%);"
+        >
+          <div class="w-[74%] h-[74%] bg-white rounded-full flex flex-col items-center justify-center shadow-2xs">
+            <span class="text-xs font-black text-[#3d1d0e] leading-none">85%</span>
+            <span class="text-[8px] text-gray-400 font-bold uppercase tracking-tighter mt-0.5">Optimized</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Hero>
+
+  <TrustedBy />
+  <GenericSection genericData={healthcareOperations}/>
+  <RolesSupported title={rolesSupported.title} description={rolesSupported.description} items={rolesSupported.items} />
+  <HowItWorks />  
+  <ClientReview />
+  <BenefitsIndustry BenefitsData={Benefits} />
+  <FAQ FAQs={FAQs}/>
+</Layout>

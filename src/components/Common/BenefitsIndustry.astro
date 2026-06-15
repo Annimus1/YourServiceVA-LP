@@ -6,7 +6,8 @@ interface BenefitsType {
   items: [{
     title: string;
     icon: string;
-  }]
+  }],
+  slogan: String
 }
 
 const BenefitsData: BenefitsType = Astro.props.BenefitsData;
@@ -49,9 +50,9 @@ const BenefitsData: BenefitsType = Astro.props.BenefitsData;
         <div class="absolute bottom-0 left-0 right-0 p-6 space-y-2">
           <div class="w-10 h-1 bg-brand-green rounded-full mb-2"></div>
           <h3 class="text-xl font-extrabold text-white tracking-tight leading-none">
-            Solar Outsourcing Reimagined.
+            {BenefitsData.slogan}.
           </h3>
-          <p class="text-brand-green text-[10px] font-bold uppercase tracking-wider">Renewable Energy Experts</p>
+          <p class="text-brand-green text-[10px] font-bold uppercase tracking-wider">SCALE YOUR OPERATIONS</p>
         </div>
       </div>
 
