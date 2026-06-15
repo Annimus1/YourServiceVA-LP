@@ -1,14 +1,116 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Common/Hero.astro';
+import TrustedBy from '../../components/Common/TrustedBy.astro';
+import GenericSection from '../../components/Common/GenericSection.astro';
+import HowItWorks from '../../components/Common/HowItWorks.astro';
+import ClientReviews from '../../components/Common/ClientReviews.astro';
+import TalentsSection from '../../components/VirtualAssistant/TalentsSection.astro';
+import FAQ from '../../components/Common/FAQ.astro';
+
+const heroData = {
+  titleA: "Omnichannel Customer",
+  titleB: "Support Specialists",
+  btn: {
+    text: "Build Your Support Team",
+    link: "/contact"
+  },
+  items : [
+    "Boost your customer satisfaction and retention. Our dedicated support specialists handle your live chat, email ticketing, and inbound phone lines seamlessly, ensuring 24/7 coverage and impeccable service response times.", 
+    "Reduce first-response times (FRT) drastically by leveraging synchronized workflows across WhatsApp, social media, and traditional helpdesks from a single dashboard.",
+    "Minimize customer friction and churn with native history tracking, ensuring users never have to repeat their inquiries when switching between communication channels."
+  ],
+  photo: "https://images.unsplash.com/photo-1549923746-c502d488b3ea?q=80&w=1471&auto=format&fit=crop"
+}
+
+const findAndHire = {
+  title: "Scale Your Support Operations with Dedicated Talent",
+  description: "Stop struggling with missed tickets and long wait times. Hire specialized customer service agents trained in live chat support, tier-1 technical assistance, dispute resolution, and CRM ticket management. Our experienced account managers line up top-tier specialists, assist with standard onboarding, and track QA metrics to ensure your customers receive world-class care.",
+  image: "https://images.unsplash.com/photo-1521898284481-a5ec348cb555?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  flow: "reverse"
+} 
+
+const FAQs = {
+  title: "Customer Support Services",
+  description: "From live chat agents and helpdesk management to escalation resolution and omnichannel care.",
+  questions: [
+    {
+      question: "What channels can your customer service specialists handle?",
+      answer: "Our support agents are fully omnichannel. They are trained to manage live chat platforms (Intercom, Zendesk Chat), email ticketing desks, inbound and outbound phone support, social media direct messages (Instagram, Facebook), and community moderation workflows."
+    },
+    {
+      question: "Are the agents already trained in standard helpdesk software?",
+      answer: "Yes. Our agents come highly experienced or ready-certified in standard customer service infrastructure like Zendesk, Freshdesk, HubSpot, Salesforce, and various VoIP systems. We quickly map your specific macros, tags, and internal knowledge bases during onboarding."
+    },
+    {
+      question: "Will I get dedicated support agents or shared staff?",
+      answer: "We focus strictly on dedicated customer service specialists. Your assigned team members work exclusively for your brand, allowing them to thoroughly learn your product guidelines, FAQs, refund policies, and unique corporate tone of voice."
+    },
+    {
+      question: "How do you handle Quality Assurance (QA) and monitoring?",
+      answer: "We employ stringent QA evaluation metrics. Our team leads regularly monitor random ticket interactions, review live chat logs, and analyze CSAT (Customer Satisfaction) or NPS scores to guarantee that your brand's resolution quality standards remain outstanding."
+    },
+    {
+      question: "Can we scale our support team for holiday seasons or peak traffic?",
+      answer: "Absolutely. Our operational model is fully scalable. If you expect a seasonal spike in ecommerce orders or technical inquiries, you can easily ramp up your allocated agent capacity by providing proper notice as outlined in your initial Statement of Work (SOW)."
+    },
+    {
+      question: "What is the typical resolution time metric?",
+      answer: "While exact speed depends on your software's SLA settings and complex escalations, our agents are specifically trained for rapid first-response times (FRT)—often achieving immediate responses on live chat and resolving standard email tickets within business hour limits."
+    }
+  ]
+}
 ---
 
-<Layout title="Customer Service | Your Service VA" description="Enhance your customer experience with our comprehensive customer service solutions. We provide dedicated support to ensure your clients are satisfied and your business thrives." keywords="customer service, client satisfaction, support solutions, business growth">
-  <section class="py-16 bg-gray-50">
-    <div class="container mx-auto px-4">
-      <h1 class="text-4xl font-bold text-center mb-6">Customer Service</h1>
-      <p class="text-lg text-gray-700 text-center mb-12">Enhance your customer experience with our comprehensive customer service solutions. We provide dedicated support to ensure your clients are satisfied and your business thrives.</p>
-      
-      <!-- Aquí puedes agregar más contenido específico sobre los servicios de Customer Service -->
+<Layout title="YourServiceva | Omnichannel Customer Support Services">
+  <Hero heroData={heroData} >
+    
+    <div class="absolute -top-14.5 md:top-8 right-44 md:right-36 sm:right-4 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-xl border border-gray-100 z-20 md:flex flex-col gap-2 min-w-40 sm:min-w-47.5 animate-bounce-slow">
+      <div class="flex items-center justify-between text-xs font-bold text-gray-400">
+        <span>Queue Status</span>
+        <span class="h-5 w-5 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-extrabold text-[10px]">Active</span>
+      </div>
+      <label class="flex items-center gap-2 text-[11px] sm:text-xs font-medium text-gray-400 line-through decoration-gray-300">
+        <input type="checkbox" checked disabled class="rounded text-brand-green focus:ring-0 h-3.5 w-3.5" />
+          Ticket #1084 Resolved
+        </label>
+      <label class="flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-gray-700">
+        <span class="animate-pulse h-2 w-2 rounded-full bg-orange-500"></span>
+        <span class="text-orange-600 font-bold">[Priority]</span> SLA Escalate - 5m
+      </label>
     </div>
-  </section>
+
+    <div class="hidden absolute bottom-0 left-0 md:-left-14 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-xl border border-gray-100 z-20 max-w-50 sm:max-w-60 md:flex flex-col gap-2">
+      <div class="flex items-center gap-2 border-b border-gray-100 pb-1.5">
+        <div class="h-6 w-6 rounded-full bg-emerald-200 text-[10px] font-bold flex items-center justify-center text-emerald-800">CS</div>
+        <div class="flex flex-col">
+          <span class="text-[11px] font-bold text-gray-800 leading-none">Customer Support</span>
+          <span class="text-[9px] text-brand-green font-semibold">Agent Online</span>
+        </div>
+      </div>
+      <p class="text-[10px] sm:text-[11px] font-medium text-gray-600 bg-gray-50 rounded-lg p-2">
+        Hi there! Thanks for reaching out. How can I assist you today?
+      </p>
+      <p class="text-[10px] sm:text-[11px] font-semibold text-white bg-brand-blue rounded-lg p-2 self-end text-right">
+        Hi! Can you help me check my order delivery status?
+      </p>
+    </div>
+
+    <div class="absolute bottom-0 md:bottom-6 -right-4 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-xl border border-gray-100 z-20 flex flex-col gap-2 min-w-37.5 sm:min-w-45">
+      <div class="flex items-center gap-1.5 text-xs font-bold text-gray-800">
+        <span class="text-brand-blue">📥</span> Shared Helpdesk <span class="text-orange-500 font-extrabold">(3 New)</span>
+      </div>
+      <div class="flex flex-col gap-1 text-[10px] font-medium text-gray-500">
+        <div class="p-1.5 bg-gray-50 rounded border-l-2 border-orange-500 text-gray-700 font-semibold">Refund request requested</div>
+        <div class="p-1.5 bg-gray-50 rounded border-l-2 border-brand-blue">Subscription plan change</div>
+      </div>
+    </div>
+    
+  </Hero>
+  <TrustedBy />
+  <GenericSection genericData={findAndHire} />
+  <TalentsSection />
+  <HowItWorks />
+  <ClientReviews />
+  <FAQ FAQs={FAQs} />
 </Layout>
