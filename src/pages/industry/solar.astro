@@ -108,80 +108,80 @@ const FAQs = {
 <Layout title="YourServiceva | Solar Energy Industry">
   <Hero heroData={heroData}>
     <div class="absolute top-[45%] md:top-[15%] -left-2 md:-left-6 sm:-left-12 z-20 bg-white/95 backdrop-blur-xs rounded-2xl p-4 shadow-xl border border-gray-100 flex flex-col gap-3 max-w-45 sm:max-w-52.5 animate-bounce-slow">
-    <div class="flex items-center gap-2">
-      <span class="text-brand-green text-lg">☀️</span>
-      <h4 class="font-extrabold text-[#3d1d0e] text-sm sm:text-md tracking-tight">Solar Proposals</h4>
+      <div class="flex items-center gap-2">
+        <span class="text-brand-green text-lg">☀️</span>
+        <h4 class="font-extrabold text-[#3d1d0e] text-sm sm:text-md tracking-tight">Solar Proposals</h4>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <label class="flex items-center gap-2 bg-[#FAF8F5] px-3 py-2 rounded-xl border border-gray-100/80 cursor-pointer">
+          <input type="checkbox" checked class="accent-brand-green h-4 w-4 rounded-sm" disabled />
+          <span class="text-xs font-bold text-gray-600">8kW Res System</span>
+        </label>
+        <label class="flex items-center gap-2 bg-[#FAF8F5] px-3 py-2 rounded-xl border border-gray-100/80 cursor-pointer">
+          <input type="checkbox" checked class="accent-brand-green h-4 w-4 rounded-sm" disabled />
+          <span class="text-xs font-bold text-gray-600">Commercial Roof</span>
+        </label>
+      </div>
     </div>
-    
-    <div class="flex flex-col gap-2">
-      <label class="flex items-center gap-2 bg-[#FAF8F5] px-3 py-2 rounded-xl border border-gray-100/80 cursor-pointer">
-        <input type="checkbox" checked class="accent-brand-green h-4 w-4 rounded-sm" disabled />
-        <span class="text-xs font-bold text-gray-600">8kW Res System</span>
-      </label>
-      <label class="flex items-center gap-2 bg-[#FAF8F5] px-3 py-2 rounded-xl border border-gray-100/80 cursor-pointer">
-        <input type="checkbox" checked class="accent-brand-green h-4 w-4 rounded-sm" disabled />
-        <span class="text-xs font-bold text-gray-600">Commercial Roof</span>
-      </label>
-    </div>
-  </div>
 
-  <div class="hidden absolute top-[5%] -right-6 sm:-right-16 z-20 bg-white/95 backdrop-blur-xs rounded-2xl p-4 shadow-xl border border-gray-100 md:flex flex-col gap-3 min-w-50 sm:min-w-60">
-    <h4 class="font-extrabold text-[#3d1d0e] text-xs sm:text-sm tracking-tight border-b border-gray-50 pb-2">Project Milestone Tracker</h4>
-    
-    <div class="flex flex-col gap-3">
-      <div class="flex items-center justify-between gap-3">
-        <div class="flex items-center gap-2">
-          <div class="h-8 w-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xs">📝</div>
-          <div class="flex flex-col">
-            <span class="text-xs font-bold text-[#3d1d0e]">AHJ Permit Submitted</span>
-            <span class="text-[10px] text-gray-400 font-medium">Pending review</span>
+    <div class="hidden absolute -top-16 md:-right-6 -right-16 z-20 bg-white/95 backdrop-blur-xs rounded-2xl p-4 shadow-xl border border-gray-100 md:flex flex-col gap-3 min-w-50 sm:min-w-60">
+      <h4 class="font-extrabold text-[#3d1d0e] text-xs sm:text-sm tracking-tight border-b border-gray-50 pb-2">Project Milestone Tracker</h4>
+      
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <div class="h-8 w-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xs">📝</div>
+            <div class="flex flex-col">
+              <span class="text-xs font-bold text-[#3d1d0e]">AHJ Permit Submitted</span>
+              <span class="text-[10px] text-gray-400 font-medium">Pending review</span>
+            </div>
+          </div>
+          <span class="text-xs font-black text-amber-500">In Progress</span>
+        </div>
+
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <div class="h-8 w-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs">🏡</div>
+            <div class="flex flex-col">
+              <span class="text-xs font-bold text-[#3d1d0e]">HOA Approval Issued</span>
+              <span class="text-[10px] text-gray-400 font-medium">Documentation ready</span>
+            </div>
+          </div>
+          <span class="text-xs font-black text-emerald-500">Approved</span>
+        </div>
+
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <div class="h-8 w-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs">⚡</div>
+            <div class="flex flex-col">
+              <span class="text-xs font-bold text-[#3d1d0e]">Utility PTO Request</span>
+              <span class="text-[10px] text-gray-400 font-medium">Net metering sync</span>
+            </div>
+          </div>
+          <span class="text-xs font-black text-emerald-500">PTO Sent</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-[55%] md:bottom-[20%] -right-3 md:-right-8 sm:-right-12 z-20 bg-white/95 backdrop-blur-xs rounded-2xl p-4 shadow-xl border border-gray-100 flex flex-col gap-2 max-w-40 sm:max-w-47.5 [animation-delay:2s] animate-bounce-slow">
+      <div class="flex flex-col">
+        <h4 class="font-extrabold text-[#3d1d0e] text-xs">Interconnection</h4>
+        <p class="text-[10px] text-gray-400 font-semibold">Ready for PTO stage</p>
+      </div>
+
+      <div class="relative flex items-center justify-center h-24 w-24 mx-auto mt-2">
+        <div 
+          class="w-full h-full rounded-full flex items-center justify-center"
+          style="background: conic-gradient(#eab308 0% 25%, #22c55e 25% 75%, #f3f4f6 75% 100%);"
+        >
+          <div class="w-[74%] h-[74%] bg-white rounded-full flex flex-col items-center justify-center shadow-2xs">
+            <span class="text-xs font-black text-[#3d1d0e] leading-none">75%</span>
+            <span class="text-[8px] text-gray-400 font-bold uppercase tracking-tighter mt-0.5">Deployed</span>
           </div>
         </div>
-        <span class="text-xs font-black text-amber-500">In Progress</span>
-      </div>
-
-      <div class="flex items-center justify-between gap-3">
-        <div class="flex items-center gap-2">
-          <div class="h-8 w-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs">🏡</div>
-          <div class="flex flex-col">
-            <span class="text-xs font-bold text-[#3d1d0e]">HOA Approval Issued</span>
-            <span class="text-[10px] text-gray-400 font-medium">Documentation ready</span>
-          </div>
-        </div>
-        <span class="text-xs font-black text-emerald-500">Approved</span>
-      </div>
-
-      <div class="flex items-center justify-between gap-3">
-        <div class="flex items-center gap-2">
-          <div class="h-8 w-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs">⚡</div>
-          <div class="flex flex-col">
-            <span class="text-xs font-bold text-[#3d1d0e]">Utility PTO Request</span>
-            <span class="text-[10px] text-gray-400 font-medium">Net metering sync</span>
-          </div>
-        </div>
-        <span class="text-xs font-black text-emerald-500">PTO Sent</span>
       </div>
     </div>
-  </div>
-
-  <div class="absolute bottom-[55%] md:bottom-[20%] -right-3 md:-right-8 sm:-right-12 z-20 bg-white/95 backdrop-blur-xs rounded-2xl p-4 shadow-xl border border-gray-100 flex flex-col gap-2 max-w-40 sm:max-w-47.5 [animation-delay:2s] animate-bounce-slow">
-    <div class="flex flex-col">
-      <h4 class="font-extrabold text-[#3d1d0e] text-xs">Interconnection</h4>
-      <p class="text-[10px] text-gray-400 font-semibold">Ready for PTO stage</p>
-    </div>
-
-    <div class="relative flex items-center justify-center h-24 w-24 mx-auto mt-2">
-      <div 
-        class="w-full h-full rounded-full flex items-center justify-center"
-        style="background: conic-gradient(#eab308 0% 25%, #22c55e 25% 75%, #f3f4f6 75% 100%);"
-      >
-        <div class="w-[74%] h-[74%] bg-white rounded-full flex flex-col items-center justify-center shadow-2xs">
-          <span class="text-xs font-black text-[#3d1d0e] leading-none">75%</span>
-          <span class="text-[8px] text-gray-400 font-bold uppercase tracking-tighter mt-0.5">Deployed</span>
-        </div>
-      </div>
-    </div>
-  </div>
   </Hero>
   <TrustedBy />
   <GenericSection genericData={solarOperations}/>
