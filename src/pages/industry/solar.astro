@@ -1,10 +1,289 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Common/Hero.astro';
+import TrustedBy from '../../components/Common/TrustedBy.astro';
+import GenericSection from '../../components/Common/GenericSection.astro';
+import HowItWorks from '../../components/Common/HowItWorks.astro';
+import ClientReview from '../../components/Common/ClientReviews.astro';
+import FAQ from '../../components/Common/FAQ.astro';
+import RolesSupported from '../../components/Common/RolesSupported.astro';
+
+const heroData = {
+  titleA: "Solar Virtual",
+  titleB: "Assistants",
+  items: ["Our trained solar virtual assistants help installers, contractors, sales teams, and project managers stay organized and accelerate deployment, handling everything from lead qualification and design intake to permitting coordination and utility interconnection."],
+  btn: {
+    text: "Build Your Solar Team",
+    link: "/pricing"
+  },
+  photo: "https://plus.unsplash.com/premium_photo-1682148026899-d21f17c04e80?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+}
+
+const solarOperations = {
+  title: "Outsource Solar Operations to Increase Revenue and Accelerate Deployment",
+  description: "YourServiceva can take over your admin, project coordination, and lead management, helping you focus on scaling sales and completing installations. Our services are designed for all renewable energy professionals, including local installers and national sales organizations.",
+  image: "https://plus.unsplash.com/premium_photo-1679917152396-4b18accacb9d?q=80&w=627&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  flow: "normal"
+}
+
+const rolesSupported = {
+  title: "Solar Virtual Assistant Roles We Support",
+  description: "Our solar virtual assistant services infuse industry-leading tools and best practices into your workflows. Here are some of the services we offer: ",
+  items: [
+  {
+    title: "Prospecting & solar lead qualification",
+    description: "Identify high-potential residential or commercial leads, review roof viability via satellite imaging, and fill your sales pipeline.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.824-1.635-5.165-3.976-6.8-6.8l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.75Z" /></svg>`
+  },
+  {
+    title: "Consultation setting & calendar coordination",
+    description: "Manage your sales reps' agendas, schedule energy assessments, and synchronize calendars to prevent double-bookings.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>`
+  },
+  {
+    title: "Design intake & site assessment prep",
+    description: "Gather homeowner utility bills, map out consumption data, upload property photos, and prepare files for the engineering team.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>`
+  },
+  {
+    title: "Project coordination: permitting & utility tracking",
+    description: "Oversee the post-sale pipeline by submitting AHJ permit applications, monitoring HOA approvals, and tracking utility PTO requests.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0-4.5 4.5M21 7.5H7.5" /></svg>`
+  },
+  {
+    title: "Solar CRM management & pipeline upkeep",
+    description: "Keep project logs structured across platforms like HubSpot or SolarGraf, tag active pipeline stages, and maintain clean database records.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25A2.25 2.25 0 0 1 5.25 3h13.5A2.25 2.25 0 0 1 21 5.25Z" /></svg>`
+  },
+  {
+    title: "Contract management & solar financing filing",
+    description: "Organize digital loan or PPA agreement executions, manage signature follow-ups, and verify audit-ready installation archiving.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12" /></svg>`
+  },
+  {
+    title: "Bookkeeping, invoicing & incentive reporting",
+    description: "Track incoming project milestone deposits, process subcontractor invoices, and compile documentation for solar rebates or tax credits.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5Z" /></svg>`
+  },
+  {
+    title: "Installation support: logistics & scheduling",
+    description: "Liaise between customers, supply chains, and installation crews, issue arrival notifications, and track deployment timelines until completion.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.83-5.83m0 0a2.999 2.999 0 0 0-4.142-4.142m4.142 4.142-1.729 1.73m0 0L3 18.25V21h2.75l7.53-7.53m-2.75-2.75-1.73 1.73m0 0-4.78 4.78m11.53-11.53a2.999 2.999 0 0 0-4.142-4.142l-1.729 1.73m0 0 1.73 1.73" /></svg>`
+  },
+  {
+    title: "Social media marketing & referral follow-up",
+    description: "Publish fresh installation case studies across channels and quickly reach out to existing customers to gather clean energy referrals.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" /></svg>`
+  }
+]
+}
+
+const FAQs = {
+  title: "Solar Virtual Assistant",
+  description: "From virtual assistants and customer support to project coordination, marketing, and sales.",
+  questions: [
+  {
+    question: "What solar operations tasks can I outsource?",
+    answer: "You can outsource a wide range of administrative, operational, and pipeline tasks. This includes lead qualification, appointment setting, utility bill collection, solar CRM database maintenance, financial bookkeeping, project tracking for permitting, and social media management."
+  },
+  {
+    question: "Can YourServiceva assist with permitting and utility coordination?",
+    answer: "Yes, our specialized solar virtual assistants can handle project coordination workloads. They follow up on AHJ permit submissions, coordinate documentation for HOA requirements, and submit utility interconnection applications to ensure a faster Permission to Operate (PTO)."
+  },
+  {
+    question: "Are your assistants trained in industry-standard solar tools?",
+    answer: "Absolutely. Our solar virtual assistants come experienced or highly adaptive to clean-energy workflows. They can efficiently handle CRM management, document storage, scheduling logistics, and organizing consumer energy data sheets."
+  },
+  {
+    question: "Do you handle logistical communications like customer notifications and scheduling?",
+    answer: "Yes, we support field operations support. Our virtual assistants can reach out to homeowners for installation windows, coordinate milestone confirmations with engineering teams, log supply shortages, and update deployment timelines dynamically."
+  },
+  {
+    question: "How quickly can I get started, and what are the costs?",
+    answer: "Getting started is quick and straightforward. After an initial consultation to review your business needs, we match you with a trained specialist within a few days. Our pricing plans are flexible and tailored to the level of support and hours your team requires."
+  }
+]}
 ---
 
 <Layout title="Solar Energy Industry">
-  <h1 class="text-3xl font-bold mb-4">Solar Energy Industry</h1>
-  <p class="mb-4">The solar energy industry is rapidly growing as the world shifts towards renewable energy sources. Solar panels convert sunlight into electricity, providing a clean and sustainable energy solution. The industry encompasses various sectors, including manufacturing, installation, and maintenance of solar panels, as well as research and development of new technologies to improve efficiency and reduce costs.</p>
-  <p class="mb-4">Key players in the solar energy industry include companies that produce photovoltaic cells, solar panel manufacturers, and service providers that offer installation and maintenance services. The industry also benefits from government incentives and policies aimed at promoting renewable energy adoption.</p>
-  <p class="mb-4">As the demand for clean energy continues to rise, the solar energy industry is expected to see significant growth in the coming years, contributing to a more sustainable future.</p>
+  <Hero heroData={heroData}>
+    <div class="absolute top-[45%] md:top-[15%] -left-2 md:-left-6 sm:-left-12 z-20 bg-white/95 backdrop-blur-xs rounded-2xl p-4 shadow-xl border border-gray-100 flex flex-col gap-3 max-w-45 sm:max-w-52.5 animate-bounce-slow">
+    <div class="flex items-center gap-2">
+      <span class="text-brand-green text-lg">☀️</span>
+      <h4 class="font-extrabold text-[#3d1d0e] text-sm sm:text-md tracking-tight">Solar Proposals</h4>
+    </div>
+    
+    <div class="flex flex-col gap-2">
+      <label class="flex items-center gap-2 bg-[#FAF8F5] px-3 py-2 rounded-xl border border-gray-100/80 cursor-pointer">
+        <input type="checkbox" checked class="accent-brand-green h-4 w-4 rounded-sm" disabled />
+        <span class="text-xs font-bold text-gray-600">8kW Res System</span>
+      </label>
+      <label class="flex items-center gap-2 bg-[#FAF8F5] px-3 py-2 rounded-xl border border-gray-100/80 cursor-pointer">
+        <input type="checkbox" checked class="accent-brand-green h-4 w-4 rounded-sm" disabled />
+        <span class="text-xs font-bold text-gray-600">Commercial Roof</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="hidden absolute top-[5%] -right-6 sm:-right-16 z-20 bg-white/95 backdrop-blur-xs rounded-2xl p-4 shadow-xl border border-gray-100 md:flex flex-col gap-3 min-w-50 sm:min-w-60">
+    <h4 class="font-extrabold text-[#3d1d0e] text-xs sm:text-sm tracking-tight border-b border-gray-50 pb-2">Project Milestone Tracker</h4>
+    
+    <div class="flex flex-col gap-3">
+      <div class="flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <div class="h-8 w-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xs">📝</div>
+          <div class="flex flex-col">
+            <span class="text-xs font-bold text-[#3d1d0e]">AHJ Permit Submitted</span>
+            <span class="text-[10px] text-gray-400 font-medium">Pending review</span>
+          </div>
+        </div>
+        <span class="text-xs font-black text-amber-500">In Progress</span>
+      </div>
+
+      <div class="flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <div class="h-8 w-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs">🏡</div>
+          <div class="flex flex-col">
+            <span class="text-xs font-bold text-[#3d1d0e]">HOA Approval Issued</span>
+            <span class="text-[10px] text-gray-400 font-medium">Documentation ready</span>
+          </div>
+        </div>
+        <span class="text-xs font-black text-emerald-500">Approved</span>
+      </div>
+
+      <div class="flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <div class="h-8 w-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs">⚡</div>
+          <div class="flex flex-col">
+            <span class="text-xs font-bold text-[#3d1d0e]">Utility PTO Request</span>
+            <span class="text-[10px] text-gray-400 font-medium">Net metering sync</span>
+          </div>
+        </div>
+        <span class="text-xs font-black text-emerald-500">PTO Sent</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-[55%] md:bottom-[20%] -right-3 md:-right-8 sm:-right-12 z-20 bg-white/95 backdrop-blur-xs rounded-2xl p-4 shadow-xl border border-gray-100 flex flex-col gap-2 max-w-40 sm:max-w-47.5 [animation-delay:2s] animate-bounce-slow">
+    <div class="flex flex-col">
+      <h4 class="font-extrabold text-[#3d1d0e] text-xs">Interconnection</h4>
+      <p class="text-[10px] text-gray-400 font-semibold">Ready for PTO stage</p>
+    </div>
+
+    <div class="relative flex items-center justify-center h-24 w-24 mx-auto mt-2">
+      <div 
+        class="w-full h-full rounded-full flex items-center justify-center"
+        style="background: conic-gradient(#eab308 0% 25%, #22c55e 25% 75%, #f3f4f6 75% 100%);"
+      >
+        <div class="w-[74%] h-[74%] bg-white rounded-full flex flex-col items-center justify-center shadow-2xs">
+          <span class="text-xs font-black text-[#3d1d0e] leading-none">75%</span>
+          <span class="text-[8px] text-gray-400 font-bold uppercase tracking-tighter mt-0.5">Deployed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  </Hero>
+  <TrustedBy />
+  <GenericSection genericData={solarOperations}/>
+  <RolesSupported title={rolesSupported.title} description={rolesSupported.description} items={rolesSupported.items} />
+  <HowItWorks />  
+  <ClientReview />
+  <section class="bg-white py-20 px-6 sm:px-10 lg:px-16 font-sans">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-4xl mx-auto mb-16 space-y-4">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-[#3d1d0e] tracking-tight leading-tight">
+          Why Outsourcing Solar Operations Works
+        </h2>
+        <p class="text-sm sm:text-md text-gray-500 font-medium leading-relaxed max-w-2xl mx-auto">
+          Accelerate your project timelines and boost installation volume with our specialized solar back-office support.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-stretch">
+        
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 hover:shadow-md">
+          <div class="text-brand-green bg-green-50 w-14 h-14 rounded-xl flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-5.4a2 2 0 0 0-3-2.7L15 13"/><path d="M5 22h14"/></svg>
+          </div>
+          <h3 class="text-md font-bold text-[#3d1d0e] leading-tight">
+            Save 60–70% on soft costs
+          </h3>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 hover:shadow-md">
+          <div class="text-brand-green bg-green-50 w-14 h-14 rounded-xl flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 1 0 10 0 5 5 0 0 0-10 0Z"/><path d="m21 21-4.3-4.3"/><path d="M15 8V2"/><path d="M15 18v6"/></svg>
+          </div>
+          <h3 class="text-md font-bold text-[#3d1d0e] leading-tight">
+            Increase solar lead volume
+          </h3>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 hover:shadow-md">
+          <div class="text-brand-green bg-green-50 w-14 h-14 rounded-xl flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <h3 class="text-md font-bold text-[#3d1d0e] leading-tight">
+            AHJ & HOA compliance
+          </h3>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 hover:shadow-md">
+          <div class="text-brand-green bg-green-50 w-14 h-14 rounded-xl flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3 class="text-md font-bold text-[#3d1d0e] leading-tight">
+            Faster PTO flow
+          </h3>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 hover:shadow-md">
+          <div class="text-brand-green bg-green-50 w-14 h-14 rounded-xl flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5"/><path d="M3 11v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V11"/><path d="M12 14v2"/></svg>
+          </div>
+          <h3 class="text-md font-bold text-[#3d1d0e] leading-tight">
+            Seasonal demand scaling
+          </h3>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 hover:shadow-md">
+          <div class="text-brand-green bg-green-50 w-14 h-14 rounded-xl flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3 class="text-md font-bold text-[#3d1d0e] leading-tight">
+            Improved Client Experience
+          </h3>
+        </div>
+
+        <div class="md:col-start-4 md:row-start-1 md:row-span-2 relative rounded-2xl overflow-hidden min-h-[300px] shadow-lg group">
+          <img 
+            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1000&auto=format&fit=crop" 
+            alt="Solar renewable operations" 
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          
+          <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent"></div>
+          
+          <div class="absolute bottom-0 left-0 right-0 p-6 space-y-2">
+            <div class="w-10 h-1 bg-brand-green rounded-full mb-2"></div>
+            <h3 class="text-xl font-extrabold text-white tracking-tight leading-none">
+              Solar Outsourcing Reimagined.
+            </h3>
+            <p class="text-brand-green text-[10px] font-bold uppercase tracking-wider">Renewable Energy Experts</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+<FAQ FAQs={FAQs}/>
 </Layout>
+
+<style>
+  section {
+    contain: content;
+  }
+</style>
