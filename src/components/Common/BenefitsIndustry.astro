@@ -1,0 +1,61 @@
+---
+interface BenefitsType {
+  title: string;
+  description: string;
+  image: string;
+  items: [{
+    title: string;
+    icon: string;
+  }]
+}
+
+const BenefitsData: BenefitsType = Astro.props.BenefitsData;
+---
+
+<section class="bg-white py-20 px-6 sm:px-10 lg:px-16 font-sans">
+  <div class="max-w-7xl mx-auto">
+    
+    <div class="text-center max-w-4xl mx-auto mb-16 space-y-4">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#3d1d0e] tracking-tight leading-tight">
+        {BenefitsData.title}
+      </h2>
+      <p class="text-sm sm:text-md text-gray-500 font-medium leading-relaxed max-w-2xl mx-auto">
+        {BenefitsData.description}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-stretch">
+      
+      {BenefitsData.items.map((card) => (
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 hover:shadow-md">
+          <div class="text-brand-green bg-green-50 w-14 h-14 rounded-xl flex items-center justify-center">
+            <Fragment set:html={card.icon} />
+          </div>
+          <h3 class="text-md font-bold text-[#3d1d0e] leading-tight">
+            {card.title}
+          </h3>
+        </div>
+      ))}
+
+      <div class="md:col-start-4 md:row-start-1 md:row-span-2 relative rounded-2xl overflow-hidden min-h-75 shadow-lg group">
+        <img 
+          src={BenefitsData.image} 
+          alt="Solar renewable operations" 
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        
+        <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent"></div>
+        
+        <div class="absolute bottom-0 left-0 right-0 p-6 space-y-2">
+          <div class="w-10 h-1 bg-brand-green rounded-full mb-2"></div>
+          <h3 class="text-xl font-extrabold text-white tracking-tight leading-none">
+            Solar Outsourcing Reimagined.
+          </h3>
+          <p class="text-brand-green text-[10px] font-bold uppercase tracking-wider">Renewable Energy Experts</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>

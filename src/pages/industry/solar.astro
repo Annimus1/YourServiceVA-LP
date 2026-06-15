@@ -5,8 +5,9 @@ import TrustedBy from '../../components/Common/TrustedBy.astro';
 import GenericSection from '../../components/Common/GenericSection.astro';
 import HowItWorks from '../../components/Common/HowItWorks.astro';
 import ClientReview from '../../components/Common/ClientReviews.astro';
-import FAQ from '../../components/Common/FAQ.astro';
 import RolesSupported from '../../components/Common/RolesSupported.astro';
+import BenefitsIndustry from '../../components/Common/BenefitsIndustry.astro';
+import FAQ from '../../components/Common/FAQ.astro';
 
 const heroData = {
   titleA: "Solar Virtual",
@@ -18,14 +19,12 @@ const heroData = {
   },
   photo: "https://plus.unsplash.com/premium_photo-1682148026899-d21f17c04e80?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 }
-
 const solarOperations = {
   title: "Outsource Solar Operations to Increase Revenue and Accelerate Deployment",
   description: "YourServiceva can take over your admin, project coordination, and lead management, helping you focus on scaling sales and completing installations. Our services are designed for all renewable energy professionals, including local installers and national sales organizations.",
   image: "https://plus.unsplash.com/premium_photo-1679917152396-4b18accacb9d?q=80&w=627&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   flow: "normal"
 }
-
 const rolesSupported = {
   title: "Solar Virtual Assistant Roles We Support",
   description: "Our solar virtual assistant services infuse industry-leading tools and best practices into your workflows. Here are some of the services we offer: ",
@@ -77,7 +76,6 @@ const rolesSupported = {
   }
 ]
 }
-
 const FAQs = {
   title: "Solar Virtual Assistant",
   description: "From virtual assistants and customer support to project coordination, marketing, and sales.",
@@ -103,6 +101,38 @@ const FAQs = {
     answer: "Getting started is quick and straightforward. After an initial consultation to review your business needs, we match you with a trained specialist within a few days. Our pricing plans are flexible and tailored to the level of support and hours your team requires."
   }
 ]}
+
+const Benefits = {
+  title: "Why Outsourcing Solar Operations Works" ,
+  description: "Accelerate your project timelines and boost installation volume with our specialized solar back-office support.",
+  image:'https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1000&auto=format&fit=crop',
+  items: [
+    {
+      title: "Save 60–70% on soft costs",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-5.4a2 2 0 0 0-3-2.7L15 13"/><path d="M5 22h14"/></svg>`
+    },
+    {
+      title: "Increase solar lead volume",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 1 0 10 0 5 5 0 0 0-10 0Z"/><path d="m21 21-4.3-4.3"/><path d="M15 8V2"/><path d="M15 18v6"/></svg>`
+    },
+    {
+      title: "AHJ & HOA compliance",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>`
+    },
+    {
+      title: "Faster PTO flow",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`
+    },
+    {
+      title: "Seasonal demand scaling",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5"/><path d="M3 11v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V11"/><path d="M12 14v2"/></svg>`
+    },
+    {
+      title: "Improved Client Experience",
+      icon: `<svg xmlns="http://www.w3.org/2000/xl" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`
+    }
+  ]
+}
 ---
 
 <Layout title="YourServiceva | Solar Energy Industry">
@@ -188,98 +218,8 @@ const FAQs = {
   <RolesSupported title={rolesSupported.title} description={rolesSupported.description} items={rolesSupported.items} />
   <HowItWorks />  
   <ClientReview />
-  <section class="bg-white py-20 px-6 sm:px-10 lg:px-16 font-sans">
-    <div class="max-w-7xl mx-auto">
-      
-      <div class="text-center max-w-4xl mx-auto mb-16 space-y-4">
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-[#3d1d0e] tracking-tight leading-tight">
-          Why Outsourcing Solar Operations Works
-        </h2>
-        <p class="text-sm sm:text-md text-gray-500 font-medium leading-relaxed max-w-2xl mx-auto">
-          Accelerate your project timelines and boost installation volume with our specialized solar back-office support.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-stretch">
-        
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 hover:shadow-md">
-          <div class="text-brand-green bg-green-50 w-14 h-14 rounded-xl flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-5.4a2 2 0 0 0-3-2.7L15 13"/><path d="M5 22h14"/></svg>
-          </div>
-          <h3 class="text-md font-bold text-[#3d1d0e] leading-tight">
-            Save 60–70% on soft costs
-          </h3>
-        </div>
-
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 hover:shadow-md">
-          <div class="text-brand-green bg-green-50 w-14 h-14 rounded-xl flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 1 0 10 0 5 5 0 0 0-10 0Z"/><path d="m21 21-4.3-4.3"/><path d="M15 8V2"/><path d="M15 18v6"/></svg>
-          </div>
-          <h3 class="text-md font-bold text-[#3d1d0e] leading-tight">
-            Increase solar lead volume
-          </h3>
-        </div>
-
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 hover:shadow-md">
-          <div class="text-brand-green bg-green-50 w-14 h-14 rounded-xl flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-          </div>
-          <h3 class="text-md font-bold text-[#3d1d0e] leading-tight">
-            AHJ & HOA compliance
-          </h3>
-        </div>
-
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 hover:shadow-md">
-          <div class="text-brand-green bg-green-50 w-14 h-14 rounded-xl flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          </div>
-          <h3 class="text-md font-bold text-[#3d1d0e] leading-tight">
-            Faster PTO flow
-          </h3>
-        </div>
-
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 hover:shadow-md">
-          <div class="text-brand-green bg-green-50 w-14 h-14 rounded-xl flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5"/><path d="M3 11v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V11"/><path d="M12 14v2"/></svg>
-          </div>
-          <h3 class="text-md font-bold text-[#3d1d0e] leading-tight">
-            Seasonal demand scaling
-          </h3>
-        </div>
-
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 hover:shadow-md">
-          <div class="text-brand-green bg-green-50 w-14 h-14 rounded-xl flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
-          <h3 class="text-md font-bold text-[#3d1d0e] leading-tight">
-            Improved Client Experience
-          </h3>
-        </div>
-
-        <div class="md:col-start-4 md:row-start-1 md:row-span-2 relative rounded-2xl overflow-hidden min-h-75 shadow-lg group">
-          <img 
-            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1000&auto=format&fit=crop" 
-            alt="Solar renewable operations" 
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-          
-          <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent"></div>
-          
-          <div class="absolute bottom-0 left-0 right-0 p-6 space-y-2">
-            <div class="w-10 h-1 bg-brand-green rounded-full mb-2"></div>
-            <h3 class="text-xl font-extrabold text-white tracking-tight leading-none">
-              Solar Outsourcing Reimagined.
-            </h3>
-            <p class="text-brand-green text-[10px] font-bold uppercase tracking-wider">Renewable Energy Experts</p>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-<FAQ FAQs={FAQs}/>
+  <BenefitsIndustry BenefitsData={Benefits} />
+  <FAQ FAQs={FAQs}/>
 </Layout>
 
 <style>
