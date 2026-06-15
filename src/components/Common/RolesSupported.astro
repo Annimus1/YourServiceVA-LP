@@ -36,7 +36,7 @@ const { title, description, items } = Astro.props;
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {items.map((item: GridItem) => (
         <div class="bg-white rounded-xl p-8 border border-gray-100/70 shadow-2xs flex flex-col items-center text-center gap-4 hover:shadow-xs transition-shadow duration-200">
-          <div class="text-brand-green flex-shrink-0 w-8 h-8 flex items-center justify-center mb-1">
+          <div class="text-brand-green shrink-0 w-8 h-8 flex items-center justify-center mb-1">
             {item.iconHtml ? (
               <Fragment set:html={item.iconHtml} />
             ) : item.iconClass ? (

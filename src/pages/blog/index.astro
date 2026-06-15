@@ -34,7 +34,7 @@ const allPosts: Post[] = getPosts();
         {allPosts.map((post) => (
           <article class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-xs flex flex-col hover:shadow-md transition-shadow duration-300">
             
-            <div class="w-full aspect-[16/10] bg-gray-100 relative overflow-hidden">
+            <div class="w-full aspect-16/10 bg-gray-100 relative overflow-hidden">
               {post.image ? (
                 <img 
                   src={post.image} 
