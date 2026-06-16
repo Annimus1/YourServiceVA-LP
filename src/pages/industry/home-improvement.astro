@@ -1,0 +1,270 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Common/Hero.astro';
+import TrustedBy from '../../components/Common/TrustedBy.astro';
+import GenericSection from '../../components/Common/GenericSection.astro';
+import HowItWorks from '../../components/Common/HowItWorks.astro';
+import ClientReview from '../../components/Common/ClientReviews.astro';
+import FAQ from '../../components/Common/FAQ.astro';
+import RolesSupported from '../../components/Common/RolesSupported.astro';
+
+const heroData = {
+  titleA: "Home Improvement &",
+  titleB: "Contractor Assistants",
+  items: [
+    "Our trained construction and home improvement virtual assistants help contractors, remodelers, roofers, and trade specialists streamline field operations by managing inbound leads, scheduling estimates, and coordinating project logistics.",
+    "By offloading material tracking, permit documentation, and customer follow-ups, your field teams can eliminate back-office burnout and focus entirely on completing quality builds and scaling revenue."
+  ],
+  btn: {
+    text: "Build Your Contractor Support Team",
+    link: "/contact"
+  },
+  photo: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1470&auto=format&fit=crop",
+}
+
+const homeImprovementOperations = {
+  title: "Outsource Construction Administration to Keep Jobs on Schedule and Boost Sales",
+  description: "YourServiceva handles your field service CRM updates, vendor invoicing, and customer dispatching, allowing your project managers and crew leaders to focus on job site execution and quality craftsmanship. Our processes are tailored for modern residential remodelers, commercial contractors, and trade professionals.",
+  image: "https://images.unsplash.com/photo-1581094288338-2314dddb7ece?q=80&w=1470&auto=format&fit=crop",
+  flow: "normal"
+}
+
+const rolesSupported = {
+  title: "Home Improvement Roles and Competencies We Support",
+  description: "Our specialized remote operations assistants infuse rigorous coordination and field service best practices into your contracting ecosystem. Here are some of our core supported lanes:",
+  items: [
+  {
+    title: "Lead intake, triaging & dispatch scheduling",
+    description: "Capture inbound renovation inquiries, qualify property details, book on-site estimate appointments, and optimize field crew dispatch calendars.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg>`
+  },
+  {
+    title: "Permit tracking & HOA compliance coordination",
+    description: "Compile residential project paperwork, submit city building permit applications, follow up with municipal offices, and organize HOA clearance guidelines.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>`
+  },
+  {
+    title: "Invoicing, progress billing & material draws",
+    description: "Generate professional job quotes, process initial project deposits, log subcontractor material invoices, and issue milestone payment reminders.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.214.116C10.13 16.751 11.026 17 12 17c1.54 0 2.502-.916 2.502-2.118 0-1.154-.954-1.743-2.42-2.326-.017-.006-.034-.013-.052-.02l-.19-.074c-1.48-.578-2.42-1.167-2.42-2.326C9.5 9.116 10.462 8.5 12 8.5c.974 0 1.87.249 2.586.642l.214.116M12 3v3m0 12v3" /></svg>`
+  },
+  {
+    title: "Supplier logistics & material order tracking",
+    description: "Liaise with lumberyards and specialty supply stores, verify purchase order delivery timelines, and report warehouse backorders dynamically.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12" /></svg>`
+  },
+  {
+    title: "CRM upkeep & pipeline follow-ups",
+    description: "Maintain field platforms like Jobber or ServiceTitan, categorize active project stages, and execute estimate follow-up sequences.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94-3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" /></svg>`
+  },
+  {
+    title: "Subcontractor paperwork & warranty logs",
+    description: "Collect certificates of insurance (COI) from trades, organize post-project warranty papers, and request customer reviews.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" /></svg>`
+  }
+]
+}
+
+const FAQs = {
+  title: "Home Improvement Virtual Assistant Services",
+  description: "From certified intake coordination assistants to field service dispatch administrative specialists.",
+  questions: [
+  {
+    question: "What contractor and home improvement tasks can I outsource?",
+    answer: "You can outsource daily administrative overhead. This includes handling raw inbound leads, booking estimation appointments, managing follow-up outreach for unsigned proposals, updating material tracking logs, and keeping your CRM platform organized."
+  },
+  {
+    question: "Can your assistants work with property management software and contractor CRMs?",
+    answer: "Absolutely. Our specialized home improvement virtual assistants adapt quickly or come with direct experience in industry platforms like Jobber, ServiceTitan, Housecall Pro, Buildertrend, and common map-dispatch applications."
+  },
+  {
+    question: "How do your assistants handle project tracking and material delays?",
+    answer: "They serve as your centralized office hub. VAs can reach out directly to local suppliers, monitor purchase order delivery windows, coordinate with your site supervisors on material drops, and keep clients notified of arrival schedules."
+  },
+  {
+    question: "Can your staff help manage busy seasonal surges like spring and summer remodeling seasons?",
+    answer: "Yes, our remote workforce setup is built for scalability. Home improvement businesses and specialty contractors scale support teams right before high-demand seasons to process high lead volumes, manage dense job schedules, and run administrative pipelines smoothly."
+  }
+]}
+---
+
+<Layout title="YourServiceva | Home Improvement Industry">
+  <Hero heroData={heroData}>
+    
+    <div class="absolute top-[-16%] md:top-[15%] -left-2 md:-left-6 sm:-left-12 z-20 bg-white/95 backdrop-blur-xs rounded-2xl p-4 shadow-xl border border-gray-100 flex flex-col gap-3 max-w-45 sm:max-w-52.5 animate-bounce-slow">
+      <div class="flex items-center gap-2">
+        <span class="text-brand-green text-lg">🔨</span>
+        <h4 class="font-extrabold text-[#3d1d0e] text-sm sm:text-base tracking-tight">Dispatch Desk</h4>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <label class="flex items-center gap-2 bg-[#FAF8F5] px-3 py-2 rounded-xl border border-gray-100/80 cursor-pointer">
+          <input type="checkbox" checked class="accent-brand-green h-4 w-4 rounded-sm" disabled />
+          <span class="text-xs font-bold text-gray-600">Estimate Booked</span>
+        </label>
+        <label class="flex items-center gap-2 bg-[#FAF8F5] px-3 py-2 rounded-xl border border-gray-100/80 cursor-pointer">
+          <input type="checkbox" checked class="accent-brand-green h-4 w-4 rounded-sm" disabled />
+          <span class="text-xs font-bold text-gray-600">COI Verified</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="hidden absolute md:-top-16 md:-right-16 z-20 bg-white/95 backdrop-blur-xs rounded-2xl p-4 shadow-xl border border-gray-100 md:flex flex-col gap-3 min-w-50 sm:min-w-60">
+      <h4 class="font-extrabold text-[#3d1d0e] text-xs sm:text-sm tracking-tight border-b border-gray-50 pb-2">Project Pipeline Status</h4>
+      
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <div class="h-8 w-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xs">🧱</div>
+            <div class="flex flex-col">
+              <span class="text-xs font-bold text-[#3d1d0e]">Lumber Order PO</span>
+              <span class="text-[10px] text-gray-400 font-medium">In transit to site</span>
+            </div>
+          </div>
+          <span class="text-xs font-black text-amber-500">Shipped</span>
+        </div>
+
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <div class="h-8 w-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs">📝</div>
+            <div class="flex flex-col">
+              <span class="text-xs font-bold text-[#3d1d0e]">City Permit Approved</span>
+              <span class="text-[10px] text-gray-400 font-medium">Ready for inspection</span>
+            </div>
+          </div>
+          <span class="text-xs font-black text-emerald-500">Approved</span>
+        </div>
+
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <div class="h-8 w-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs">🏡</div>
+            <div class="flex flex-col">
+              <span class="text-xs font-bold text-[#3d1d0e]">HOA Build Notice</span>
+              <span class="text-[10px] text-gray-400 font-medium">Clearance archived</span>
+            </div>
+          </div>
+          <span class="text-xs font-black text-emerald-500">Archived</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-[-10%] md:bottom-[20%] -right-3 md:-right-8 sm:-right-12 z-20 bg-white/95 backdrop-blur-xs rounded-2xl p-4 shadow-xl border border-gray-100 flex flex-col gap-2 max-w-40 sm:max-w-47.5 [animation-delay:2s] animate-bounce-slow">
+      <div class="flex flex-col">
+        <h4 class="font-extrabold text-[#3d1d0e] text-xs">Crew Capacity</h4>
+        <p class="text-[10px] text-gray-400 font-semibold">Optimized routes</p>
+      </div>
+
+      <div class="relative flex items-center justify-center h-24 w-24 mx-auto mt-2">
+        <div 
+          class="w-full h-full rounded-full flex items-center justify-center"
+          style="background: conic-gradient(#10b981 0% 50%, #3b82f6 50% 90%, #f3f4f6 90% 100%);"
+        >
+          <div class="w-[74%] h-[74%] bg-white rounded-full flex flex-col items-center justify-center shadow-2xs">
+            <span class="text-xs font-black text-[#3d1d0e] leading-none">90%</span>
+            <span class="text-[8px] text-gray-400 font-bold uppercase tracking-tighter mt-0.5">Job Capacity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Hero>
+
+  <TrustedBy />
+  <GenericSection genericData={homeImprovementOperations}/>
+  <RolesSupported title={rolesSupported.title} description={rolesSupported.description} items={rolesSupported.items} />
+  <HowItWorks />  
+  <ClientReview />
+
+  <section class="w-full bg-white py-16 px-6 md:py-24 md:px-12 text-[#3d1d0e]">
+    <div class="max-w-7xl mx-auto flex flex-col gap-12 md:gap-16">
+      
+      <header class="text-center flex flex-col gap-4 max-w-3xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight text-[#3d1d0e]">
+          Operational Efficiency.<br />Flawless Execution.
+        </h2>
+        <p class="text-gray-600 text-sm sm:text-base font-semibold leading-relaxed max-w-2xl mx-auto">
+          Our home improvement virtual assistants combine advanced back-office coordination with fast response times, ensuring property quotes and crew tracking operate seamlessly.
+        </p>
+      </header>
+
+      <div class="flex flex-wrap justify-center gap-6 w-full">
+        
+        <div class="bg-white rounded-2xl p-8 border border-gray-100/80 shadow-2xs flex flex-col items-center text-center gap-4 hover:shadow-xs transition-all duration-200 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] min-w-70">
+          <div class="text-brand-green shrink-0 w-12 h-12 flex items-center justify-center mb-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127c.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.43l-1.003.754c-.29.219-.452.56-.452.93v.24c0 .37.162.711.452.93l1.003.754a1.125 1.125 0 0 1 .26 1.43l-1.296 2.247a1.125 1.125 0 0 1-1.37.49l-1.216-.456a1.125 1.125 0 0 0-1.076.124c-.072.044-.146.086-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.43l1.004-.754c.29-.218.452-.56.452-.93v-.24c0-.37-.162-.712-.452-.93l-1.004-.754a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.49l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128c.332-.183.582-.495.645-.869l.214-1.28Z" />
+            </svg>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold leading-snug tracking-tight text-[#3d1d0e]">
+            Dedicated Contractor VAs
+          </h3>
+          <p class="text-gray-500 text-sm font-medium leading-relaxed max-w-sm">
+            Our virtual specialists possess rigorous training backgrounds matching the exact software demands of modern residential and commercial trade operations.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 border border-gray-100/80 shadow-2xs flex flex-col items-center text-center gap-4 hover:shadow-xs transition-all duration-200 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] min-w-70">
+          <div class="text-brand-green shrink-0 w-12 h-12 flex items-center justify-center mb-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+              <text x="5.5" y="14.5" font-family="sans-serif" font-size="6" font-weight="900" fill="currentColor">24/7</text>
+            </svg>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold leading-snug tracking-tight text-[#3d1d0e]">
+            Continuous Dispatch & Intake
+          </h3>
+          <p class="text-gray-500 text-sm font-medium leading-relaxed max-w-sm">
+            Keep customer lead channels running uninterruptedly around the clock—ideal for emergency home requests and instant project bookings.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 border border-gray-100/80 shadow-2xs flex flex-col items-center text-center gap-4 hover:shadow-xs transition-all duration-200 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] min-w-70">
+          <div class="text-brand-green shrink-0 w-12 h-12 flex items-center justify-center mb-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+            </svg>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold leading-snug tracking-tight text-[#3d1d0e]">
+            HOA & Municipal Compliance
+          </h3>
+          <p class="text-gray-500 text-sm font-medium leading-relaxed max-w-sm">
+            Ensure permit tracking, building authorization applications, and digital metadata organization match exact structural guidelines.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 border border-gray-100/80 shadow-2xs flex flex-col items-center text-center gap-4 hover:shadow-xs transition-all duration-200 w-full md:w-[calc(50%-12px)] lg:w-[calc(50%-16px)] lg:max-w-145 min-w-70">
+          <div class="text-brand-green shrink-0 w-12 h-12 flex items-center justify-center mb-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12h19.5m-19.5 0a6.75 6.75 0 0 1 13.5 0m-13.5 0a6.75 6.75 0 0 0 13.5 0m-13.5 0H15M12 3v18M3.75 6h16.5M3.75 18h16.5" />
+            </svg>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold leading-snug tracking-tight text-[#3d1d0e]">
+            Invoicing & Quote Follow-ups
+          </h3>
+          <p class="text-gray-500 text-sm font-medium leading-relaxed max-w-md">
+            Manage repetitive customer change orders, supplier payment cycles, digital spreadsheet calculations, and open bid tracking lines efficiently.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 border border-gray-100/80 shadow-2xs flex flex-col items-center text-center gap-4 hover:shadow-xs transition-all duration-200 w-full md:w-[calc(50%-12px)] lg:w-[calc(50%-16px)] lg:max-w-145 min-w-70">
+          <div class="text-brand-green shrink-0 w-12 h-12 flex items-center justify-center mb-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M3 12h18" />
+            </svg>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold leading-snug tracking-tight text-[#3d1d0e]">
+            Scalable, Seasonal Support
+          </h3>
+          <p class="text-gray-500 text-sm font-medium leading-relaxed max-w-md">
+            Ramp up capacity smoothly for busy spring and summer remodeling seasons or post-storm restoration spikes without expanding fixed overhead.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <FAQ FAQs={FAQs}/>
+</Layout>
