@@ -1,7 +1,282 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Common/Hero.astro';
+import TrustedBy from '../../components/Common/TrustedBy.astro';
+import GenericSection from '../../components/Common/GenericSection.astro';
+import HowItWorks from '../../components/Common/HowItWorks.astro';
+import ClientReviews from '../../components/Common/ClientReviews.astro';
+import TalentsSection from '../../components/Common/TalentsSection.astro';
+import FAQ from '../../components/Common/FAQ.astro';
+
+const heroData = {
+  titleA: "Dedicated Inside",
+  titleB: "Sales Agents (ISAs)",
+  btn: {
+    text: "Scale Your Sales Pipeline",
+    link: "/contact"
+  },
+  items : [
+    "Accelerate your pipeline and scale outbound growth. Our specialized remote Inside Sales Agents handle cold outreach, lead qualification, and appointment setting seamlessly, maximizing your executive closing ratios.",
+    "Eliminate database stagnation by offloading CRM pipeline logging, follow-up sequences, and initial touchpoints directly into high-converting sales cadences.",
+    "Ensure zero lead friction with immediate response times for inbound inquiries, keeping hot prospects engaged and systematically booking discovery calls or live demos."
+  ],
+  photo: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1470&auto=format&fit=crop"
+}
+const findAndHire = {
+  title: "Supercharge Your Revenue Growth with Dedicated Outbound Talent",
+  description: "Stop letting hot marketing leads go cold due to manual follow-up delays. Hire specialized Inside Sales Agents expert in high-volume outbound dialing, cold email sequencing, multi-channel social selling, and CRM database pipeline execution. Our remote sales specialists focus entirely on uncovering opportunities, qualification, and setting qualified appointments so your core closers can spend 100% of their time closing deals.",
+  image: "https://images.unsplash.com/photo-1632813987940-a0381e420288?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  flow: "reverse"
+} 
+const hrMetrics = {
+  title: "Drive Your Revenue Funnel with Elite Sales KPIs",
+  description: "By offloading administrative lead tracking and early-stage prospections to our specialized ISAs, your enterprise builds an uninterrupted outbound machine.",
+  image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1415&auto=format&fit=crop",
+  items: [
+    {
+      title: "3x Pipeline Meeting Velocity",
+      description: "Scale discovery call booking rates through predictive cold dialing frameworks and instantaneous inbound inquiry response structures."
+    },
+    {
+      title: "100% CRM Pipeline Hygiene",
+      description: "Zero lost opportunities. Our agents tag, document call logs, clean invalid records, and configure follow-up automations within your CRM daily."
+    },
+    {
+      title: "40% Higher Conversion Ratios",
+      description: "Ensure your Account Executives only speak to true buyers. Every prospect undergoes precise budget, authority, need, and timeline (BANT) filters."
+    }
+  ]
+}
+const hrRoles = {
+  title: "Specialized Sales Profiles Built for Your Funnel",
+  description: "Whether you run a fast-scaling B2B SaaS startup, a high-ticket real estate brokerage, or an enterprise service firm, we deploy pre-trained outbound talent.",
+  categories: [
+    {
+      role: "Outbound SDR / Business Development",
+      focus: "Cold Prospecting Specialists",
+      tasks: "Deep-dive lead generation via LinkedIn Sales Navigator, Crunchbase, and Apollo. Building multi-channel sequences, cold calling cold lists, and handling early objection handling."
+    },
+    {
+      role: "Inbound Lead Qualification (LDR)",
+      focus: "Inbound Speed-to-Lead Masters",
+      tasks: "Responding to webform sign-ups, ebook downloads, or ad inquiries under 5 minutes. Filtering incoming calls, running initial discovery questions, and live-transferring hot leads."
+    },
+    {
+      role: "Sales Operations & Pipeline Management",
+      focus: "CRM Optimization & Reporting",
+      tasks: "Re-activating historical cold CRM contacts, auditing drip sequence metrics, configuring automated booking links, and delivering daily activity and funnel analytics dashboards."
+    }
+  ]
+}
+const FAQs = {
+  title: "Inside Sales Agent Support Services",
+  description: "From cold outbound prospecting and inbound qualification to CRM tracking and high-velocity meeting loops.",
+  questions: [
+    {
+      question: "What specific sales software or CRMs can your ISAs operate?",
+      answer: "Our agents are highly proficient or certified across industry-standard sales tech stacks, including Salesforce, HubSpot, Zoho CRM, HighLevel, Pipedrive, Outreach.io, Apollo.io, and multiple enterprise VoIP dialers."
+    },
+    {
+      question: "Do you supply cold lead contact databases, or do we provide them?",
+      answer: "We work seamlessly with your existing databases or lead generation frameworks. Additionally, our outbound specialists are highly skilled in scraping and compiling custom targeted prospecting lists based on your precise Ideal Customer Profile (ICP)."
+    },
+    {
+      question: "Will I get a dedicated sales agent or shared operational team members?",
+      answer: "We exclusively assign strictly dedicated specialists. Your designated Inside Sales Agent acts as an integrated extension of your internal sales division, learning your product advantages, value propositions, and corporate script voice."
+    },
+    {
+      question: "How do you handle performance tracking, activity metrics, and KPIs?",
+      answer: "We maintain absolute metric transparency. You track your ISA's daily performance parameters (including calls placed, connection rates, reply rates, and meetings booked) through end-of-day operations reporting logs and automated CRM activity data tracking."
+    },
+    {
+      question: "Can we scale our sales force up for quarterly pushes or product launches?",
+      answer: "Absolutely. Our flexible staffing infrastructure allows your firm to smoothly ramp up your allocated outbound capacity or introduce multiple prospecting agents into your workflow with proper structural notice as outlined in your SOW."
+    },
+    {
+      question: "Are the agents trained to close enterprise deals independently?",
+      answer: "Our Inside Sales Agents specialize strictly in the early and middle stages of the sales cycle (sourcing, qualification, nurturing, and setting meetings). They specialize in passing highly qualified, sales-ready leads (SQLs) directly to your internal Closers or Account Executives."
+    }
+  ]
+}
 ---
 
-<Layout title="Appointment Setting Services | Your Service VA" description="Discover our Appointment Setting services, designed to help you manage and optimize your scheduling processes. We provide comprehensive solutions to support your business growth.">
-appointment-setting page
+<Layout title="YourServiceva | Inside Sales Agent & Outbound Pipeline Services">
+  
+  <Hero heroData={heroData}>
+    <div class="relative w-full h-full min-h-[350px] md:min-h-[450px] lg:min-h-[500px]">
+      
+      <div class="absolute inset-0 w-full h-full rounded-2xl overflow-hidden shadow-lg z-0">
+        <img src={heroData.photo} alt="Inside Sales Operations Team" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent"></div>
+      </div>
+
+      <div class="absolute -top-6 md:top-8 right-4 md:-right-6 bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-xl border border-gray-100 z-20 flex flex-col gap-1.5 min-w-[180px] sm:min-w-[210px] animate-bounce-slow">
+        <div class="flex items-center justify-between text-[11px] font-bold text-gray-400">
+          <span>Sales Cadence</span>
+          <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 font-extrabold text-[9px] uppercase tracking-wider">Active</span>
+        </div>
+        <label class="flex items-center gap-2 text-[11px] sm:text-xs font-medium text-gray-400 line-through decoration-gray-300">
+          <input type="checkbox" checked disabled class="rounded text-brand-green focus:ring-0 h-3.5 w-3.5" />
+          50 Dials Reached - Call Batch
+        </label>
+        <label class="flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-gray-700">
+          <span class="animate-pulse h-2 w-2 rounded-full bg-orange-500"></span>
+          <span class="text-orange-600 font-bold">[Hot Lead]</span> Live Transfer Sequence
+        </label>
+      </div>
+
+      <div class="hidden sm:flex absolute bottom-4 -left-10 bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-xl border border-gray-100 z-20 max-w-[250px] flex-col gap-2">
+        <div class="flex items-center gap-2 border-b border-gray-100 pb-1.5">
+          <div class="h-6 w-6 rounded-full bg-brand-blue text-white text-[10px] font-bold flex items-center justify-center">ISA</div>
+          <div class="flex flex-col">
+            <span class="text-[11px] font-bold text-gray-800 leading-none">Outbound Prospecting</span>
+            <span class="text-[9px] text-brand-green font-semibold">Agent Calling Live</span>
+          </div>
+        </div>
+        <p class="text-[10px] font-medium text-gray-600 bg-gray-50 rounded-lg p-2 leading-tight">
+          Hi Mark! Based on your target goals, I've cleared up an opening for a live demo with our director this Thursday.
+        </p>
+      </div>
+
+      <div class="absolute bottom-4 -right-2 md:-right-8 bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-xl border border-gray-100 z-20 flex flex-col gap-2 min-w-[170px] sm:min-w-[200px]">
+        <div class="flex items-center gap-1.5 text-xs font-bold text-gray-800">
+          <span class="text-brand-blue">📥</span> CRM Deal Desk <span class="text-orange-500 font-extrabold text-[11px]">(3 New)</span>
+        </div>
+        <div class="flex flex-col gap-1 text-[10px] font-medium text-gray-500">
+          <div class="p-1.5 bg-[#FAF8F5] rounded border-l-2 border-orange-500 text-gray-700 font-semibold">SQL Meeting Booked</div>
+          <div class="p-1.5 bg-[#FAF8F5] rounded border-l-2 border-brand-blue text-gray-600">Follow-up Sequence Synced</div>
+        </div>
+      </div>
+
+    </div>
+  </Hero>
+  <TrustedBy />
+  <GenericSection genericData={findAndHire} />
+  <TalentsSection />
+  <section class="py-16 md:py-24 bg-[#FAF8F5] border-y border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        
+        <div class="flex flex-col gap-8">
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center gap-2">
+              <span class="inline-block h-1.5 w-1.5 rounded-full bg-brand-green"></span>
+              <span class="text-brand-green font-bold text-xs uppercase tracking-widest">High-Velocity Sales Operations</span>
+            </div>
+            <h2 class="text-2xl md:text-4xl font-extrabold text-[#3d1d0e] tracking-tight leading-tight mt-1">
+              {hrMetrics.title}
+            </h2>
+            <p class="text-gray-600 text-sm sm:text-base leading-relaxed mt-1 max-w-xl">
+              {hrMetrics.description}
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {hrMetrics.items.map((metric, index) => {
+              const match = metric.title.match(/^([\d%–\-–\s\w×]+[A-Za-z]?)\s(.*)$/);
+              const bigStat = match ? match[1] : metric.title;
+              let subStat = match ? match[2] : "";
+
+              // Contextual Sales Title Clean up
+              if (subStat.toLowerCase().includes("velocity")) {
+                subStat = "Pipeline Meeting Velocity Boost";
+              } else if (subStat.toLowerCase().includes("hygiene")) {
+                subStat = "Absolute CRM Database Optimization";
+              } else if (subStat.toLowerCase().includes("conversion")) {
+                subStat = "Qualified Lead Conversion Ratios";
+              }
+
+              const isFirst = index === 0;
+
+              return (
+                <div 
+                  class={`bg-white p-6 rounded-2xl border border-gray-100/80 flex flex-col justify-between gap-4 shadow-xs hover:shadow-md hover:border-brand-blue/20 transition-all duration-300 group ${
+                    isFirst ? 'sm:col-span-2 min-h-[150px] order-last' : 'min-h-[180px]'
+                  }`}
+                >
+                  <div class={`${isFirst ? 'flex flex-col sm:flex-row sm:items-baseline sm:gap-3' : 'flex flex-col gap-1'}`}>
+                    <span class="grow text-2xl font-black text-brand-blue tracking-tight group-hover:text-brand-green transition-colors duration-300">
+                      {bigStat}
+                    </span>
+                    {subStat && (
+                      <span class="text-xs font-bold text-[#3d1d0e] tracking-tight mt-0.5 sm:mt-0 uppercase tracking-wider text-[11px]">
+                        {subStat}
+                      </span>
+                    )}
+                  </div>
+                  <div class=" w-6 h-0.5 bg-brand-green/90 group-hover:w-20 transition-all duration-300"></div>
+                  <p class="text-xs text-gray-600 font-medium leading-relaxed max-w-xl">
+                    {metric.description}
+                  </p>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        <div class="relative lg:h-[480px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+          <img 
+            src={hrMetrics.image} 
+            alt="Inside Sales Analytics Growth" 
+            class="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700 ease-out"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#3d1d0e]/40 to-transparent pointer-events-none"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <HowItWorks />
+  <ClientReviews />
+  <section class="py-16 md:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 flex flex-col gap-3">
+        <div class="flex items-center justify-center gap-2">
+          <span class="inline-block h-1.5 w-1.5 rounded-full bg-brand-green"></span>
+          <span class="text-brand-green font-bold text-xs uppercase tracking-widest">Expert Revenue Acquisition Staffing</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-[#3d1d0e] tracking-tight leading-tight">
+          {hrRoles.title}
+        </h2>
+        <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+          {hrRoles.description}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {hrRoles.categories.map((item) => (
+          <div class="bg-[#FAF8F5] p-8 rounded-3xl border border-gray-100/70 flex flex-col justify-between gap-6 hover:shadow-lg hover:bg-white hover:border-brand-blue/20 transition-all duration-300 group relative overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-1 bg-transparent group-hover:bg-brand-blue transition-colors duration-300"></div>
+            <div class="flex flex-col gap-4">
+              <div class="flex flex-col gap-1">
+                <span class="text-brand-green font-bold text-[10px] uppercase tracking-wider">
+                  {item.focus}
+                </span>
+                <h3 class="text-lg font-bold text-[#3d1d0e] tracking-tight group-hover:text-brand-blue transition-colors duration-300">
+                  {item.role}
+                </h3>
+              </div>
+              <p class="text-xs text-gray-600 font-medium leading-relaxed">
+                {item.tasks}
+              </p>
+            </div>
+            <div class="flex items-center gap-1.5 text-xs font-bold text-brand-blue group-hover:gap-3 transition-all duration-300 pt-2 cursor-pointer">
+              <span>Deploy this profile</span>
+              <span class="text-sm font-light transform translate-y-[0.5px]">→</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-12 bg-[#FAF8F5] p-4 rounded-2xl border border-dashed border-gray-200 text-center max-w-2xl mx-auto">
+        <p class="text-xs font-semibold text-gray-500">
+          💡 <span class="text-[#3d1d0e]">Need a specialized outbound script execution?</span> Our remote agents can effortlessly adapt to your specific target playbooks, calling parameters, and internal discovery frameworks.
+        </p>
+      </div>
+
+    </div>
+  </section>
+  <FAQ FAQs={FAQs} />
 </Layout>
