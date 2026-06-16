@@ -1,12 +1,192 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Common/Hero.astro';
+import TrustedBy from '../../components/Common/TrustedBy.astro';
+import GenericSection from '../../components/Common/GenericSection.astro';
+import HowItWorks from '../../components/Common/HowItWorks.astro';
+import ClientReviews from '../../components/Common/ClientReviews.astro';
+import TalentsSection from '../../components/Common/TalentsSection.astro';
+import FAQ from '../../components/Common/FAQ.astro';
+
+const heroData = {
+  titleA: "Human Resources &",
+  titleB: "Recruiting Assistants",
+  btn: {
+    text: "Build Your HR Support Team",
+    link: "/contact"
+  },
+  items : [
+    "Scale your recruitment pipeline and optimize talent management. Our dedicated HR virtual assistants handle resume screening, interview scheduling, and candidate sourcing seamlessly, ensuring swift time-to-hire metrics.",
+    "Drastically reduce administrative friction by offloading ATS updates, background check coordination, and employee documentation management from a single, organized workflow.",
+    "Maintain a flawless candidate experience with consistent follow-ups and synchronized onboarding tracking, ensuring top-tier talent stays engaged through every hiring phase."
+  ],
+  photo: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1470&auto=format&fit=crop"
+}
+
+const findAndHire = {
+  title: "Streamline People Operations with Dedicated HR Support",
+  description: "Stop struggling with clogged talent pipelines and calendar coordination backlogs. Hire specialized HR operations assistants trained in proactive candidate sourcing, high-volume interview logistics, documentation compliance, and ATS management. Our remote specialists help maintain database hygiene, coordinate employee milestone tracks, and handle repetitive compliance tasks so your core HR partners can focus on culture, strategy, and retention.",
+  image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  flow: "reverse"
+} 
+
+const FAQs = {
+  title: "Human Resources & Recruiting Support Services",
+  description: "From active candidate sourcing and interview coordination to onboarding compliance and ATS maintenance.",
+  questions: [
+    {
+      question: "What HR operational tasks can I securely outsource?",
+      answer: "You can outsource recurring backend workflows. This includes initial resume screening based on your parameters, proactive sourcing on LinkedIn, coordinating complex multi-stage interview calendars, initiating background checks, and auditing new-hire onboarding paperwork."
+    },
+    {
+      question: "Are your assistants proficient with standard HRIS and ATS platforms?",
+      answer: "Yes. Our assistants are trained to adapt quickly to your existing tech stack, bringing experience in standard industry platforms such as Greenhouse, Lever, BambooHR, Rippling, Workday, and standard job board management frameworks."
+    },
+    {
+      question: "Will I get a dedicated HR specialist or shared operational staff?",
+      answer: "We provide strictly dedicated specialists. Your assigned assistant works exclusively for your company, allowing them to thoroughly learn your internal cultural guidelines, job descriptions, specific team compliance needs, and corporate communication tone."
+    },
+    {
+      question: "How do your assistants ensure candidate data privacy and security?",
+      answer: "Data protection is central to our talent operations. Our assistants follow strict security parameters, utilizing access proxies, restricted password managers, and multi-factor authentication (MFA) protocols aligned with standard corporate data privacy structures."
+    },
+    {
+      question: "Can we scale our support team for seasonal hiring spikes or rapid company growth?",
+      answer: "Absolutely. Our operational staffing layout is fully scalable. If your firm is expanding a specific division or preparing for seasonal volume hiring, you can smoothly increase your allocated administrative capacity with proper structural notice."
+    },
+    {
+      question: "Can your assistants conduct performance reviews or handle employee relations?",
+      answer: "Our assistants focus strictly on operational and administrative processing. They gather assessment feedback forms, manage review calendars, and organize HR metrics sheets, leaving corporate mediation, employee relations decisions, and final hiring choices to your internal HR leaders."
+    }
+  ]
+}
+
+const hrRoles = {
+  title: "Specialized HR Roles Ready to Deploy",
+  description: "Whether you need high-volume sourcing for engineering teams or administrative precision for multi-state compliance, our pre-vetted assistants seamlessly integrate into your workflow.",
+  categories: [
+    {
+      role: "Talent Sourcing Specialists",
+      focus: "Active Pipeline Building",
+      tasks: "Deep-dive sourcing on LinkedIn Recruiter, GitHub, and Behance. Building boolean search strings, cold candidate outreach, and managing initial coordination queues."
+    },
+    {
+      role: "Recruiting Coordinators",
+      focus: "Calendar & Logistics Management",
+      tasks: "Managing complex, multi-stage panel interview schedules across different time zones. Sending assessments, updating candidate status in ATS, and collecting interviewer feedback."
+    },
+    {
+      role: "HR Operations & Compliance",
+      focus: "Onboarding & Database Hygiene",
+      tasks: "Auditing background checks, tracking electronic contract signatures, organizing onboarding paperwork, and generating weekly time-to-hire or funnel-conversion metrics reporting."
+    }
+  ]
+}
 ---
 
-<Layout title="Human Resources Services | Your Service VA" description="Discover our Human Resources services, designed to streamline your HR processes and enhance employee management. From recruitment to payroll, we provide comprehensive solutions to support your business growth.">
-  <section class="py-16 bg-gray-50">
-    <div class="container mx-auto px-4 max-w-7xl">
-      <h1 class="text-4xl font-bold mb-6">Human Resources Services</h1>
-      <p class="text-lg mb-4">Our Human Resources services are tailored to help businesses manage their workforce effectively. We offer a range of solutions including recruitment, employee onboarding, payroll management, and compliance support. Let us handle your HR needs so you can focus on growing your business.</p>
+<Layout title="YourServiceva | Human Resources & Recruiting Support Services">
+  <Hero heroData={heroData} >
+    
+    <div class="absolute -top-14.5 md:top-8 right-44 md:right-36 sm:right-4 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-xl border border-gray-100 z-20 md:flex flex-col gap-2 min-w-40 sm:min-w-47.5 animate-bounce-slow">
+      <div class="flex items-center justify-between text-xs font-bold text-gray-400">
+        <span>Talent Pipeline</span>
+        <span class="h-5 w-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-extrabold text-[10px]">Active</span>
+      </div>
+      <label class="flex items-center gap-2 text-[11px] sm:text-xs font-medium text-gray-400 line-through decoration-gray-300">
+        <input type="checkbox" checked disabled class="rounded text-brand-green focus:ring-0 h-3.5 w-3.5" />
+          Screening Round Complete
+        </label>
+      <label class="flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-gray-700">
+        <span class="animate-pulse h-2 w-2 rounded-full bg-orange-500"></span>
+        <span class="text-orange-600 font-bold">[Urgent]</span> Coordinate Tech Interview
+      </label>
+    </div>
+
+    <div class="hidden absolute bottom-0 left-0 md:-left-14 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-xl border border-gray-100 z-20 max-w-50 sm:max-w-60 md:flex flex-col gap-2">
+      <div class="flex items-center gap-2 border-b border-gray-100 pb-1.5">
+        <div class="h-6 w-6 rounded-full bg-brand-blue text-white text-[10px] font-bold flex items-center justify-center">HR</div>
+        <div class="flex flex-col">
+          <span class="text-[11px] font-bold text-gray-800 leading-none">Talent Acquisition</span>
+          <span class="text-[9px] text-brand-green font-semibold">Coordinator Online</span>
+        </div>
+      </div>
+      <p class="text-[10px] sm:text-[11px] font-medium text-gray-600 bg-gray-50 rounded-lg p-2">
+        Hi Alex! We loved your profile. Could you share your availability for a brief call next week?
+      </p>
+      <p class="text-[10px] sm:text-[11px] font-semibold text-white bg-brand-blue rounded-lg p-2 self-end text-right">
+        Hi! Great news, I'm available Tuesday or Thursday afternoon.
+      </p>
+    </div>
+
+    <div class="absolute bottom-0 md:bottom-6 -right-4 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-xl border border-gray-100 z-20 flex flex-col gap-2 min-w-37.5 sm:min-w-45">
+      <div class="flex items-center gap-1.5 text-xs font-bold text-gray-800">
+        <span class="text-brand-blue">📥</span> Onboarding Desk <span class="text-orange-500 font-extrabold">(2 Pending)</span>
+      </div>
+      <div class="flex flex-col gap-1 text-[10px] font-medium text-gray-500">
+        <div class="p-1.5 bg-gray-50 rounded border-l-2 border-orange-500 text-gray-700 font-semibold">Verify I-9 Documentation</div>
+        <div class="p-1.5 bg-gray-50 rounded border-l-2 border-brand-blue">Background Check Cleared</div>
+      </div>
+    </div>
+    
+  </Hero>
+  <TrustedBy />
+  <GenericSection genericData={findAndHire} />
+  <TalentsSection />
+  <HowItWorks />
+  <ClientReviews />
+  <section class="py-16 md:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 flex flex-col gap-3">
+        <div class="flex items-center justify-center gap-2">
+          <span class="inline-block h-1.5 w-1.5 rounded-full bg-brand-green"></span>
+          <span class="text-brand-green font-bold text-xs uppercase tracking-widest">Expert Administrative Staffing</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-[#3d1d0e] tracking-tight leading-tight">
+          {hrRoles.title}
+        </h2>
+        <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+          {hrRoles.description}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {hrRoles.categories.map((item, index) => (
+          <div class="bg-[#FAF8F5] p-8 rounded-3xl border border-gray-100/70 flex flex-col justify-between gap-6 hover:shadow-lg hover:bg-white hover:border-brand-blue/20 transition-all duration-300 group relative overflow-hidden">
+            
+            <div class="absolute top-0 left-0 right-0 h-1 bg-transparent group-hover:bg-brand-blue transition-colors duration-300"></div>
+            
+            <div class="flex flex-col gap-4">
+              <div class="flex flex-col gap-1">
+                <span class="text-brand-green font-bold text-[10px] uppercase tracking-wider">
+                  {item.focus}
+                </span>
+                <h3 class="text-lg font-bold text-[#3d1d0e] tracking-tight group-hover:text-brand-blue transition-colors duration-300">
+                  {item.role}
+                </h3>
+              </div>
+
+              <p class="text-xs text-gray-600 font-medium leading-relaxed">
+                {item.tasks}
+              </p>
+            </div>
+
+            <a href="/contact" class="flex items-center gap-1.5 text-xs font-bold text-brand-blue group-hover:gap-3 transition-all duration-300 pt-2 cursor-pointer">
+              <span>Delegate this role</span>
+              <span class="text-sm font-light transform translate-y-[0.5px]">→</span>
+            </a>
+            
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-12 bg-[#FAF8F5] p-4 rounded-2xl border border-dashed border-gray-200 text-center max-w-2xl mx-auto">
+        <p class="text-xs font-semibold text-gray-500">
+          💡 <span class="text-[#3d1d0e]">Need a custom pipeline profile?</span> Our remote specialists can map to your company's internal tools and precise standard operating procedures (SOPs).
+        </p>
+      </div>
+
     </div>
   </section>
+  <FAQ FAQs={FAQs} />
 </Layout>
