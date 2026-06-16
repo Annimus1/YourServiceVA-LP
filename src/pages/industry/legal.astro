@@ -1,0 +1,217 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Common/Hero.astro';
+import TrustedBy from '../../components/Common/TrustedBy.astro';
+import GenericSection from '../../components/Common/GenericSection.astro';
+import HowItWorks from '../../components/Common/HowItWorks.astro';
+import ClientReview from '../../components/Common/ClientReviews.astro';
+import RolesSupported from '../../components/Common/RolesSupported.astro';
+import BenefitsIndustry from '../../components/Common/BenefitsIndustry.astro';
+import FAQ from '../../components/Common/FAQ.astro';
+
+const heroData = {
+  titleA: "Legal & Law Firm",
+  titleB: "Virtual Assistants",
+  items: [
+    "Our trained legal virtual assistants help law firms, independent attorneys, and legal practices optimize operations by handling client intake, case management, document drafting, and administrative support.",
+    "By offloading time-consuming calendar scheduling, court deadline tracking, and billing workflows, your legal team can eliminate administrative burnout and refocus entirely on billable tasks and winning cases."
+  ],
+  btn: {
+    text: "Build Your Legal Support Team",
+    link: "/contact"
+  },
+  photo: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=1470&auto=format&fit=crop",
+}
+
+const legalOperations = {
+  title: "Outsource Legal Administration to Maximize Billable Hours and Case Focus",
+  description: "YourServiceva takes over the time-consuming administrative workflows, intake scheduling, and invoice coordination, allowing your attorneys and paralegals to focus entirely on litigation strategy and client advocacy. Our operations are tailored to uphold strict confidentiality standards and maximize firm efficiency.",
+  image: "https://images.unsplash.com/photo-1603796846097-bee99e4a601f?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  flow: "reverse"
+}
+
+const rolesSupported = {
+  title: "Legal Virtual Assistant Roles We Support",
+  description: "Our specialized remote assistants integrate industry-leading practices into your legal practice management (LPM) systems and daily operational workflows. Here are some of our core services:",
+  items: [
+  {
+    title: "Client intake, triaging & consultation booking",
+    description: "Manage inbound case inquiries, gather initial client conflict-check data, perform baseline screening, and coordinate attorney consultation calendars.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg>`
+  },
+  {
+    title: "Calendar management & court deadline tracking",
+    description: "Coordinate critical calendar fixtures, send statutory deadline notifications, track hearing schedules, and update meeting itineraries.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>`
+  },
+  {
+    title: "Legal billing, trust accounting & collections",
+    description: "Generate clean client balance statements from logged billable hours, follow up on outstanding retainer invoices, and log invoice adjustments.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5Z" /></svg>`
+  },
+  {
+    title: "File organization & document transcription",
+    description: "Organize digital case charts, transcribe audio correspondence files, clean up pleading index layouts, and compile electronic discovery folders.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12" /></svg>`
+  },
+  {
+    title: "Legal CRM upkeep & client communications",
+    description: "Keep communication channels clear, update active case status tags, send regular case updates, and archive firm records seamlessly.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25A2.25 2.25 0 0 1 5.25 3h13.5A2.25 2.25 0 0 1 21 5.25Z" /></svg>`
+  },
+  {
+    title: "Public records research & data compilation",
+    description: "Retrieve public court dockets, extract records from municipal databases, and systematically cross-reference corporate filing documents.",
+    iconHtml: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>`
+  }
+]
+}
+
+const FAQs = {
+  title: "Legal Virtual Assistant",
+  description: "From specialized client intake coordinators to dedicated legal billing support staff.",
+  questions: [
+  {
+    question: "What legal office tasks can I outsource to a virtual assistant?",
+    answer: "You can outsource a broad spectrum of administrative tasks, including managing client intake lines, calendar management, updating billable hour logs, setting appointment reminders, sorting file indexing, and data entry into your legal practice software."
+  },
+  {
+    question: "How do your legal virtual assistants handle client privacy and data confidentiality?",
+    answer: "Confidentiality is fundamental. Our legal-focused virtual assistants follow strict security parameters, utilizing access proxies, restricted password managers, and logging into your secure, existing software via encrypted environments and MFA protocols."
+  },
+  {
+    question: "Are your assistants experienced with standard legal practice management software?",
+    answer: "Yes, our assistants are trained to adapt quickly to industry-standard modern software solutions such as Clio, MyCase, PracticePanther, Filevine, and common digital telephony layouts."
+  },
+  {
+    question: "Can your staff draft legal pleadings or give legal advice?",
+    answer: "No. Our assistants provide purely administrative support and do not practice law or give legal advice. They can help prepare, format, transcribe, and organize document files under the absolute direction and supervision of your firm's licensed attorneys."
+  },
+  {
+    question: "How quickly can we integrate a specialist into our legal practice?",
+    answer: "After an initial discovery consultation to pinpoint your specific operations and workflows, we can match your law firm with a dedicated administrative specialist within a few business days."
+  }
+]}
+
+const Benefits = {
+  title: "Why Outsourcing Legal Administration Works",
+  description: "Optimize case file throughput, clear up outstanding collection lines, and minimize attorney burnout with specialized back-office support.",
+  image: "https://images.unsplash.com/photo-1562564055-71e051d33c19?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  items: [
+    {
+      title: "Save 60–70% on administrative overhead",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-5.4a2 2 0 0 0-3-2.7L15 13"/><path d="M5 22h14"/></svg>`
+    },
+    {
+      title: "Reduce attorney documentation burnout",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`
+    },
+    {
+      title: "Strict data privacy compliance",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>`
+    },
+    {
+      title: "Accelerated case-file processing times",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`
+    },
+    {
+      title: "Scalable support for high case volumes",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5"/><path d="M3 11v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V11"/><path d="M12 14v2"/></svg>`
+    },
+    {
+      title: "Seamless new client intake experience",
+      icon: `<svg xmlns="http://www.w3.org/2000/xl" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`
+    }
+  ],
+  slogan: "Legal Support Reimagined"
+}
+---
+
+<Layout title="YourServiceva | Legal Industry Support">
+  <Hero heroData={heroData}>
+    
+    <div class="absolute top-[-15%] md:top-[40%] -left-2 md:-left-10 sm:-left-12 z-20 bg-white/95 backdrop-blur-xs rounded-2xl p-4 shadow-xl border border-gray-100 flex flex-col gap-3 max-w-45 sm:max-w-52.5 animate-bounce-slow">
+      <div class="flex items-center gap-2">
+        <span class="text-brand-green text-lg">⚖️</span>
+        <h4 class="font-extrabold text-[#3d1d0e] text-sm sm:text-md tracking-tight">Intake Desk</h4>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <label class="flex items-center gap-2 bg-[#FAF8F5] px-3 py-2 rounded-xl border border-gray-100/80 cursor-pointer">
+          <input type="checkbox" checked class="accent-brand-green h-4 w-4 rounded-sm" disabled />
+          <span class="text-xs font-bold text-gray-600">Conflict Check Clear</span>
+        </label>
+        <label class="flex items-center gap-2 bg-[#FAF8F5] px-3 py-2 rounded-xl border border-gray-100/80 cursor-pointer">
+          <input type="checkbox" checked class="accent-brand-green h-4 w-4 rounded-sm" disabled />
+          <span class="text-xs font-bold text-gray-600">Retainer Signed</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="hidden absolute -top-16 md:right-5 -right-16 z-20 bg-white/95 backdrop-blur-xs rounded-2xl p-4 shadow-xl border border-gray-100 md:flex flex-col gap-3 min-w-50 sm:min-w-60">
+      <h4 class="font-extrabold text-[#3d1d0e] text-xs sm:text-sm tracking-tight border-b border-gray-50 pb-2">Case File Tracker</h4>
+      
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <div class="h-8 w-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xs">🏛️</div>
+            <div class="flex flex-col">
+              <span class="text-xs font-bold text-[#3d1d0e]">Pleading Submission</span>
+              <span class="text-[10px] text-gray-400 font-medium">E-filing portal routing</span>
+            </div>
+          </div>
+          <span class="text-xs font-black text-amber-500">Processing</span>
+        </div>
+
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <div class="h-8 w-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs">📂</div>
+            <div class="flex flex-col">
+              <span class="text-xs font-bold text-[#3d1d0e]">Discovery Intake Complete</span>
+              <span class="text-[10px] text-gray-400 font-medium">Metadata indexed</span>
+            </div>
+          </div>
+          <span class="text-xs font-black text-emerald-500">Ready</span>
+        </div>
+
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <div class="h-8 w-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs">📝</div>
+            <div class="flex flex-col">
+              <span class="text-xs font-bold text-[#3d1d0e]">Audio Transcription</span>
+              <span class="text-[10px] text-gray-400 font-medium">Correspondence routed</span>
+            </div>
+          </div>
+          <span class="text-xs font-black text-emerald-500">Sent</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-[-15%] md:bottom-[0%] -right-3 md:-right-8 sm:-right-12 z-20 bg-white/95 backdrop-blur-xs rounded-2xl p-4 shadow-xl border border-gray-100 flex flex-col gap-2 max-w-40 sm:max-w-47.5 [animation-delay:2s] animate-bounce-slow">
+      <div class="flex flex-col">
+        <h4 class="font-extrabold text-[#3d1d0e] text-xs">Firm Efficiency</h4>
+        <p class="text-[10px] text-gray-400 font-semibold">Billable optimization</p>
+      </div>
+
+      <div class="relative flex items-center justify-center h-24 w-24 mx-auto mt-2">
+        <div 
+          class="w-full h-full rounded-full flex items-center justify-center"
+          style="background: conic-gradient(#eab308 0% 15%, #22c55e 25% 85%, #f3f4f6 85% 100%);"
+        >
+          <div class="w-[74%] h-[74%] bg-white rounded-full flex flex-col items-center justify-center shadow-2xs">
+            <span class="text-xs font-black text-[#3d1d0e] leading-none">85%</span>
+            <span class="text-[8px] text-gray-400 font-bold uppercase tracking-tighter mt-0.5">Optimized</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Hero>
+
+  <TrustedBy />
+  <GenericSection genericData={legalOperations}/>
+  <RolesSupported title={rolesSupported.title} description={rolesSupported.description} items={rolesSupported.items} />
+  <HowItWorks />  
+  <ClientReview />
+  <BenefitsIndustry BenefitsData={Benefits} />
+  <FAQ FAQs={FAQs}/>
+</Layout>
