@@ -4,21 +4,24 @@ interface GenericSectionProps {
   description: string;
   image: string;
   flow: "normal" | "reverse";
+  bg?: "normal" | "dark"
   }
 
   const genericData: GenericSectionProps  = Astro.props.genericData
 ---
 
-<section class="w-full bg-[#FFF] py-16 md:py-24 px-6 overflow-hidden border-b border-gray-100">
+<section 
+  class=`w-full ${ genericData.bg == "dark" ? "bg-brand-dark-blue":"bg-[#FFF]"} py-16 md:py-24 px-6 overflow-hidden border-b border-gray-100`
+  >
   <div class="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
     
     <div class:list={["lg:col-span-6 flex flex-col gap-6", 
       genericData.flow === "reverse" ? "lg:order-2" : "" ]}>
-      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#3d1d0e] tracking-tight leading-tight">
+      <h2 class=`text-3xl sm:text-4xl md:text-5xl font-extrabold ${ genericData.bg == "dark" ? "text-white":"text-[#3d1d0e]"} tracking-tight leading-tight`>
         {genericData.title}
       </h2>
       
-      <p class="text-gray-600 font-medium text-base sm:text-lg leading-relaxed max-w-xl">
+      <p class=`${ genericData.bg == "dark" ? "text-gray-300":"text-gray-600"} font-medium text-base sm:text-lg leading-relaxed max-w-xl`>
         {genericData.description}
       </p>
 

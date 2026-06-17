@@ -25,7 +25,8 @@ const findAndHire = {
   title: "Find and Hire Talent with Virtual Assistant Outsourcing",
   description: "Hire virtual assistants to help with live chat, support, sales, marketing, bookkeeping, and more. Our experienced account managers will assess your needs, line up potential assistants, assist with interviews, and follow up to ensure your assistant is meeting your needs.",
   image: "https://images.unsplash.com/photo-1752650735951-7724818b3487?q=80&w=1331&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  flow: "reverse"
+  flow: "reverse",
+  bg: "dark"
 } 
 
 const FAQs ={
@@ -62,8 +63,8 @@ const FAQs ={
 
 <Layout title="YourServiceva | Virtual Assistants Services">
   <Hero heroData={heroData} >
-    <div class="absolute top-0 md:top-8  right-44 md:right-0 sm:right-4 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-xl border border-gray-100 z-20 md:flex flex-col gap-2 min-w-40 sm:min-w-47.5 animate-bounce-slow">
-      <div class="flex items-center justify-between text-xs font-bold text-gray-400">
+    <div class="absolute top-0 md:top-8  right-44 md:right-0 sm:right-4 bg-brand-dark-blue backdrop-blur-sm rounded-xl p-3 shadow-xl border border-gray-600 z-20 md:flex flex-col gap-2 min-w-40 sm:min-w-47.5 animate-bounce-slow">
+      <div class="flex items-center justify-between text-xs font-bold text-gray-100">
         <span>To-do</span>
         <span class="h-5 w-5 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center">1</span>
       </div>
@@ -71,7 +72,7 @@ const FAQs ={
         <input type="checkbox" checked disabled class="rounded text-purple-600 focus:ring-0 h-3.5 w-3.5" />
           Client Call - 2:00 PM
         </label>
-      <label class="flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-gray-700">
+      <label class="flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-white">
       <input type="checkbox" checked disabled class="rounded text-emerald-500 focus:ring-0 h-3.5 w-3.5" />
         Follow-Up Emails - 4:00 PM
       </label>
