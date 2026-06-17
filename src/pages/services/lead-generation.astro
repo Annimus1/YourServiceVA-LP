@@ -1,12 +1,196 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Common/Hero.astro';
+import TrustedBy from '../../components/Common/TrustedBy.astro';
+import GenericSection from '../../components/Common/GenericSection.astro';
+import HowItWorks from '../../components/Common/HowItWorks.astro';
+import ClientReviews from '../../components/Common/ClientReviews.astro';
+import TalentsSection from '../../components/Common/TalentsSection.astro';
+import FAQ from '../../components/Common/FAQ.astro';
+
+const heroData = {
+  titleA: "B2B Outbound & Inbound",
+  titleB: "Lead Generation",
+  btn: {
+    text: "Fill Your Sales Pipeline",
+    link: "/contact"
+  },
+  items : [
+    "Accelerate your revenue and expand your market reach. Our dedicated lead generation specialists build laser-targeted prospect lists, launch cold outreach campaigns, and fill your calendar with highly qualified discovery calls.", 
+    "Maximize your campaign ROI by offloading manual prospecting, complex data cleaning, and multi-channel outreach workflows across LinkedIn and cold email infrastructure.",
+    "Maintain high deliverability and positive brand authority with specialized list-warming, custom copywriting, and rigorous data verification that filters out low-intent leads."
+  ],
+  photo: "https://images.unsplash.com/photo-1555421689-43cad7100750?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+}
+
+const findAndHire = {
+  title: "Scale Your Sales Pipeline with Dedicated Outreach Specialists",
+  description: "Stop struggling with empty pipelines, silent sales reps, and cold outreach setups that land in spam. Hire specialized lead generation agents trained in advanced B2B prospecting, multi-channel campaign deployment, sequence optimization, and CRM management. Our remote specialists handle the heavy lifting of list building, daily engagement, and meeting setting so your internal account executives can focus 100% of their energy on pitching and closing deals.",
+  image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  flow: "reverse",
+  bg: "dark"
+} 
+
+const leadGenRoles = {
+  title: "Specialized Lead Gen Roles Ready to Deploy",
+  description: "Whether you need a massive data-mining operation or hyper-personalized executive outreach, our specialists integrate seamlessly into your commercial stack.",
+  categories: [
+    {
+      role: "B2B Prospecting & Data Specialists",
+      focus: "List Building & Verification",
+      tasks: "Mining high-quality contact data using Sales Navigator, Apollo, or Crunchbase. Running boolean queries, cleaning lead sheets, and executing strict email validation steps to protect domain reputation."
+    },
+    {
+      role: "Outbound Campaign Managers",
+      focus: "Cold Email & LinkedIn Outreach",
+      tasks: "Setting up custom sequences, writing personalized spin-tax angles, managing inbox deliverability/rotation, A/B testing copy, and tracking core conversion metrics from open rates to positive replies."
+    },
+    {
+      role: "Appointment Setters",
+      focus: "Lead Nurturing & Calendar Booking",
+      tasks: "Handling incoming hot replies, managing direct messaging channels, clarifying initial budget or project scope, handling objections, and booking sales meetings straight into your reps' agendas."
+    }
+  ]
+}
+
+const FAQs = {
+  title: "Lead Generation & Outreach FAQ",
+  description: "Everything you need to know about setting up outsourced B2B sales pipelines, data security, and specialized tool management.",
+  questions: [
+    {
+      question: "What outreach channels do your lead generation specialists manage?",
+      answer: "Our specialists are highly effective at multi-channel outbound operations. They primarily build and launch personalized automated cold email campaigns and multi-touch LinkedIn outreach frameworks. They can also execute outbound warm follow-up calls or monitor inbound marketing lead signals."
+    },
+    {
+      question: "Are the specialists trained in modern sales engagement tools?",
+      answer: "Yes. Our lead generation talents come pre-trained or quickly adapt to standard sales stacks, including LinkedIn Sales Navigator, Apollo.io, Instantly, Lemlist, HubSpot, Salesforce, and advanced data-scraping infrastructure."
+    },
+    {
+      question: "Will I get a dedicated specialist or a shared resource?",
+      answer: "We strictly provide dedicated specialists. Your assigned team members work exclusively for your company, allowing them to truly master your product's unique value proposition, target buyer personas, industry pain points, and specific brand guidelines."
+    },
+    {
+      question: "How do you protect my company domain and email reputation?",
+      answer: "Domain safety is a core focus. Our specialists set up campaigns using isolated secondary domains, configure crucial records (SPF, DKIM, DMARC), implement defensive inbox rotation policies, and slowly warm up tracking links to keep your corporate emails out of the spam folder."
+    },
+    {
+      question: "Can we scale our outbound capacity during product launches or new market expansions?",
+      answer: "Absolutely. Our staffing model is designed to expand dynamically. If you are preparing to scale up ad validation, pitch a new vertical, or deploy high-volume market research, you can smoothly scale up your allocated specialist headcount with proper advance notification."
+    },
+    {
+      question: "What is your typical lead qualification criteria?",
+      answer: "We map exactly to your Ideal Customer Profile (ICP). During onboarding, we define parameters like B2B company size, annual revenue, specific job titles, geographic locations, and current tech-stack usage, ensuring you only spend time talking to real opportunities."
+    }
+  ]
+}
 ---
 
-<Layout title="Lead Generation Services | Your Service VA" description="Discover our Lead Generation services, designed to help you find and convert potential customers. We provide comprehensive solutions to support your business growth.">
-    <section class="py-16 bg-gray-50">
-    <div class="container mx-auto px-4 max-w-7xl">
-      <h1 class="text-4xl font-bold mb-6">Lead Generation Services</h1>
-      <p class="text-lg mb-4">Our Lead Generation services are tailored to help businesses find and convert potential customers. We offer a range of solutions including market research, targeted advertising, and sales funnel optimization. Let us handle your lead generation needs so you can focus on growing your business.</p>
+<Layout title="YourServiceva | B2B Outbound & Lead Generation Services">
+  <Hero heroData={heroData} >
+    
+    <div class="absolute -top-14.5 right-44 md:-top-12 md:right-30 sm:right-4 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-xl border border-gray-100 z-20 md:flex flex-col gap-2 min-w-40 sm:min-w-47.5 animate-bounce-slow">
+      <div class="flex items-center justify-between text-xs font-bold text-gray-400">
+        <span>Campaign Status</span>
+        <span class="h-5 w-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-extrabold text-[10px]">Active</span>
+      </div>
+      <label class="flex items-center gap-2 text-[11px] sm:text-xs font-medium text-gray-400 line-through decoration-gray-300">
+        <input type="checkbox" checked disabled class="rounded text-brand-green focus:ring-0 h-3.5 w-3.5" />
+          500 Lead List Verified
+        </label>
+      <label class="flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-gray-700">
+        <span class="animate-pulse h-2 w-2 rounded-full bg-orange-500"></span>
+        <span class="text-orange-600 font-bold">[Positive Reply]</span> Meeting Request - 5m
+      </label>
+    </div>
+
+    <div class="hidden absolute bottom-0 left-0 md:-left-14 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-xl border border-gray-100 z-20 max-w-50 sm:max-w-60 md:flex flex-col gap-2">
+      <div class="flex items-center gap-2 border-b border-gray-100 pb-1.5">
+        <div class="h-6 w-6 rounded-full bg-emerald-200 text-[10px] font-bold flex items-center justify-center text-emerald-800">LG</div>
+        <div class="flex flex-col">
+          <span class="text-[11px] font-bold text-gray-800 leading-none">Lead Generation</span>
+          <span class="text-[9px] text-brand-green font-semibold">Specialist Online</span>
+        </div>
+      </div>
+      <p class="text-[10px] sm:text-[11px] font-medium text-gray-600 bg-gray-50 rounded-lg p-2">
+        Hi Sarah! Loved your recent post on operations scale. Are you open to a quick 10-min exchange next Tuesday?
+      </p>
+      <p class="text-[10px] sm:text-[11px] font-semibold text-white bg-brand-blue rounded-lg p-2 self-end text-right">
+        Hi! Actually, yes, that sounds very relevant. Send me your link.
+      </p>
+    </div>
+
+    <div class="absolute -bottom-12 md:bottom-6 -right-4 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-xl border border-gray-100 z-20 flex flex-col gap-2 min-w-37.5 sm:min-w-45">
+      <div class="flex items-center gap-1.5 text-xs font-bold text-gray-800">
+        <span class="text-brand-blue">📥</span> Inbound Pipeline <span class="text-orange-500 font-extrabold">(3 New)</span>
+      </div>
+      <div class="flex flex-col gap-1 text-[10px] font-medium text-gray-500">
+        <div class="p-1.5 bg-gray-50 rounded border-l-2 border-orange-500 text-gray-700 font-semibold">Demo requested (Enterprise)</div>
+        <div class="p-1.5 bg-gray-50 rounded border-l-2 border-brand-blue">LinkedIn connection accepted</div>
+      </div>
+    </div>
+    
+  </Hero>
+  <TrustedBy />
+  <GenericSection genericData={findAndHire} />
+  <TalentsSection />
+  <HowItWorks />
+  <ClientReviews />
+
+  {/* Sección Dinámica de los 3 Roles Especializados en Lead Gen */}
+  <section class="py-16 md:py-24 bg-brand-dark-blue">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 flex flex-col gap-3">
+        <div class="flex items-center justify-center gap-2">
+          <span class="inline-block h-1.5 w-1.5 rounded-full bg-brand-green"></span>
+          <span class="text-brand-green font-bold text-xs uppercase tracking-widest">Expert Outbound Staffing</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight">
+          {leadGenRoles.title}
+        </h2>
+        <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
+          {leadGenRoles.description}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {leadGenRoles.categories.map((item, index) => (
+          <div class="bg-[#FAF8F5] p-8 rounded-3xl border border-gray-100/70 flex flex-col justify-between gap-6 hover:shadow-lg hover:bg-white hover:border-brand-blue/20 transition-all duration-300 group relative overflow-hidden">
+            
+            <div class="absolute top-0 left-0 right-0 h-1 bg-transparent group-hover:bg-brand-blue transition-colors duration-300"></div>
+            
+            <div class="flex flex-col gap-4">
+              <div class="flex flex-col gap-1">
+                <span class="text-brand-green font-bold text-[10px] uppercase tracking-wider">
+                  {item.focus}
+                </span>
+                <h3 class="text-lg font-bold text-[#3d1d0e] tracking-tight group-hover:text-brand-blue transition-colors duration-300">
+                  {item.role}
+                </h3>
+              </div>
+
+              <p class="text-xs text-gray-600 font-medium leading-relaxed">
+                {item.tasks}
+              </p>
+            </div>
+
+            <a href="/contact" class="flex items-center gap-1.5 text-xs font-bold text-brand-blue group-hover:gap-3 transition-all duration-300 pt-2 cursor-pointer">
+              <span>Delegate this role</span>
+              <span class="text-sm font-light transform translate-y-[0.5px]">→</span>
+            </a>
+            
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-12 bg-[#FAF8F5] p-4 rounded-2xl border border-dashed border-gray-200 text-center max-w-2xl mx-auto">
+        <p class="text-xs font-semibold text-gray-500">
+          💡 <span class="text-[#3d1d0e]">Targeting a niche market?</span> Our remote specialists can easily map to your custom industry variables and specialized target parameters.
+        </p>
+      </div>
+
     </div>
   </section>
+
+  <FAQ FAQs={FAQs} />
 </Layout>
