@@ -1,7 +1,196 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Common/Hero.astro';
+import TrustedBy from '../../components/Common/TrustedBy.astro';
+import GenericSection from '../../components/Common/GenericSection.astro';
+import HowItWorks from '../../components/Common/HowItWorks.astro';
+import ClientReviews from '../../components/Common/ClientReviews.astro';
+import TalentsSection from '../../components/Common/TalentsSection.astro';
+import FAQ from '../../components/Common/FAQ.astro';
+
+const heroData = {
+  titleA: "Reliable Remote IT &",
+  titleB: "Technical Support Teams",
+  btn: {
+    text: "Build Your Helpdesk Team",
+    link: "/contact"
+  },
+  items : [
+    "Keep your digital systems running flawlessly. Our dedicated technical support specialists handle Tier-1 and Tier-2 software issues, internal hardware troubleshooting logs, and cloud infrastructure monitoring with 24/7 coverage.", 
+    "Drastically lower your Mean Time to Resolution (MTTR) by offloading repetitive ticket triage, software configuration gaps, and access provisioning tasks into structured, high-speed workflows.",
+    "Deliver a flawless user experience by combining robust knowledge base management with polite, highly precise technical communication that minimizes customer frustration."
+  ],
+  photo: "https://images.unsplash.com/photo-1536148935331-408321065b18?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+}
+
+const findAndHire = {
+  title: "Scale Your Technical Operations with Certified Helpdesk Specialists",
+  description: "Stop letting unresolved bugs and system access requests paralyze your core engineering teams. Hire specialized remote tech support agents trained in rapid multi-channel diagnostic methods, Tier-1 technical resolution frameworks, active system health monitoring, and documentation. Our managed remote teams take over the heavy administrative lifting of ticket categories and basic patches so your developers can focus exclusively on deployment and architecture.",
+  image: "https://images.unsplash.com/photo-1730130054404-c2bd8e7038c2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  flow: "reverse",
+  bg: "dark"
+} 
+
+const techRoles = {
+  title: "Specialized Technical Roles Ready to Deploy",
+  description: "From direct end-user software troubleshooting to backend asset configuration, our specialists integrate seamlessly into your ITSM workflows.",
+  categories: [
+    {
+      role: "Helpdesk Technicians",
+      focus: "First-Contact Resolution & Triage",
+      tasks: "Handling initial customer technical tickets, password resets, basic software account configurations, access provisioning, and matching user issues against the standard Knowledge Base (KB)."
+    },
+    {
+      role: "Application Support",
+      focus: "Advanced System Diagnostics",
+      tasks: "Deep-diving into complex software application bugs, investigating application log monitors, reproducing client errors, and packaging clean engineering briefs for the development team."
+    },
+    {
+      role: "IT Asset & Infrastructure Assistants",
+      focus: "System Audits & Routine Maintenance",
+      tasks: "Tracking internal corporate software license compliance, assisting with remote employee MDM setup, organizing system configurations, and monitoring real-time uptime status alerts."
+    }
+  ]
+}
+
+const FAQs = {
+  title: "Technical Support Services FAQ",
+  description: "Find out how we manage data access security, interface protocols, and SLA metrics within your operational structure.",
+  questions: [
+    {
+      question: "What specific IT support tiers can your specialists manage?",
+      answer: "Our remote talents focus heavily on Tier-1 (basic configuration, triage, user queries) and Tier-2 support (application log review, advanced software errors, and deeper environment diagnostics), ensuring smooth operations before escalating to senior DevOps or core engineers."
+    },
+    {
+      question: "Are the specialists trained in standard ticketing and ITSM software?",
+      answer: "Yes. Our technical specialists come highly familiar with major infrastructure systems like Jira Service Desk, Zendesk ITSM, ServiceNow, Freshservice, and advanced internal remote access control frameworks."
+    },
+    {
+      question: "Will I get dedicated tech support agents or shared staff?",
+      answer: "We provide strictly dedicated technical support specialists. Your assigned team members work exclusively for your product ecosystem, allowing them to thoroughly learn your codebase logic, software APIs, operational documentation, and internal team dynamics."
+    },
+    {
+      question: "How do you handle data security and access to production databases?",
+      answer: "Data protection is deeply integrated. Our technical specialists operate under the principle of least privilege (PoLP), utilizing secure jump boxes, enterprise VPNs, encrypted password proxies, and strict multi-factor authentication (MFA) parameters."
+    },
+    {
+      question: "Can we scale our technical helpdesk for software updates or system migrations?",
+      answer: "Absolutely. If you are rolling out a major software release, migrating legacy databases, or onboarding a high-volume enterprise customer group, you can dynamically scale up your support capacity with structured advance notice."
+    },
+    {
+      question: "What standard SLA metrics do your support agents track?",
+      answer: "We monitor core ITIL-aligned metrics including First Response Time (FRT), Mean Time to Resolution (MTTR), SLA Breach Rates, Ticket Reopen Percentages, and Customer Satisfaction (CSAT) scores to guarantee top-tier delivery."
+    }
+  ]
+}
 ---
 
-<Layout title="Tech Support Services | Your Service VA" description="Discover our Tech Support services, designed to provide comprehensive technical assistance and solutions for your business. Our experts are here to help you navigate and resolve any technical challenges you may face.">
-tech support page
+<Layout title="YourServiceva | Remote IT & Technical Support Services">
+  <Hero heroData={heroData} >
+    
+    <div class="absolute -top-14.5 right-28 md:-top-12 md:right-0 sm:right-4 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-xl border border-gray-100 z-20 md:flex flex-col gap-2 min-w-40 sm:min-w-47.5">
+      <div class="flex items-center justify-between text-xs font-bold text-gray-400">
+        <span>Helpdesk Queue</span>
+        <span class="h-5 w-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-extrabold text-[10px]">Stable</span>
+      </div>
+      <label class="flex items-center gap-2 text-[11px] sm:text-xs font-medium text-gray-400 line-through decoration-gray-300">
+        <input type="checkbox" checked disabled class="rounded text-brand-green focus:ring-0 h-3.5 w-3.5" />
+          SSL Certificate Renewed
+        </label>
+      <label class="flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-gray-700">
+        <span class="animate-pulse h-2 w-2 rounded-full bg-orange-500"></span>
+        <span class="text-orange-600 font-bold">[Tier-2]</span> Investigate DB Latency
+      </label>
+    </div>
+
+    <div class="hidden absolute top-12 left-0 md:-left-14 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-xl border border-gray-100 z-20 max-w-50 sm:max-w-60 md:flex flex-col gap-2">
+      <div class="flex items-center gap-2 border-b border-gray-100 pb-1.5">
+        <div class="h-6 w-6 rounded-full bg-emerald-200 text-[10px] font-bold flex items-center justify-center text-emerald-800">TS</div>
+        <div class="flex flex-col">
+          <span class="text-[11px] font-bold text-gray-800 leading-none">Technical Helpdesk</span>
+          <span class="text-[9px] text-brand-green font-semibold">Specialist Online</span>
+        </div>
+      </div>
+      <p class="text-[10px] sm:text-[11px] font-medium text-gray-600 bg-gray-50 rounded-lg p-2">
+        I've checked the API log. It was a mismatch in the payload schema. I've cleared the session cache. Can you test it now?
+      </p>
+      <p class="text-[10px] sm:text-[11px] font-semibold text-white bg-brand-blue rounded-lg p-2 self-end text-right">
+        Awesome, data is syncing perfectly now! Thanks.
+      </p>
+    </div>
+
+    <div class="absolute -bottom-12 -right-3  md:-right-12 md:bottom-2 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-xl border border-gray-100 z-20 flex flex-col gap-2 min-w-37.5 sm:min-w-45">
+      <div class="flex items-center gap-1.5 text-xs font-bold text-gray-800">
+        <span class="text-brand-blue">💻</span> Core Operations <span class="text-orange-500 font-extrabold">(2 Alerts)</span>
+      </div>
+      <div class="flex flex-col gap-1 text-[10px] font-medium text-gray-500">
+        <div class="p-1.5 bg-gray-50 rounded border-l-2 border-orange-500 text-gray-700 font-semibold">Fix MFA Token Sync Error</div>
+        <div class="p-1.5 bg-gray-50 rounded border-l-2 border-brand-blue">Provision Dev Environment Access</div>
+      </div>
+    </div>
+    
+  </Hero>
+  <TrustedBy />
+  <GenericSection genericData={findAndHire} />
+  <TalentsSection />
+  <HowItWorks />
+  <ClientReviews />
+
+  {/* Sección de Tarjetas de Roles Técnicos */}
+  <section class="py-16 md:py-24 bg-brand-dark-blue">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 flex flex-col gap-3">
+        <div class="flex items-center justify-center gap-2">
+          <span class="inline-block h-1.5 w-1.5 rounded-full bg-brand-green"></span>
+          <span class="text-brand-green font-bold text-xs uppercase tracking-widest">Expert Systems Support</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight">
+          {techRoles.title}
+        </h2>
+        <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
+          {techRoles.description}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {techRoles.categories.map((item, index) => (
+          <div class="bg-[#FAF8F5] p-8 rounded-3xl border border-gray-100/70 flex flex-col justify-between gap-6 hover:shadow-lg hover:bg-white hover:border-brand-blue/20 transition-all duration-300 group relative overflow-hidden">
+            
+            <div class="absolute top-0 left-0 right-0 h-1 bg-transparent group-hover:bg-brand-blue transition-colors duration-300"></div>
+            
+            <div class="flex flex-col gap-4">
+              <div class="flex flex-col gap-1">
+                <span class="text-brand-green font-bold text-[10px] uppercase tracking-wider">
+                  {item.focus}
+                </span>
+                <h3 class="text-lg font-bold text-[#3d1d0e] tracking-tight group-hover:text-brand-blue transition-colors duration-300">
+                  {item.role}
+                </h3>
+              </div>
+
+              <p class="text-xs text-gray-600 font-medium leading-relaxed">
+                {item.tasks}
+              </p>
+            </div>
+
+            <a href="/contact" class="flex items-center gap-1.5 text-xs font-bold text-brand-blue group-hover:gap-3 transition-all duration-300 pt-2 cursor-pointer">
+              <span>Delegate this role</span>
+              <span class="text-sm font-light transform translate-y-[0.5px]">→</span>
+            </a>
+            
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-12 bg-[#FAF8F5] p-4 rounded-2xl border border-dashed border-gray-200 text-center max-w-2xl mx-auto">
+        <p class="text-xs font-semibold text-gray-500">
+          💡 <span class="text-[#3d1d0e]">Complex proprietary infrastructure?</span> Our remote specialists can absorb your specific system workflows and run through your standard playbooks accurately.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <FAQ FAQs={FAQs} />
 </Layout>
