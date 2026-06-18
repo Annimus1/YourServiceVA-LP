@@ -1,0 +1,288 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ClientReviews from "../components/Common/ClientReviews.astro";
+import TrustedBy from "../components/Common/TrustedBy.astro";
+import GenericSection from "../components/Common/GenericSection.astro";
+
+const aboutHeroData = {
+  titleA: "Operational Excellence.",
+  titleB: "Our Story.",
+  items: [
+    "YourServiceVA was founded on a singular premise: Great business leaders shouldn't be buried in administrative friction. We were born to bridge the gap between ambitious goals and elite operational execution.",
+    "Today, we are more than an agency; we are operational architects. We design and manage the remote ecosystems that allow the world's most innovative companies to scale without bottlenecks.",
+  ],
+  photo:
+    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1080",
+};
+
+const values = [
+  {
+    key: "precision",
+    title: "Operational Precision",
+    description:
+      "We orchestrate seamless remote workflows. From structured customer service routing to advanced inside sales agent tracking, efficiency is at the center of everything we do.",
+  },
+  {
+    key: "expertise",
+    title: "Dedicated Expertise",
+    description:
+      "We don't just assign talent; we embed specialized professionals. Our agents are meticulously trained in industry-leading tools and omnichannel best practices.",
+  },
+  {
+    key: "scale",
+    title: "Scalable, Peak-Ready Teams",
+    description:
+      "Your business capacity shouldn't have bottlenecks. We provide agile remote support structures that expand fluidly alongside your active business seasons.",
+  },
+];
+
+const leaders = [
+  {
+    name: "Marcus Thorne",
+    role: "Founder & CEO",
+    image:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400",
+  },
+  {
+    name: "Elena Rodriguez",
+    role: "Head of Operations",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400",
+  },
+  {
+    name: "David Chen",
+    role: "Talent Acquisition Lead",
+    image:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400",
+  },
+];
+
+const AboutTalentSectionData = {
+  title: "Vetted Globally, Trained Intensely",
+  description:
+    "Our journey began with a clear mission: to source world-class remote professionals who don't just fill a role, but elevate it. Every specialist in our ecosystem undergoes a rigorous vetting and training process in omnichannel workflows, inside sales architectures, and real-time operational platforms before ever joining your team.",
+  image:
+    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1170&auto=format&fit=crop",
+  flow: "normal",
+};
+
+const AboutStructureSectionData = {
+  title: "Architecting the Future of Remote Work",
+  description:
+    "We don't view ourselves as a traditional staffing agency. YourServiceVA was built to act as operational architects. We deeply analyze bottlenecks, structure predictable daily routines, and deploy advanced tech support and predictive dialer systems to guarantee that our human talent delivers real, measurable profitability from day one.",
+  image:
+    "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1174&auto=format&fit=crop",
+  flow: "reverse",
+  bg: "dark"
+};
+---
+
+<Layout title="About Us - YourServiceVA">
+  
+  <section class="w-full bg-[#FAF8F5] py-20 px-6 md:py-28 md:px-12 text-[#3d1d0e]">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div class="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left gap-6">
+        <h2 class="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-brand-green">
+          Global Reach.<br />
+          Human Talent.<br />
+          Real Results.
+        </h2>
+
+        <p class="text-gray-600 text-base sm:text-lg font-medium leading-relaxed max-w-xl">
+          YourServiceVA pairs businesses with pre-vetted, trained virtual
+          professionals. With a global talent pool, we connect you with real
+          people to unlock growth, efficiency, and profitability.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto pt-4">
+          <a href="/pricing" class="inline-block w-full sm:w-auto text-center bg-brand-blue text-white font-extrabold px-8 py-4 rounded-xl hover:bg-brand-green transition-all duration-200 shadow-xs uppercase tracking-wider text-sm">
+            Get Started
+          </a>
+          <a href="#our-mission" class="inline-block w-full sm:w-auto text-center bg-white/40 border border-gray-200/80 text-[#3d1d0e] font-extrabold px-8 py-4 rounded-xl hover:bg-white transition-all duration-200 uppercase tracking-wider text-sm backdrop-blur-xs">
+            Join Our Mission
+          </a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 w-full flex justify-center">
+        <div class="w-full max-w-160 aspect-[1.15] rounded-4xl overflow-hidden shadow-xs border border-gray-100/50">
+          <img 
+            src={aboutHeroData.photo}
+            alt="Our global corporate team collaborating"
+            class="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="w-full bg-white py-20 px-6 md:py-28 md:px-12 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center flex flex-col items-center gap-3 mb-16 md:mb-20">
+        <span class="text-brand-green font-black uppercase tracking-widest text-xs">
+          The Principles That Guide Us
+        </span>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-[#3d1d0e]">
+          Real Expertise. Operational Precision.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {
+          values.map((value) => (
+            <div class="bg-[#FAF8F5] rounded-2xl p-8 border border-gray-100/80 shadow-2xs flex flex-col items-center text-center gap-4 hover:shadow-xs hover:bg-white transition-all duration-300 group">
+              <div class="text-brand-green w-12 h-12 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                {value.key === "precision" && (
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1.5m0 15V21m9-9h-1.5M4.5 12H3m15.364-6.364l-1.06 1.06m-9.696 9.696l-1.06 1.06m0-11.312l1.06 1.06m9.696 9.696l1.06-1.06M12 7.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9z" />
+                  </svg>
+                )}
+
+                {value.key === "expertise" && (
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                  </svg>
+                )}
+
+                {value.key === "scale" && (
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94-3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                  </svg>
+                )}
+              </div>
+
+              <h3 class="text-xl font-extrabold tracking-tight text-[#3d1d0e] mt-2">
+                {value.title}
+              </h3>
+
+              <p class="text-gray-500 text-sm font-medium leading-relaxed max-w-sm">
+                {value.description}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="our-mission" class="w-full bg-[#FAF8F5] py-16 px-6 md:py-24 md:px-12 text-[#3d1d0e]">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center" >
+      <div class="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left gap-6">
+        <span class="text-brand-green font-black uppercase tracking-widest text-xs" >
+          What Drives Us
+        </span>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight text-[#3d1d0e]">
+          Our Mission & Vision.
+        </h2>
+        <p class="text-gray-600 text-base sm:text-lg font-medium leading-relaxed max-w-xl">
+          We are dedicated to empowering scaling modern enterprises by removing back-office and front-office friction. Our goal is to connect operational leaders with elite pre-trained virtual professionals, accelerating organizational growth worldwide.
+        </p>
+      </div>
+
+      <div class="lg:col-span-7 flex flex-col gap-6 w-full">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100/80 shadow-2xs flex flex-col items-center text-center gap-3 hover:shadow-xs transition-all duration-200">
+          <div class="text-brand-green w-10 h-10 flex items-center justify-center mb-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25l-10.5 11.25L12 13.5H3.75z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold tracking-tight text-[#3d1d0e]">
+            Accelerating Enterprise Growth
+          </h3>
+          <p class="text-gray-500 text-sm font-medium leading-relaxed max-w-xl">
+            By taking over strategic Lead Generation, predictive dialer routing, and technical customer infrastructure, we free your core execution team to focus 100% on high-value business expansion.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 border border-gray-100/80 shadow-2xs flex flex-col items-center text-center gap-3 hover:shadow-xs transition-all duration-200">
+          <div class="text-brand-green w-10 h-10 flex items-center justify-center mb-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94-3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold tracking-tight text-[#3d1d0e]">
+            Cultivating Elite Specialized Talent
+          </h3>
+          <p class="text-gray-500 text-sm font-medium leading-relaxed max-w-xl">
+            We don't provide generic administrative tasks. We meticulously train our professionals in omnichannel CRM architectures, specialized customer service routing, and intake protocols.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="w-full bg-brand-dark-blue py-20 px-6 md:py-28 md:px-12 text-[#3d1d0e]">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div class="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left">
+        <span class="text-brand-green font-black uppercase tracking-widest text-xs mb-4 block">
+          Our Core Purpose
+        </span>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight mb-6 text-white">
+          The Mission Behind <br class="hidden sm:block" /> Every Placement.
+        </h2>
+        <div class="w-20 h-1 bg-brand-green mb-2 lg:mb-0"></div>
+      </div>
+
+      <div class="lg:col-span-7 flex flex-col gap-6 text-base sm:text-lg text-gray-300 font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0 text-center lg:text-left">
+        <p>
+          In an increasingly digital world, the human element remains the
+          ultimate competitive advantage. YourServiceVA was born to bridge the
+          gap between ambitious companies and world-class remote talent.
+        </p>
+        <p>
+          We don't see ourselves as a staffing agency. We are operational
+          architects. We analyze your operational bottlenecks, understand your
+          infrastructure, and embed pre-trained experts who hit the ground
+          running on day one.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <ClientReviews />
+
+  <section class="max-w-7xl mx-auto px-6 py-24 md:py-32 bg-white">
+    <header class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+      <div>
+        <span class="text-brand-green font-black uppercase tracking-widest text-xs mb-2 block">
+          Our Leadership
+        </span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-[#3d1d0e]">
+          The Minds Behind <br /> YourServiceVA.
+        </h2>
+      </div>
+      <p class="max-w-md text-gray-500 font-semibold italic">
+        A diverse group of operational experts, tech enthusiasts, and talent
+        scouts dedicated to your success.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {
+        leaders.map((leader) => (
+          <article class="flex flex-col group">
+            <div class="w-full aspect-4/5 rounded-3xl overflow-hidden mb-6 shadow-lg grayscale hover:grayscale-0 transition-all duration-500">
+              <img
+                src={leader.image}
+                alt={leader.name}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <h3 class="text-xl font-extrabold text-[#3d1d0e] tracking-tight">
+              {leader.name}
+            </h3>
+            <p class="text-brand-green font-black uppercase text-xs tracking-widest mt-1">
+              {leader.role}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <TrustedBy />
+
+  <GenericSection genericData={AboutTalentSectionData} />
+  <GenericSection genericData={AboutStructureSectionData} />
+
+</Layout>
