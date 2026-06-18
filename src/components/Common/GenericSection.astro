@@ -5,18 +5,23 @@ interface GenericSectionProps {
   image: string;
   flow: "normal" | "reverse";
   bg?: "normal" | "dark"
-  }
+}
 
-  const genericData: GenericSectionProps  = Astro.props.genericData
+const genericData: GenericSectionProps = Astro.props.genericData
 ---
 
 <section 
-  class=`w-full ${ genericData.bg == "dark" ? "bg-brand-dark-blue":"bg-[#FFF]"} py-16 md:py-24 px-6 overflow-hidden border-b border-gray-100`
-  >
+  class=`w-full ${ genericData.bg == "dark" ? "bg-brand-dark-blue":"bg-[#FFF]"} py-16 md:py-24 px-6 overflow-hidden border-b border-gray-100 scroll-trigger`
+>
   <div class="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
     
-    <div class:list={["lg:col-span-6 flex flex-col gap-6", 
-      genericData.flow === "reverse" ? "lg:order-2" : "" ]}>
+    {/* CONTENEDOR TEXTO (Aparece a un 1/3 de la animación por su delay) */}
+    <div 
+      class:list={[
+        "lg:col-span-6 flex flex-col gap-6 animate-scale-target delay-text", 
+        genericData.flow === "reverse" ? "lg:order-2" : "" 
+      ]}
+    >
       <h2 class=`text-3xl sm:text-4xl md:text-5xl font-extrabold ${ genericData.bg == "dark" ? "text-white":"text-[#3d1d0e]"} tracking-tight leading-tight`>
         {genericData.title}
       </h2>
@@ -28,12 +33,16 @@ interface GenericSectionProps {
       <div class="h-1 w-20 bg-brand-green rounded-full mt-2"></div>
     </div>
 
-    <div class="lg:col-span-6 flex justify-center lg:justify-end">
+    {/* CONTENEDOR IMAGEN (Arranca de primero tan pronto entra el 30%) */}
+    <div class:list={[
+      "lg:col-span-6 flex justify-center animate-scale-target",
+      genericData.flow === "reverse" ? "lg:justify-start" : "lg:justify-end"
+    ]}>
       <div class="relative w-full max-w-md lg:max-w-none aspect-4/3 sm:aspect-video lg:aspect-square rounded-3xl overflow-hidden shadow-2xl border border-white/20 group">
         
         <img 
           src={genericData.image} 
-          alt="Professional working on laptop outdoor" 
+          alt="Professional working" 
           class="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
         />
 
@@ -43,4 +52,56 @@ interface GenericSectionProps {
 
   </div>
 </section>
+
+<script>
+  function setupScrollAnimation() {
+    const sections = document.querySelectorAll('.scroll-trigger');
+
+    function checkScroll() {
+      // Modificado: El punto de disparo ahora requiere que el objeto suba más (ventana menos el 30% de su altura)
+      const triggerPoint = window.innerHeight - (window.innerHeight * 0.30);
+
+      sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+
+        // Si la parte superior de la sección entra profundamente un 30% en el viewport
+        if (sectionTop < triggerPoint) {
+          section.classList.add('is-visible');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', checkScroll);
+    checkScroll(); // Comprobación por si ya está en ese rango al cargar
+  }
+
+  // Asegura la carga limpia del script
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupScrollAnimation);
+  } else {
+    setupScrollAnimation();
+  }
+  document.addEventListener('astro:page-load', setupScrollAnimation);
+</script>
+
+<style>
+  /* --- ESTADO INICIAL --- */
+  .animate-scale-target {
+    opacity: 0;
+    transform: scale(0.93);
+    transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform, opacity;
+  }
+
+  /* --- DELAY SINCRO: Texto inicia exactamente 250ms después --- */
+  .delay-text {
+    transition-delay: 0.25s;
+  }
+
+  /* --- ESTADO ACTIVO --- */
+  .scroll-trigger.is-visible .animate-scale-target {
+    opacity: 1;
+    transform: scale(1);
+  }
+</style>
 

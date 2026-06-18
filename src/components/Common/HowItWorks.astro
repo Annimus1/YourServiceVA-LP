@@ -1,4 +1,5 @@
 ---
+// src/components/HowItWorks.astro
 const steps = [
   {
     number: '1',
@@ -18,10 +19,11 @@ const steps = [
 ];
 ---
 
-<section class="w-full bg-[#FFF] py-20 md:py-28 px-6 overflow-hidden border-b border-gray-100">
+<section class="w-full bg-[#FFF] py-20 md:py-28 px-6 overflow-hidden border-b border-gray-100 section-how-it-works">
   <div class="mx-auto max-w-7xl">
     
-    <div class="text-center flex flex-col items-center gap-4 mb-16 scroll-reveal-top">
+    {/* TÍTULO: Animación Fade-in nativa controlada por Scroll */}
+    <div class="text-center flex flex-col items-center gap-4 mb-16 title-reveal">
       <h2 class="text-3xl md:text-5xl font-extrabold text-[#3d1d0e] tracking-tight">
         How It <span class="text-brand-green">Works</span>
       </h2>
@@ -30,18 +32,21 @@ const steps = [
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+    {/* GRID DE TARJETAS */}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative container-cards">
       
       {steps.map((step, index) => (
         <div 
-          class="flex flex-col gap-6 relative group scroll-reveal-step"
-          style={`--delay: ${index * 0.15}s`}
+          class="flex flex-col gap-6 relative step-card"
+          data-index={index}
         >
           <div class="flex items-center w-full relative">
-            <div class="w-16 h-16 rounded-full bg-brand-blue text-white font-extrabold text-xl flex items-center justify-center z-10 border-4 border-[#FAF8F5] group-hover:bg-brand-green transition-colors duration-300 shadow-md">
+            {/* Círculo indicador numérico */}
+            <div class="step-badge w-16 h-16 rounded-full bg-brand-blue text-white font-extrabold text-xl flex items-center justify-center z-10 border-4 border-[#FAF8F5] transition-all duration-500 shadow-md">
               {step.number}
             </div>
             
+            {/* Flechas divisorias conectoras */}
             {index < 2 && (
               <div class="hidden md:block absolute left-16 -right-8 top-1/2 -translate-y-1/2 h-0.5 border-t-2 border-dashed border-gray-300 z-0">
                 <div class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 border-t-2 border-r-2 border-gray-400 rotate-45"></div>
@@ -49,8 +54,9 @@ const steps = [
             )}
           </div>
 
-          <div class="bg-white rounded-2xl p-8 shadow-xs border border-gray-100 flex flex-col gap-4 flex-1 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-            <h3 class="text-xl font-bold text-brand-blue group-hover:text-brand-green transition-colors duration-300 leading-snug">
+          {/* Bloque de Contenido de la Tarjeta */}
+          <div class="step-content bg-white rounded-2xl p-8 shadow-xs border border-gray-100 flex flex-col gap-4 flex-1 transition-all duration-500">
+            <h3 class="step-title text-xl font-bold text-brand-blue transition-colors duration-500 leading-snug">
               {step.title}
             </h3>
             <p class="text-gray-600 text-sm md:text-base leading-relaxed">
@@ -65,55 +71,120 @@ const steps = [
   </div>
 </section>
 
+<script>
+  function setupHowItWorks() {
+    const section = document.querySelector('.section-how-it-works');
+    if (!section) return;
+
+    // --- 1. Lógica del Fade In al 30% del Viewport ---
+    function checkScroll() {
+      const triggerPoint = window.innerHeight - (window.innerHeight * 0.30);
+      const sectionTop = section!.getBoundingClientRect().top;
+
+      if (sectionTop < triggerPoint) {
+        section!.classList.add('is-visible');
+      }
+    }
+    window.addEventListener('scroll', checkScroll);
+    checkScroll();
+
+    // --- 2. Lógica del Auto-Hover Loop Infinito ---
+    const cards = section.querySelectorAll('.step-card');
+    let currentIndex = 0;
+    let intervalId: number | null = null;
+    let isUserHovering = false;
+
+    function activeNextCard() {
+      if (isUserHovering) return;
+
+      cards.forEach((card, index) => {
+        if (index === currentIndex) {
+          card.classList.add('is-active-loop');
+        } else {
+          card.classList.remove('is-active-loop');
+        }
+      });
+
+      // Rotar al siguiente índice indefinidamente
+      currentIndex = (currentIndex + 1) % cards.length;
+    }
+
+    function startLoop() {
+      if (!intervalId) {
+        // Cambia de tarjeta cada 2.5 segundos de forma fluida
+        intervalId = window.setInterval(activeNextCard, 1200);
+        activeNextCard(); // Disparo inicial inmediato
+      }
+    }
+
+    function stopLoop() {
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+    }
+
+    // Eventos para pausar el loop si el mouse físico entra en acción
+    cards.forEach((card) => {
+      card.addEventListener('mouseenter', () => {
+        isUserHovering = true;
+        stopLoop();
+        // Quitamos la clase del loop automatizado para que mande el :hover CSS real
+        cards.forEach(c => c.classList.remove('is-active-loop'));
+      });
+
+      card.addEventListener('mouseleave', () => {
+        isUserHovering = false;
+        // Recuperamos el índice de la tarjeta actual basándonos en dónde se retiró el usuario
+        const dataIdx = card.getAttribute('data-index');
+        if (dataIdx !== null) currentIndex = parseInt(dataIdx, 10);
+        startLoop();
+      });
+    });
+
+    // Arrancamos el loop infinito
+    startLoop();
+  }
+
+  // Soporte universal para ciclos de carga y Astro View Transitions
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupHowItWorks);
+  } else {
+    setupHowItWorks();
+  }
+  document.addEventListener('astro:page-load', setupHowItWorks);
+</script>
+
 <style>
-  /* ==========================================================================
-     ANIMACIONES POR SCROLL (Scroll-Driven Animations)
-     ========================================================================== */
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* --- CONTROL DEL FADE IN (TÍTULO) --- */
+  .title-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
   }
 
-  @keyframes fadeInRight {
-    from {
-      opacity: 0;
-      transform: translateX(-30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
+  .section-how-it-works.is-visible .title-reveal {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  @supports (animation-timeline: view()) {
-    /* Animación del título principal */
-    .scroll-reveal-top {
-      animation: fadeInUp linear both;
-      animation-timeline: view();
-      animation-range: entry 10% cover 30%;
-    }
-
-    /* Animación secuencial de las tarjetas de pasos */
-    .scroll-reveal-step {
-      animation: fadeInRight linear both;
-      animation-timeline: view();
-      animation-range: entry 5% cover 25%;
-      animation-delay: var(--delay);
-    }
+  /* --- ANIMACIÓN ESTILOS EN BUCLE (AUTO-HOVER / HOVER REAL) --- */
+  
+  /* Estado hover real Y estado activo simulado por JS */
+  .step-card:hover .step-badge,
+  .step-card.is-active-loop .step-badge {
+    background-color: var(--color-brand-green, #a4ca39) !important;
   }
 
-  /* Fallback para navegadores que no soportan animaciones por scroll */
-  @not supports (animation-timeline: view()) {
-    .scroll-reveal-top, .scroll-reveal-step {
-      opacity: 1;
-      transform: none;
-    }
+  .step-card:hover .step-content,
+  .step-card.is-active-loop .step-content {
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); /* shadow-xl */
+    transform: translateY(-4px); /* -translate-y-1 */
+    border-color: rgba(243, 244, 246, 0.5);
+  }
+
+  .step-card:hover .step-title,
+  .step-card.is-active-loop .step-title {
+    color: var(--color-brand-green, #a4ca39) !important;
   }
 </style>

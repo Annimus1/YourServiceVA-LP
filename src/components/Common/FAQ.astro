@@ -2,21 +2,23 @@
 interface FAQType {
   title: string;
   description: string;
-  questions: [{
+  questions: {
     question: string;
     answer: string;
-  }]
+  }[]
 }
 
 const FAQs: FAQType = Astro.props.FAQs;
 ---
 
-<section class="w-full bg-[#FAF8F5] py-20 md:py-28 px-6 border-b border-gray-100">
+{/* Añadimos la clase controladora 'faq-scroll-trigger' */}
+<section class="w-full bg-[#FAF8F5] py-20 md:py-28 px-6 border-b border-gray-100 faq-scroll-trigger">
   <div class="mx-auto max-w-4xl flex flex-col items-center">
     
-    <div class="text-center max-w-2xl mb-16 flex flex-col gap-4">
+    {/* TÍTULO Y DESCRIPCIÓN: Conectados a la animación de fade-in */}
+    <div class="text-center max-w-2xl mb-16 flex flex-col gap-4 faq-title-fade">
       <h2 class="text-3xl md:text-5xl font-extrabold text-[#3d1d0e] tracking-tight leading-tight">
-        {FAQs.title}: <span class="text-brand-green">FAQs</span>
+        {FAQs.title} <span class="text-brand-green">FAQs</span>
       </h2>
       <p class="text-gray-500 font-medium text-base md:text-lg">
         {FAQs.description}
@@ -24,9 +26,10 @@ const FAQs: FAQType = Astro.props.FAQs;
     </div>
 
     <div class="w-full flex flex-col gap-4">
-      {FAQs.questions.map((faq) => (
-        <details class="group bg-white rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 [&_summary::-webkit-details-marker]:hidden open:shadow-md">
-          
+      {FAQs.questions.map((faq, index) => (
+        <details 
+          class="group bg-white rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 [&_summary::-webkit-details-marker]:hidden open:shadow-md faq-item-slide"
+          style={`transition-delay: ${index * 0.1}s`}>
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer select-none list-none gap-4">
             <h3 class="text-base md:text-lg font-bold text-[#3d1d0e] group-hover:text-brand-green transition-colors duration-200 tracking-tight">
               {faq.question}
@@ -63,3 +66,64 @@ const FAQs: FAQType = Astro.props.FAQs;
 
   </div>
 </section>
+
+<script>
+  function setupFAQAnimation() {
+    const section = document.querySelector('.faq-scroll-trigger');
+    if (!section) return;
+
+    function checkScroll() {
+      // Punto de disparo exacto al 30% del viewport
+      const triggerPoint = window.innerHeight - (window.innerHeight * 0.30);
+      const sectionTop = section!.getBoundingClientRect().top;
+
+      if (sectionTop < triggerPoint) {
+        section!.classList.add('is-visible');
+        // Una vez visible, removemos el listener para optimizar rendimiento
+        window.removeEventListener('scroll', checkScroll);
+      }
+    }
+
+    window.addEventListener('scroll', checkScroll);
+    checkScroll();
+  }
+
+  // Ejecución segura en el ciclo de vida del DOM
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupFAQAnimation);
+  } else {
+    setupFAQAnimation();
+  }
+  document.addEventListener('astro:page-load', setupFAQAnimation);
+</script>
+
+<style>
+  /* --- ESTADO INICIAL (Ocultos por defecto) --- */
+  
+  /* El bloque del título se desvanece subiendo suavemente */
+  .faq-title-fade {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+
+  /* Las preguntas nacen corridas a la izquierda */
+  .faq-item-slide {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 1.2s ease-out, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+  }
+
+  /* --- ESTADO ACTIVO (Cuando entra al 30% del Viewport) --- */
+  
+  .faq-scroll-trigger.is-visible .faq-title-fade {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .faq-scroll-trigger.is-visible .faq-item-slide {
+    opacity: 1;
+    transform: translateX(0);
+  }
+</style>
