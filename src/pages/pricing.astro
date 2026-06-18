@@ -1,0 +1,416 @@
+---
+import Layout from "../layouts/Layout.astro"
+import ClientReviews from "../components/Common/ClientReviews.astro"
+
+// ==========================================
+// CONFIGURACIÓN DE PRECIOS Y PLANES (Abstracción Total)
+// ==========================================
+const pricing = {
+  englishOnly: {
+    title: "English Only",
+    badge: "Talent Resource",
+    description: "For businesses needing premium native or fluent English remote professionals to manage daily workloads.",
+    link: "#contact-english",
+    pt: { integer: "6", decimals: "99" },
+    ft: { integer: "4", decimals: "99" },
+    includes: [
+      "1 Dedicated Fluent English Speaker",
+      "Fully trained in Admin, Support, & CRM management",
+      "Instant backup agent replacement guarantee",
+      "Daily productivity & active time tracking logs"
+    ]
+  },
+  bilingualPro: {
+    title: "Bilingual Pro",
+    badge: "Bilingual Power",
+    description: "Maximize market reach with high-tier professionals speaking both fluent English and Spanish.",
+    link: "#contact-bilingual",
+    pt: { integer: "8", decimals: "99" },
+    ft: { integer: "6", decimals: "99" },
+    includes: [
+      "1 Dedicated Bilingual Specialist (EN/ES)",
+      "Advanced training in Inside Sales & Customer Care",
+      "Direct implementation into your current tech stack",
+      "Dedicated QA supervisor auditing quality benchmarks"
+    ]
+  },
+  corporation: {
+    title: "Corporation",
+    badge: "Enterprise Scale",
+    description: "For multi-agent operations and corporate structures requiring large-scale deployments.",
+    link: "#contact-enterprise",
+    includes: [
+      "<strong>Custom Fleet</strong> (Mix English & Bilingual)",
+      "Volume hourly pricing discounts",
+      "Customized operational training workflows",
+      "Dedicated Executive Account Manager"
+    ]
+  }
+}
+---
+<Layout title="Flexible Pricing Plans - YourServiceVA">
+  <section class="py-24 bg-white text-gray-900 relative overflow-hidden border-t border-gray-100 font-sans">
+    {/* Sutiles destellos de color de fondo muy difuminados para dar profundidad sin restar contraste */}
+    <div class="absolute top-1/4 -right-60 h-125 w-125 rounded-full bg-brand-green/30 blur-[120px] pointer-events-none"></div>
+    <div class="absolute bottom-1/4 -left-60 h-125 w-125 rounded-full bg-brand-blue/20 blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      {/* Encabezado Principal */}
+      <div class="text-center max-w-2xl mx-auto mb-16 flex flex-col gap-3">
+        <div class="flex items-center justify-center gap-2">
+          <span class="inline-block h-2 w-2 rounded-full bg-brand-green shadow-[0_0_6px_rgba(164,202,57,0.6)]"></span>
+          <span class="text-brand-blue font-bold text-xs uppercase tracking-widest">Flexible Plans</span>
+        </div>
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-brand-green">
+          Transparent Pricing, Tailored Value
+        </h2>
+        <p class="text-gray-600 text-xs sm:text-sm leading-relaxed max-w-lg mx-auto font-medium">
+          Choose the perfect operational model for your business. Toggle between Part-Time and Full-Time coverage to see the hourly rates.
+        </p>
+      </div>
+
+      {/* Seleccionar PT o FT */}
+      <div class="flex justify-center items-center gap-4 mb-20 select-none mx-auto">
+        <label for="billing-toggle" class="text-sm font-bold text-gray-400 transition-colors duration-200 cursor-pointer" id="label-pt">
+          Part-Time (20h/wk)
+        </label>
+        
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" id="billing-toggle" class="sr-only peer" checked />
+          <div class="w-14 h-7 bg-brand-dark-blue peer-focus:outline-none 
+          rounded-full peer peer-checked:after:translate-x-[120%] rtl:peer-checked:after:-translate-x-full 
+          after:content-[''] after:absolute after:top-1 after:inset-s-1 after:bg-brand-green after:rounded-full 
+          after:h-5 after:w-5 after:transition-all"></div>
+        </label>
+        
+        <label for="billing-toggle" class="text-sm font-bold text-brand-green transition-colors duration-200 cursor-pointer" id="label-ft">
+          Full-Time (40h/wk)
+        </label>
+      </div>
+
+      {/* Contenedor de Tiers / Grid de Precios */}
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch mt-10 mb-10">
+        
+        {/* TIER 1: ENGLISH-ONLY AGENT */}
+        <div class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:border-gray-300 p-8 group">
+          <div class="flex flex-col gap-6">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-brand-blue bg-brand-blue/10 px-2.5 py-1 rounded-md">{pricing.englishOnly.badge}</span>
+              <h3 class="text-2xl font-extrabold mt-4 text-brand-dark-blue">{pricing.englishOnly.title}</h3>
+              <p class="text-gray-500 text-xs mt-2 leading-relaxed">{pricing.englishOnly.description}</p>
+            </div>
+
+            <div class="flex items-baseline text-brand-dark-blue my-2 font-black tracking-tight">
+              <span class="text-2xl font-semibold self-start mt-2">$</span>
+              <span 
+                class="text-6xl price-card flex items-baseline" 
+                data-pt={`${pricing.englishOnly.pt.integer}.${pricing.englishOnly.pt.decimals}`} 
+                data-ft={`${pricing.englishOnly.ft.integer}.${pricing.englishOnly.ft.decimals}`}
+              >
+                {pricing.englishOnly.ft.integer}
+                <span class="text-2xl font-bold self-start mt-1">.{pricing.englishOnly.ft.decimals}</span>
+              </span>
+              <span class="ms-1 text-xs font-bold text-gray-400 self-end mb-2">/hour</span>
+            </div>
+
+            <div class="border-t border-gray-100 pt-6">
+              <p class="text-[11px] font-bold text-brand-dark-blue uppercase tracking-wider mb-4">What's Included:</p>
+              <ul class="flex flex-col gap-3.5 text-xs text-gray-600 font-medium">
+                {pricing.englishOnly.includes.map((item) => (
+                  <li class="flex items-start gap-3">
+                    <span class="h-4 w-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">✓</span>
+                    <span set:html={item}></span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <a href={pricing.englishOnly.link} class="w-full block text-center bg-gray-50 text-brand-dark-blue border border-gray-200 py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-dark-blue hover:text-white hover:border-transparent transition-all duration-200">
+              Secure Resource
+            </a>
+          </div>
+        </div>
+
+        {/* TIER 2: BILINGUAL AGENT */}
+        <div class="bg-brand-dark-blue rounded-3xl border border-brand-dark-blue shadow-xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-2xl p-8 relative transform md:-translate-y-4">
+          <div class="absolute top-6 right-6">
+            <span class="bg-brand-green text-brand-dark-blue text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md shadow-xs">
+              Most Popular
+            </span>
+          </div>
+
+          <div class="flex flex-col gap-6">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-brand-dark-blue bg-white/30 px-2.5 py-1 rounded-md">{pricing.bilingualPro.badge}</span>
+              <h3 class="text-2xl font-extrabold mt-4 text-white">{pricing.bilingualPro.title}</h3>
+              <p class="text-gray-300 text-xs mt-2 leading-relaxed">{pricing.bilingualPro.description}</p>
+            </div>
+
+            <div class="flex items-baseline text-white my-2 font-black tracking-tight">
+              <span class="text-2xl font-semibold text-brand-green self-start mt-2">$</span>
+              <span 
+                class="text-6xl price-card text-white flex items-baseline" 
+                id="starter-price" 
+                data-pt={`${pricing.bilingualPro.pt.integer}.${pricing.bilingualPro.pt.decimals}`} 
+                data-ft={`${pricing.bilingualPro.ft.integer}.${pricing.bilingualPro.ft.decimals}`}
+              >
+                {pricing.bilingualPro.ft.integer}
+                <span class="text-2xl font-bold text-white self-start mt-1">.{pricing.bilingualPro.ft.decimals}</span>
+              </span>
+              <span class="ms-1 text-xs font-bold text-gray-400 self-end mb-2">/hour</span>
+            </div>
+
+            <div class="border-t border-white/10 pt-6">
+              <p class="text-[11px] font-bold text-brand-green uppercase tracking-wider mb-4">What's Included:</p>
+              <ul class="flex flex-col gap-3.5 text-xs text-gray-200 font-medium">
+                {pricing.bilingualPro.includes.map((item) => (
+                  <li class="flex items-start gap-3">
+                    <span class="h-4 w-4 rounded-full bg-brand-green/20 text-brand-green flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">✓</span>
+                    <span set:html={item}></span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <a href={pricing.bilingualPro.link} class="w-full block text-center bg-brand-blue text-white py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-blue/90 shadow-md shadow-brand-blue/20 transition-all duration-200">
+              Deploy Bilingual Agent
+            </a>
+          </div>
+        </div>
+
+        {/* TIER 3: CORPORATION */}
+        <div class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:border-gray-300 p-8 group">
+          <div class="flex flex-col gap-6">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-brand-blue bg-brand-blue/10 px-2.5 py-1 rounded-md">{pricing.corporation.badge}</span>
+              <h3 class="text-2xl font-extrabold mt-4 text-brand-dark-blue">{pricing.corporation.title}</h3>
+              <p class="text-gray-500 text-xs mt-2 leading-relaxed">{pricing.corporation.description}</p>
+            </div>
+
+            <div class="flex items-baseline text-brand-dark-blue my-2">
+              <span class="text-5xl font-black tracking-tight">Custom</span>
+              <span class="ms-2 text-xs font-bold text-gray-400">Enterprise Quote</span>
+            </div>
+
+            <div class="border-t border-gray-100 pt-6">
+              <p class="text-[11px] font-bold text-brand-dark-blue uppercase tracking-wider mb-4">What's Included:</p>
+              <ul class="flex flex-col gap-3.5 text-xs text-gray-600 font-medium">
+                {pricing.corporation.includes.map((item) => (
+                  <li class="flex items-start gap-3">
+                    <span class="h-4 w-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">✓</span>
+                    <span set:html={item}></span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <a href={pricing.corporation.link} class="w-full block text-center bg-gray-50 text-brand-dark-blue border border-gray-200 py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-dark-blue hover:text-white hover:border-transparent transition-all duration-200">
+              Consult with Experts
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  {/* Sección How It Works */}
+  <section class="py-24 bg-brand-dark-blue text-gray-900 font-sans relative overflow-hidden border-t border-gray-100">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center max-w-2xl mx-auto mb-16 flex flex-col gap-2 ">
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white">
+          How It <span class="text-brand-green">Works</span>
+        </h2>
+        <p class="text-gray-300 text-sm sm:text-base leading-relaxed mt-2 font-medium">
+          Assemble the ideal team for your project, precisely when your business needs it.
+        </p>
+      </div>
+
+      <div class="hidden md:flex items-center justify-between max-w-4xl mx-auto mb-8 px-6">
+        <div class="w-12 h-12 rounded-full bg-brand-green text-white flex items-center justify-center font-black text-lg shadow-md shadow-[#0c2340]/20">1</div>
+        <div class="flex-1 h-0.5 bg-linear-to-r from-[#0c2340] to-brand-green mx-4"></div>
+        <div class="w-12 h-12 rounded-full bg-brand-green text-white flex items-center justify-center font-black text-lg shadow-md shadow-[#0c2340]/20">2</div>
+        <div class="flex-1 h-0.5 border-t-2 border-dashed border-gray-300 mx-4"></div>
+        <div class="w-12 h-12 rounded-full border-2 border-gray-300 bg-white text-gray-400 flex items-center justify-center font-bold text-lg">3</div>
+        <div class="flex-1 h-0.5 border-t-2 border-dashed border-gray-300 mx-4"></div>
+        <div class="w-12 h-12 rounded-full border-2 border-gray-300 bg-white text-gray-400 flex items-center justify-center font-bold text-lg">4</div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        <div class="bg-[#FAF8F5] group rounded-2xl p-6 border border-gray-100 flex flex-col gap-4 transition-all duration-200 hover:shadow-xs">
+          <div class="flex items-center gap-3 md:block">
+            <span class="md:hidden w-8 h-8 rounded-full bg-[#0c2340] text-white flex items-center justify-center font-black text-xs shrink-0">1</span>
+            <h3 class="text-lg font-bold text-[#0c2340] tracking-tight group-hover:text-brand-green duration-200">Choose your plan</h3>
+          </div>
+          <p class="text-gray-600 text-xs sm:text-sm leading-relaxed font-medium">
+            We have plans for every budget—choose the one that fits your needs and get started.
+          </p>
+        </div>
+
+        <div class="bg-[#FAF8F5] group rounded-2xl p-6 border border-gray-100 flex flex-col gap-4 transition-all duration-200 hover:shadow-xs">
+          <div class="flex items-center gap-3 md:block">
+            <span class="md:hidden w-8 h-8 rounded-full bg-[#0c2340] text-white flex items-center justify-center font-black text-xs shrink-0">2</span>
+            <h3 class="text-lg font-bold text-[#0c2340] tracking-tight group-hover:text-brand-green duration-200">Meet your assistant</h3>
+          </div>
+          <p class="text-gray-600 text-xs sm:text-sm leading-relaxed font-medium">
+            We know finding the right fit matters. Interview as many assistants as you need until you find the one.
+          </p>
+        </div>
+
+        <div class="bg-[#FAF8F5] group rounded-2xl p-6 border border-gray-100 flex flex-col gap-4 transition-all duration-200 hover:shadow-xs">
+          <div class="flex items-center gap-3 md:block">
+            <span class="md:hidden w-8 h-8 rounded-full border-2 border-gray-300 bg-white text-gray-400 flex items-center justify-center font-bold text-xs shrink-0">3</span>
+            <h3 class="text-lg font-bold text-[#0c2340] tracking-tight group-hover:text-brand-green duration-200">Kick-off Meeting</h3>
+          </div>
+          <p class="text-gray-600 text-xs sm:text-sm leading-relaxed font-medium">
+            Start with a quick call with your assistant's manager and trainer to finalize details.
+          </p>
+        </div>
+
+        <div class="bg-[#FAF8F5] group rounded-2xl p-6 border border-gray-100 flex flex-col gap-4 transition-all duration-200 hover:shadow-xs">
+          <div class="flex items-center gap-3 md:block">
+            <span class="md:hidden w-8 h-8 rounded-full border-2 border-gray-300 bg-white text-gray-400 flex items-center justify-center font-bold text-xs shrink-0">4</span>
+            <h3 class="text-lg font-bold text-[#0c2340] tracking-tight group-hover:text-brand-green duration-200">Breathe a sigh of relief</h3>
+          </div>
+          <p class="text-gray-600 text-xs sm:text-sm leading-relaxed font-medium">
+            Life is good when you've got someone to take care of the little stuff.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-16 text-center">
+        <a href="/contact" class="inline-block bg-brand-blue hover:bg-brand-green text-white font-bold text-xs uppercase tracking-wider py-4 px-8 rounded-xl shadow-md shadow-[#0088cc]/20 transition-all duration-200">
+          Get Started Now
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* SECCIÓN DE CARACTERÍSTICAS E ICONOS */}
+  <section class="py-24 bg-white text-gray-950 font-sans relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      {/* Encabezado de la Sección (Agregado para dar estructura) */}
+      <div class="text-center max-w-2xl mx-auto mb-16 flex flex-col gap-3">
+        <div class="flex items-center justify-center gap-2">
+          <span class="inline-block h-2 w-2 rounded-full bg-brand-green shadow-[0_0_6px_rgba(164,202,57,0.6)]"></span>
+          <span class="text-brand-blue font-bold text-xs uppercase tracking-widest">Why Choose Us</span>
+        </div>
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-brand-dark-blue">
+          Engineered for Operational Excellence
+        </h2>
+        <p class="text-gray-500 text-xs sm:text-sm leading-relaxed max-w-lg mx-auto font-medium">
+          Discover the core advantages of scaling your business infrastructure with our specialized remote talent framework.
+        </p>
+      </div>
+
+      {/* Grid de Características */}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        
+        {/* CARACTERÍSTICA 1: VAs Dedicados */}
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 flex flex-col items-center gap-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-md">
+          <div class="text-[#a4ca39]">
+            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94-3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+            </svg>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="text-lg font-bold text-[#0c2340] tracking-tight leading-snug text-center">Dedicated Virtual Assistants</h3>
+            <p class="text-gray-500 text-xs sm:text-sm leading-relaxed font-medium text-center">Dedicated virtual professionals, all with college degrees, and specialized training.</p>
+          </div>
+        </div>
+
+        {/* CARACTERÍSTICA 2: Bilingües */}
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 flex flex-col items-center gap-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-md">
+          <div class="text-[#a4ca39]">
+            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A8.915 8.915 0 013 12c0-.778.099-1.533.284-2.253M12 10.5c0 2.485-2.015 4.5-4.5 4.5S3 12.985 3 10.5m14 4.5c0 2.485-2.015 4.5-4.5 4.5S8 17.485 8 15" />
+            </svg>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="text-lg font-bold text-[#0c2340] tracking-tight leading-snug text-center">Bilingual Capabilities</h3>
+            <p class="text-gray-500 text-xs sm:text-sm leading-relaxed font-medium text-center">All of our VAs are fully fluent in English, with our specialized tier commanding absolute mastery of Spanish as well.</p>
+          </div>
+        </div>
+
+        {/* CARACTERÍSTICA 3: Soporte 24/7 */}
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 flex flex-col items-center gap-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-md">
+          <div class="text-[#a4ca39]">
+            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+            </svg>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="text-lg font-bold text-[#0c2340] tracking-tight leading-snug text-center md:mb-7">24/7 Support</h3>
+            <p class="text-gray-500 text-xs sm:text-sm leading-relaxed font-medium text-center">We can deploy robust, structured teams seamlessly coordinated across multiple time zones if you require round-the-clock coverage.</p>
+          </div>
+        </div>
+
+        {/* CARACTERÍSTICA 4: VAs de Alta Calidad */}
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 flex flex-col items-center gap-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-md">
+          <div class="text-[#a4ca39]">
+            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+            </svg>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="text-lg font-bold text-[#0c2340] tracking-tight leading-snug text-center md:mb-5">High Quality VAs</h3>
+            <p class="text-gray-500 text-xs sm:text-sm leading-relaxed font-medium text-center">Our professionals are vetted, agile, and operations-focused—engineered to build true long-term profitability.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <ClientReviews />
+</Layout>
+
+<script>
+  const toggle = document.getElementById('billing-toggle') as HTMLInputElement;
+  const prices = document.querySelectorAll('.price-card');
+  const labelPt = document.getElementById('label-pt');
+  const labelFt = document.getElementById('label-ft');
+
+  function updatePrices() {
+    const isFullTime = toggle.checked;
+    
+    if (isFullTime) {
+      labelFt?.classList.add('text-brand-green');
+      labelFt?.classList.remove('text-gray-400');
+      labelPt?.classList.add('text-gray-400');
+      labelPt?.classList.remove('text-brand-green');
+    } else {
+      labelPt?.classList.add('text-brand-green');
+      labelPt?.classList.remove('text-gray-400');
+      labelFt?.classList.add('text-gray-400');
+      labelFt?.classList.remove('text-brand-green');
+    }
+
+    prices.forEach((price) => {
+      const element = price as HTMLElement;
+      const ptValue = element.getAttribute('data-pt');
+      const ftValue = element.getAttribute('data-ft');
+      const rawPrice = isFullTime ? ftValue : ptValue;
+
+      if (rawPrice) {
+        const [integer, decimals] = rawPrice.split('.');
+        element.innerHTML = `${integer}<span class="text-2xl font-bold self-start mt-1">.${decimals}</span>`;
+      }
+    });
+  }
+
+  toggle?.addEventListener('change', updatePrices);
+  
+  if(toggle) {
+    updatePrices();
+  }
+</script>
