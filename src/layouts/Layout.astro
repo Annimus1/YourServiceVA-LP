@@ -1,33 +1,106 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 
-import Header from '../components/Layout/Header.astro';
-import Footer from '../components/Layout/Footer.astro';
+import Header from "../components/Layout/Header.astro";
+import Footer from "../components/Layout/Footer.astro";
 
-const title = Astro.props.title || 'Your Service | Virtual Assistant & Corporate Outsourcing Solutions';
+const title =
+  Astro.props.title ||
+  "Your Service | Virtual Assistant & Corporate Outsourcing Solutions";
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" href="/favicon.png" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<Header />
-		<slot />
-		<Footer />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="relative">
+    <Header />
+    <slot />
+    <Footer />
+
+    {/* BOTÓN BACK TO TOP */}
+    <button
+      id="back-to-top"
+      aria-label="Back to top"
+      class="fixed bottom-6 right-6 z-50 p-4 rounded-full bg-brand-blue text-white shadow-xl border border-white/10 opacity-0 pointer-events-none translate-y-4 transition-all duration-300 ease-out hover:bg-brand-green hover:scale-110 cursor-pointer active:scale-95 outline-none"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="3"
+        stroke="currentColor"
+        class="w-5 h-5"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M4.5 15.75l7.5-7.5 7.5 7.5"></path>
+      </svg>
+    </button>
+  </body>
 </html>
 
+<script>
+  function setupBackToTop() {
+    const btn = document.getElementById("back-to-top");
+    if (!btn) return;
+
+    // 1. Mostrar/Ocultar el botón según la posición del scroll
+    function checkScroll() {
+      // Si el scroll baja más de 300px desde el inicio de la página
+      if (window.scrollY > 300) {
+        btn!.classList.remove(
+          "opacity-0",
+          "pointer-events-none",
+          "translate-y-4",
+        );
+        btn!.classList.add(
+          "opacity-100",
+          "pointer-events-auto",
+          "translate-y-0",
+        );
+      } else {
+        btn!.classList.remove(
+          "opacity-100",
+          "pointer-events-auto",
+          "translate-y-0",
+        );
+        btn!.classList.add("opacity-0", "pointer-events-none", "translate-y-4");
+      }
+    }
+
+    // 2. Acción de scroll suave hacia arriba al hacer clic
+    btn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth", // Desplazamiento cómodo y fluido
+      });
+    });
+
+    window.addEventListener("scroll", checkScroll);
+    checkScroll(); // Comprobación inicial por si refrescan la página abajo
+  }
+
+  // Inicialización compatible con cargas normales y transiciones de Astro
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupBackToTop);
+  } else {
+    setupBackToTop();
+  }
+  document.addEventListener("astro:page-load", setupBackToTop);
+</script>
+
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>
