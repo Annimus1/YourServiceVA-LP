@@ -15,6 +15,22 @@ const aboutHeroData = {
     "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1080",
 };
 
+const ourMission = {
+  title: "The Mission Behind Every Placement",
+  description:
+    `In an increasingly digital world, the human element remains the
+          ultimate competitive advantage. YourServiceVA was born to bridge the
+          gap between ambitious companies and world-class remote talent.
+          We don't see ourselves as a staffing agency. We are operational
+          architects. We analyze your operational bottlenecks, understand your
+          infrastructure, and embed pre-trained experts who hit the ground
+          running on day one.`,
+  image:
+    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1170&auto=format&fit=crop",
+  flow: "reverse",
+  bg: "dark"
+}
+
 const values = [
   {
     key: "precision",
@@ -79,9 +95,11 @@ const AboutStructureSectionData = {
 
 <Layout title="About Us - YourServiceVA">
   
-  <section class="w-full bg-[#FAF8F5] py-20 px-6 md:py-28 md:px-12 text-[#3d1d0e]">
+  {/* HERO SECTION */}
+  <section class="w-full bg-[#FAF8F5] py-20 px-6 md:py-28 md:px-12 text-[#3d1d0e] hero-animation-trigger overflow-hidden">
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-      <div class="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left gap-6">
+      
+      <div class="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left gap-6 hero-text-reveal">
         <h2 class="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-brand-green">
           Global Reach.<br />
           Human Talent.<br />
@@ -104,7 +122,7 @@ const AboutStructureSectionData = {
         </div>
       </div>
 
-      <div class="lg:col-span-7 w-full flex justify-center">
+      <div class="lg:col-span-7 w-full flex justify-center hero-image-reveal">
         <div class="w-full max-w-160 aspect-[1.15] rounded-4xl overflow-hidden shadow-xs border border-gray-100/50">
           <img 
             src={aboutHeroData.photo}
@@ -113,12 +131,15 @@ const AboutStructureSectionData = {
           />
         </div>
       </div>
+      
     </div>
   </section>
 
-  <section class="w-full bg-white py-20 px-6 md:py-28 md:px-12 border-b border-gray-100">
+  {/* SECCIÓN PRINCIPIOS (Sincronizada con scroll) */}
+  <section class="w-full bg-white py-20 px-6 md:py-28 md:px-12 border-b border-gray-100 overflow-hidden scroll-animate-section">
     <div class="max-w-7xl mx-auto">
-      <div class="text-center flex flex-col items-center gap-3 mb-16 md:mb-20">
+      
+      <div class="text-center flex flex-col items-center gap-3 mb-16 md:mb-20 reveal-item fade-up">
         <span class="text-brand-green font-black uppercase tracking-widest text-xs">
           The Principles That Guide Us
         </span>
@@ -129,8 +150,11 @@ const AboutStructureSectionData = {
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {
-          values.map((value) => (
-            <div class="bg-[#FAF8F5] rounded-2xl p-8 border border-gray-100/80 shadow-2xs flex flex-col items-center text-center gap-4 hover:shadow-xs hover:bg-white transition-all duration-300 group">
+          values.map((value, index) => (
+            <div 
+              class="bg-[#FAF8F5] rounded-2xl p-8 border border-gray-100/80 shadow-2xs flex flex-col items-center text-center gap-4 hover:shadow-xs hover:bg-white transition-all duration-300 group reveal-item cascade-up"
+              style={`--cascade-index: ${index};`}
+            >
               <div class="text-brand-green w-12 h-12 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
                 {value.key === "precision" && (
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8">
@@ -165,9 +189,11 @@ const AboutStructureSectionData = {
     </div>
   </section>
 
-  <section id="our-mission" class="w-full bg-[#FAF8F5] py-16 px-6 md:py-24 md:px-12 text-[#3d1d0e]">
+  {/* SECCIÓN MISIÓN (Sincronizada con scroll) */}
+  <section id="our-mission" class="w-full bg-[#FAF8F5] py-16 px-6 md:py-24 md:px-12 text-[#3d1d0e] overflow-hidden scroll-animate-section">
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center" >
-      <div class="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left gap-6">
+      
+      <div class="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left gap-6 reveal-item slide-left">
         <span class="text-brand-green font-black uppercase tracking-widest text-xs" >
           What Drives Us
         </span>
@@ -180,7 +206,7 @@ const AboutStructureSectionData = {
       </div>
 
       <div class="lg:col-span-7 flex flex-col gap-6 w-full">
-        <div class="bg-white rounded-2xl p-8 border border-gray-100/80 shadow-2xs flex flex-col items-center text-center gap-3 hover:shadow-xs transition-all duration-200">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100/80 shadow-2xs flex flex-col items-center text-center gap-3 hover:shadow-xs transition-all duration-200 reveal-item vertical-cascade" style="--cascade-index: 0;">
           <div class="text-brand-green w-10 h-10 flex items-center justify-center mb-1">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25l-10.5 11.25L12 13.5H3.75z"></path>
@@ -194,7 +220,7 @@ const AboutStructureSectionData = {
           </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 border border-gray-100/80 shadow-2xs flex flex-col items-center text-center gap-3 hover:shadow-xs transition-all duration-200">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100/80 shadow-2xs flex flex-col items-center text-center gap-3 hover:shadow-xs transition-all duration-200 reveal-item vertical-cascade" style="--cascade-index: 1;">
           <div class="text-brand-green w-10 h-10 flex items-center justify-center mb-1">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-8 h-8">
               <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94-3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"></path>
@@ -211,36 +237,11 @@ const AboutStructureSectionData = {
     </div>
   </section>
 
-  <section class="w-full bg-brand-dark-blue py-20 px-6 md:py-28 md:px-12 text-[#3d1d0e]">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-      <div class="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left">
-        <span class="text-brand-green font-black uppercase tracking-widest text-xs mb-4 block">
-          Our Core Purpose
-        </span>
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight mb-6 text-white">
-          The Mission Behind <br class="hidden sm:block" /> Every Placement.
-        </h2>
-        <div class="w-20 h-1 bg-brand-green mb-2 lg:mb-0"></div>
-      </div>
-
-      <div class="lg:col-span-7 flex flex-col gap-6 text-base sm:text-lg text-gray-300 font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0 text-center lg:text-left">
-        <p>
-          In an increasingly digital world, the human element remains the
-          ultimate competitive advantage. YourServiceVA was born to bridge the
-          gap between ambitious companies and world-class remote talent.
-        </p>
-        <p>
-          We don't see ourselves as a staffing agency. We are operational
-          architects. We analyze your operational bottlenecks, understand your
-          infrastructure, and embed pre-trained experts who hit the ground
-          running on day one.
-        </p>
-      </div>
-    </div>
-  </section>
+  <GenericSection genericData={ourMission} />
 
   <ClientReviews />
 
+  {/* LEADERSHIP SECTION */}
   <section class="max-w-7xl mx-auto px-6 py-24 md:py-32 bg-white">
     <header class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
       <div>
@@ -286,3 +287,127 @@ const AboutStructureSectionData = {
   <GenericSection genericData={AboutStructureSectionData} />
 
 </Layout>
+
+<script>
+  function setupPageAnimations() {
+    // 1. Animación del Hero (Ejecución inmediata)
+    const heroSection = document.querySelector('.hero-animation-trigger');
+    if (heroSection) {
+      setTimeout(() => {
+        heroSection.classList.add('is-active');
+      }, 100);
+    }
+
+    // 2. Animación por Scroll (Intersection Observer unificado)
+    const scrollSections = document.querySelectorAll('.scroll-animate-section');
+    
+    const observerOptions = {
+      root: null,
+      threshold: 0.40, 
+      rootMargin: "0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    scrollSections.forEach(section => observer.observe(section));
+  }
+
+  // Soporte nativo absoluto para ciclos estándar y SPA con Astro View Transitions
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupPageAnimations);
+  } else {
+    setupPageAnimations();
+  }
+  document.addEventListener('astro:page-load', setupPageAnimations);
+</script>
+
+<style>
+  /* ==========================================================================
+     1. HERO ANIMATIONS (Carga Inmediata)
+     ========================================================================== */
+  .hero-text-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+  }
+
+  .hero-image-reveal {
+    opacity: 0;
+    transform: translateX(40px) scale(0.96);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: 0.15s;
+    will-change: transform, opacity;
+  }
+
+  .hero-animation-trigger.is-active .hero-text-reveal {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .hero-animation-trigger.is-active .hero-image-reveal {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+
+  /* ==========================================================================
+     2. SCROLL REVEAL ANIMATIONS (Activadas por JS al hacer Scroll)
+     ========================================================================== */
+  
+  /* Estado base para los elementos ocultos */
+  .reveal-item {
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  .fade-up {
+    transform: translateY(20px);
+    transition: opacity 1s ease-out, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .cascade-up {
+    transform: translateY(35px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .slide-left {
+    transform: translateX(-40px);
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .vertical-cascade {
+    transform: translateY(30px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* --- ESTADOS ACTIVOS (Cuando la sección gana la clase .is-active) --- */
+  
+  .scroll-animate-section.is-active .fade-up {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .scroll-animate-section.is-active .cascade-up {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: calc(var(--cascade-index) * 0.15s);
+  }
+
+  .scroll-animate-section.is-active .slide-left {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .scroll-animate-section.is-active .vertical-cascade {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: calc(var(--cascade-index) * 0.2s + 0.1s);
+  }
+</style>
