@@ -1,0 +1,166 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ApplicationForm from "../components/Careers/ApplicationForm.astro";
+
+const jobOpenings = [
+  {
+    title: "Senior Full-Stack Developer",
+    department: "Engineering",
+    type: "Full-Time (Remote)",
+    location: "Latin America / US Timezones",
+    description: "We are looking for a software engineer to optimize our cloud architecture, core APIs, and predictive dialing systems.",
+    stack: ["Node.js", "React", "AWS", "Docker"]
+  },
+  {
+    title: "VoIP & Asterisk Systems Administrator",
+    department: "Infrastructure",
+    type: "Full-Time (Remote)",
+    location: "Global Remote",
+    description: "Manage, optimize, and scale high-concurrency SIP trunks, Asterisk clusters, and Vicidial servers for high-volume campaigns.",
+    stack: ["Asterisk", "Linux", "VICIdial", "SIP Protocols"]
+  },
+  {
+    title: "Bilingual Telemarketing Agent",
+    department: "Operations",
+    type: "Part-Time / Full-Time",
+    location: "Remote",
+    description: "Execute high-performance outbound sales and customer care campaigns utilizing our cloud native infrastructure.",
+    stack: ["Fluent English", "CRM Management", "Outbound Sales"]
+  }
+];
+
+const values = [
+  {
+    title: "Operational Excellence",
+    description: "We engineering systems and design workflows aiming for zero-downtime and seamless efficiency."
+  },
+  {
+    title: "Remote Autonomy",
+    description: "We trust our global team. You manage your workflow; we measure real metrics, impact, and quality code."
+  },
+  {
+    title: "Continuous Scaling",
+    description: "As our systems grow, you grow. We encourage learning new backend stacks, automation tools, and cloud architectures."
+  }
+];
+---
+
+<Layout title="Join Our Fleet - Careers | YourService">
+  {/* HERO SECTION */}
+  <section class="relative py-24 md:py-32 bg-brand-dark-blue overflow-hidden text-white font-sans">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(164,202,57,0.15),transparent_45%)]"></div>
+    
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10 flex flex-col gap-6 initial-career-reveal">
+      <div class="flex items-center justify-center gap-2">
+        <span class="h-2 w-2 rounded-full bg-brand-green shadow-[0_0_6px_rgba(164,202,57,0.6)]"></span>
+        <span class="text-brand-green font-bold text-xs uppercase tracking-widest">We Are Hiring</span>
+      </div>
+      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-none">
+        Build the Future of <span class="text-brand-green">Cloud Dialing</span>
+      </h1>
+      <p class="text-gray-300 text-base md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
+        We are building high-performance outbound communication infrastructure. Join a fully remote, agile team dedicated to operational excellence.
+      </p>
+      <div class="mt-4">
+        <a href="#aplication" class="bg-brand-green hover:bg-brand-green/90 text-brand-dark-blue font-extrabold text-sm px-8 py-4 rounded-xl shadow-lg transition-all duration-200 inline-block">
+          Apply Now
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* CULTURE & VALUES SECTION */}
+  <section class="py-24 bg-[#FAF8F5] text-gray-950 font-sans relative overflow-hidden career-scroll-trigger">
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 flex flex-col gap-3 values-fade">
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-brand-dark-blue">
+          Our Core Architecture
+        </h2>
+        <p class="text-gray-500 text-sm md:text-base font-medium">
+          How we synchronize as a remote team to deliver global enterprise value.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        {values.map((val) => (
+          <div class="bg-white rounded-2xl p-8 border border-gray-100 flex flex-col gap-4 shadow-xs transition-all duration-300 hover:shadow-md values-fade">
+            <div class="w-15 h-15 mx-auto text-2xl rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue font-black">
+              ✓
+            </div>
+            <h3 class="text-xl font-bold text-brand-dark-blue tracking-tight">{val.title}</h3>
+            <p class="text-gray-600 text-sm md:text-base leading-relaxed font-medium">{val.description}</p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  {/* APLICATION FORM */}
+  <ApplicationForm/>
+</Layout>
+
+<script>
+  function setupCareersAnimation() {
+    const sections = document.querySelectorAll('.career-scroll-trigger');
+
+    function checkScroll() {
+      const triggerPoint = window.innerHeight - (window.innerHeight * 0.30);
+
+      sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        if (sectionTop < triggerPoint) {
+          section.classList.add('is-visible');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', checkScroll);
+    checkScroll();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupCareersAnimation);
+  } else {
+    setupCareersAnimation();
+  }
+  document.addEventListener('astro:page-load', setupCareersAnimation);
+</script>
+
+<style>
+  /* --- HOVER INTERMITENTE & CONTROL SCROLL NATIVO --- */
+  .initial-career-reveal {
+    animation: localFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .values-fade, .jobs-fade {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+
+  .job-item-slide {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+  }
+
+  /* --- ACTIVACIÓN AL 30% DEL VIEWPORT --- */
+  .career-scroll-trigger.is-visible .values-fade,
+  .career-scroll-trigger.is-visible .jobs-fade {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .career-scroll-trigger.is-visible .job-item-slide {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @keyframes localFadeUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+</style>
