@@ -1,0 +1,450 @@
+---
+// src/components/Contact/ContactForm.astro
+
+const services = [
+  { value: "customer-service", label: "Customer Service" },
+  { value: "human-resources", label: "Human Resources" },
+  { value: "inside-sales", label: "Inside Sales Agent" },
+  { value: "intake-specialist", label: "Intake Specialist" },
+  { value: "lead-generation", label: "Lead Generation" },
+  { value: "predictive-dialer", label: "Predictive Dialer" },
+  { value: "tech-support", label: "Tech Support" },
+  { value: "virtual-assistants", label: "Virtual Assistants" }
+];
+const industries = [
+  { value: "finance", label: "Finance" },
+  { value: "healthcare", label: "Healthcare" },
+  { value: "home-improvement", label: "Home Improvement" },
+  { value: "legal", label: "Legal" },
+  { value: "real-estate", label: "Real Estate" },
+  { value: "solar", label: "Solar" },
+  { value: "other", label: "Other (Please specify)" }
+];
+const countryCodes = [
+  { code: "+1", flag: "🇺🇸", label: "USA/CA", id: "US" },
+  { code: "+58", flag: "🇻🇪", label: "VE", id: "VE" },
+  { code: "+44", flag: "🇬🇧", label: "UK", id: "UK" },
+  { code: "+61", flag: "🇦🇺", label: "AU", id: "AU" },
+  { code: "+34", flag: "🇪🇸", label: "ES", id: "ES" },
+  { code: "+52", fill: "🇲🇽", label: "MX", id: "MX" },
+  { code: "+57", flag: "🇨🇴", label: "CO", id: "CO" },
+  { code: "+54", flag: "🇦🇷", label: "AR", id: "AR" },
+  { code: "+56", flag: "🇨🇱", label: "CL", id: "CL" },
+  { code: "+51", flag: "🇵🇪", label: "PE", id: "PE" }
+];
+---
+
+<section id="contact-section" class="w-full bg-white py-20 px-6 md:py-28 md:px-12 text-[#3d1d0e] overflow-hidden">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+    
+    <div class="lg:col-span-5 flex flex-col gap-10 scroll-reveal">
+      <div>
+        <span class="text-brand-green font-black uppercase tracking-widest text-xs md:text-md block mb-2">
+          Get in Touch
+        </span>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight text-[#3d1d0e]">
+          Let’s Build Your Remote Operations.
+        </h2>
+        <p class="text-gray-600 text-sm sm:text-base font-medium mt-3 leading-relaxed">
+          Have questions about pricing, compliance, or infrastructure setup? Drop us a message and our operational team will reach out within 24 hours.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 border-y border-gray-100 py-8">
+        <div class="flex flex-col items-center gap-3 text-center">
+          <div class="flex items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-brand-blue">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
+            </svg>
+            <h3 class="text-lg font-black text-[#3d1d0e]">Sales</h3>
+          </div>
+          <p class="text-gray-500 text-xs font-medium leading-relaxed">
+            Want to speak with our team directly?
+          </p>
+          <a href="https://calendly.com/" target="_blank" rel="noopener noreferrer" class="mt-2 bg-brand-blue text-white text-xs font-black px-4 py-2.5 rounded-lg hover:bg-brand-green transition-all duration-200 uppercase tracking-wider shadow-2xs hover:scale-105 transform dynamic-btn">
+            Book a Free Discovery Call
+          </a>
+        </div>
+
+        <div class="flex flex-col items-center gap-3 text-center">
+          <div class="flex items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-brand-blue">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75 16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
+            </svg>
+            <h3 class="text-lg font-black text-[#3d1d0e]">Support</h3>
+          </div>
+          <p class="text-gray-500 text-xs font-medium leading-relaxed">
+            Want to speak with our team directly?
+          </p>
+          <a href="/help" class="mt-2 bg-transparent border border-gray-200 text-[#3d1d0e] hover:border-brand-blue hover:text-brand-blue text-xs font-black px-4 py-2.5 rounded-lg transition-all duration-200 uppercase tracking-wider hover:scale-105 transform dynamic-btn">
+            Get Help
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-[#FAF8F5] rounded-3xl p-6 md:p-8 border border-gray-100 shadow-2xs">
+        <div class="flex gap-1 mb-4 text-amber-500">
+          {[...Array(5)].map(() => (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-4 h-4">
+              <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/>
+            </svg>
+          ))}
+          <span class="text-xs md:text-md font-black text-[#3d1d0e] ml-2">4.9 / 5.0</span>
+        </div>
+        <p class="text-gray-600 text-sm font-medium leading-relaxed italic mb-4">
+          "I was initially skeptical about the process and the Virtual Assistant's ability to help my business. However, from the start, my account manager lined up some amazing candidates..."
+        </p>
+        <div>
+          <h4 class="text-sm font-extrabold text-[#3d1d0e]">John Dostaler</h4>
+          <p class="text-xs md:text-md text-gray-400 font-bold uppercase tracking-wider mt-0.5">Hospitality & Travel</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-7 w-full bg-[#FAF8F5] rounded-3xl border border-gray-100 shadow-2xs p-8 md:p-12 scroll-reveal scroll-reveal-delayed">
+      <form id="business-contact-form" class="flex flex-col gap-6">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="flex flex-col gap-2">
+            <label for="contact-first-name" class="text-xs md:text-md font-black tracking-wide uppercase text-[#3d1d0e]">
+              First Name <span class="text-[#FF6B4A]">*</span>
+            </label>
+            <input 
+              type="text" id="contact-first-name" name="first_name" required placeholder="Alexander"
+              class="w-full bg-white border border-gray-200/80 rounded-xl px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 focus:outline-hidden focus:border-brand-blue transition-all duration-200 focus:scale-[1.01] transform"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="contact-last-name" class="text-xs md:text-md font-black tracking-wide uppercase text-[#3d1d0e]">
+              Last Name <span class="text-[#FF6B4A]">*</span>
+            </label>
+            <input 
+              type="text" id="contact-last-name" name="last_name" required placeholder="Wright"
+              class="w-full bg-white border border-gray-200/80 rounded-xl px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 focus:outline-hidden focus:border-brand-blue transition-all duration-200 focus:scale-[1.01] transform"
+            />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="flex flex-col gap-2">
+            <label for="contact-email" class="text-xs md:text-md font-black tracking-wide uppercase text-[#3d1d0e]">
+              Business Email <span class="text-[#FF6B4A]">*</span>
+            </label>
+            <input 
+              type="email" id="contact-email" name="email" required placeholder="alex@company.com"
+              class="w-full bg-white border border-gray-200/80 rounded-xl px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 focus:outline-hidden focus:border-brand-blue transition-all duration-200 focus:scale-[1.01] transform"
+            />
+          </div>
+          
+          <div class="flex flex-col gap-2">
+            <label for="contact-phone" class="text-xs md:text-md font-black tracking-wide uppercase text-[#3d1d0e]">
+              Phone Number <span class="text-[#FF6B4A]">*</span>
+            </label>
+            <div class="flex bg-white border border-gray-200/80 rounded-xl focus-within:border-brand-blue focus-within:scale-[1.01] transition-all duration-200 overflow-hidden transform">
+              <select 
+                id="contact-country-code"
+                name="country_code" 
+                aria-label="Country Code"
+                class="bg-[#FAF8F5] border-r border-gray-200 px-3 text-sm font-bold text-[#3d1d0e] focus:outline-hidden cursor-pointer"
+              >
+                {countryCodes.map(c => (
+                  <option value={c.code} data-country-id={c.id}>
+                    {c.flag} {c.code}
+                  </option>
+                ))}
+              </select>
+              <input 
+                type="tel" id="contact-phone" name="phone" required placeholder="Phone Number"
+                class="w-full bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 focus:outline-hidden"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="contact-company" class="text-xs md:text-md font-black tracking-wide uppercase text-[#3d1d0e]">
+            Company Name <span class="text-[#FF6B4A]">*</span>
+          </label>
+          <input 
+            type="text" id="contact-company" name="company_name" required placeholder="Acme Logistics LLC"
+            class="w-full bg-white border border-gray-200/80 rounded-xl px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 focus:outline-hidden focus:border-brand-blue transition-all duration-200 focus:scale-[1.01] transform"
+          />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="flex flex-col gap-2">
+            <label for="contact-service" class="text-xs md:text-md font-black tracking-wide uppercase text-[#3d1d0e]">
+              Core Service Needed <span class="text-[#FF6B4A]">*</span>
+            </label>
+            <select 
+              id="contact-service" name="service" required
+              class="w-full bg-white border border-gray-200/80 rounded-xl px-4 py-3.5 text-sm font-medium text-[#3d1d0e] focus:outline-hidden focus:border-brand-blue transition-all duration-200 cursor-pointer"
+            >
+              <option value="" disabled selected>Select a service</option>
+              {services.map(s => <option value={s.value}>{s.label}</option>)}
+            </select>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="contact-industry" class="text-xs md:text-md font-black tracking-wide uppercase text-[#3d1d0e]">
+              Industry <span class="text-[#FF6B4A]">*</span>
+            </label>
+            <select 
+              id="contact-industry" name="industry" required
+              class="w-full bg-white border border-gray-200/80 rounded-xl px-4 py-3.5 text-sm font-medium text-[#3d1d0e] focus:outline-hidden focus:border-brand-blue transition-all duration-200 cursor-pointer"
+            >
+              <option value="" disabled selected>Select your industry</option>
+              {industries.map(i => <option value={i.value}>{i.label}</option>)}
+            </select>
+          </div>
+        </div>
+
+        <div id="custom-industry-wrapper" class="flex-col gap-2 hidden transition-all duration-300 transform scale-95 opacity-0">
+          <label for="contact-custom-industry" class="text-xs md:text-md font-black tracking-wide uppercase text-brand-blue">
+            Please specify your industry <span class="text-[#FF6B4A]">*</span>
+          </label>
+          <input 
+            type="text" id="contact-custom-industry" name="custom_industry" placeholder="E.g., Logistics, Operations..."
+            class="w-full bg-white border border-brand-blue/30 rounded-xl px-4 py-3.5 text-sm font-medium text-[#3d1d0e] focus:outline-hidden focus:border-brand-blue transition-all duration-200"
+          />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="flex flex-col gap-2">
+            <label for="contact-agents" class="text-xs md:text-md font-black tracking-wide uppercase text-[#3d1d0e]">
+              Number of Staff / Agents <span class="text-[#FF6B4A]">*</span>
+            </label>
+            <select 
+              id="contact-agents" name="agent_count" required
+              class="w-full bg-white border border-gray-200/80 rounded-xl px-4 py-3.5 text-sm font-medium text-[#3d1d0e] focus:outline-hidden focus:border-brand-blue transition-all duration-200 cursor-pointer"
+            >
+              <option value="1" selected>1 Agent</option>
+              <option value="2">2 Agents</option>
+              <option value="3">3 Agents</option>
+              <option value="4">4 Agents</option>
+              <option value="custom">Custom / High Scale Scale-up</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="contact-shift" class="text-xs md:text-md font-black tracking-wide uppercase text-[#3d1d0e]">
+              Shift Structure <span class="text-[#FF6B4A]">*</span>
+            </label>
+            <select 
+              id="contact-shift" name="shift_structure" required
+              class="w-full bg-white border border-gray-200/80 rounded-xl px-4 py-3.5 text-sm font-medium text-[#3d1d0e] focus:outline-hidden focus:border-brand-blue transition-all duration-200 cursor-pointer"
+            >
+              <option value="full-time" selected>Full Time (40 hrs / week)</option>
+              <option value="part-time">Part Time (20 hrs / week)</option>
+              <option value="custom-hours">Custom Shift Framework</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="contact-timezone" class="text-xs md:text-md font-black tracking-wide uppercase text-[#3d1d0e]">
+            Your Target Timezone <span class="text-[#FF6B4A]">*</span>
+          </label>
+          <div class="relative">
+            <select 
+              id="contact-timezone" name="timezone" required
+              class="w-full bg-white border border-gray-200/80 rounded-xl px-4 py-3.5 text-sm font-medium text-[#3d1d0e] focus:outline-hidden focus:border-brand-blue transition-all duration-200 cursor-pointer appearance-none"
+            >
+            </select>
+            <span id="detected-tz-badge" class="absolute right-3 top-1/2 -translate-y-1/2 bg-brand-green/10 text-brand-green text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded-sm pointer-events-none badge-glow">
+              Detected
+            </span>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="contact-comments" class="text-xs md:text-md font-black tracking-wide uppercase text-[#3d1d0e]">
+            Additional Questions or Bottlenecks to Solve
+          </label>
+          <textarea 
+            id="contact-comments" name="additional_comments" rows="3" placeholder="Tell us about your tools or specific schedule needs..."
+            class="w-full bg-white border border-gray-200/80 rounded-xl px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 focus:outline-hidden focus:border-brand-blue transition-all duration-200 resize-none focus:scale-[1.01] transform"
+          ></textarea>
+        </div>
+
+        <button 
+          type="submit"
+          class="w-full text-center bg-brand-blue text-white font-black px-8 py-4 rounded-xl hover:bg-brand-green transition-all duration-300 shadow-xs uppercase tracking-wider text-xs md:text-md mt-2 cursor-pointer hover:shadow-md transform active:scale-[0.99]"
+        >
+          Submit Message
+        </button>
+
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Estado inicial: oculto y desplazado hacia abajo */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    will-change: transform, opacity;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease-out;
+  }
+
+  /* Clase que inyecta JS cuando se llega al 30% del viewport */
+  .scroll-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Retraso escalonado controlado nativamente por CSS en vez de JS redundante */
+  .scroll-reveal-delayed.is-visible {
+    transition-delay: 0.15s;
+  }
+
+  .badge-glow {
+    animation: pulseGlow 2.5s infinite ease-in-out;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.2); }
+    50% { box-shadow: 0 0 8px 2px rgba(34, 197, 94, 0.4); }
+  }
+
+  input, select, textarea {
+    will-change: transform, border-color;
+  }
+</style>
+
+<script>
+  async function sendContactData(formData: FormData): Promise<{ success: boolean; error?: string }> {
+    console.log('🚀 [Lead Captured] Compilando datos comerciales...');
+    for (let [key, value] of formData.entries()) {
+      console.log(`💼 ${key}: ${value}`);
+    }
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      return { success: true };
+    } catch (error: any) {
+      return { success: false, error: error?.message || 'Network error' };
+    }
+  }
+
+  function initContactUX() {
+    const form = document.getElementById('business-contact-form') as HTMLFormElement;
+    if (!form) return;
+
+    // --- NUEVA LÓGICA DE INTERSECTION OBSERVER AL 30% ---
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+    
+    const observerOptions = {
+      root: null, // Relativo al viewport
+      threshold: 0.30 // Cambiado exactamente al 30% de visibilidad del elemento
+    };
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target); // Deja de observar una vez ejecutado
+        }
+      });
+    }, observerOptions);
+
+    revealElements.forEach(el => revealObserver.observe(el));
+    // ---------------------------------------------------
+
+    const tzSelect = document.getElementById('contact-timezone') as HTMLSelectElement;
+    const phoneCountrySelect = document.getElementById('contact-country-code') as HTMLSelectElement;
+
+    if (tzSelect && tzSelect.options.length === 0) {
+      const timeZones = (Intl as any).supportedValuesOf?.('timeZone') || ['UTC', 'America/New_York', 'America/Caracas', 'Europe/London'];
+      const userTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+      timeZones.forEach((tz: string) => {
+        const option = document.createElement('option');
+        option.value = tz;
+        option.textContent = tz.replace(/_/g, ' ');
+        if (tz === userTz) option.selected = true;
+        tzSelect.appendChild(option);
+      });
+
+      if (phoneCountrySelect) {
+        const tzLower = userTz.toLowerCase();
+        let targetCountryId = "US";
+
+        if (tzLower.includes('caracas') || tzLower.includes('venezuela')) targetCountryId = "VE";
+        else if (tzLower.includes('london') || tzLower.includes('europe/london') || tzLower.includes('gb')) targetCountryId = "UK";
+        else if (tzLower.includes('sydney') || tzLower.includes('melbourne') || tzLower.includes('australia')) targetCountryId = "AU";
+        else if (tzLower.includes('madrid') || tzLower.includes('spain')) targetCountryId = "ES";
+        else if (tzLower.includes('mexico')) targetCountryId = "MX";
+        else if (tzLower.includes('bogota') || tzLower.includes('colombia')) targetCountryId = "CO";
+        else if (tzLower.includes('buenos_aires') || tzLower.includes('argentina')) targetCountryId = "AR";
+        else if (tzLower.includes('santiago') || tzLower.includes('chile')) targetCountryId = "CL";
+        else if (tzLower.includes('lima') || tzLower.includes('peru')) targetCountryId = "PE";
+
+        const options = Array.from(phoneCountrySelect.options);
+        const matchOption = options.find(opt => opt.getAttribute('data-country-id') === targetCountryId);
+        if (matchOption) phoneCountrySelect.value = matchOption.value;
+      }
+    }
+
+    const industrySelect = document.getElementById('contact-industry') as HTMLSelectElement;
+    const customIndustryWrapper = document.getElementById('custom-industry-wrapper');
+    const customIndustryInput = document.getElementById('contact-custom-industry') as HTMLInputElement;
+
+    if (industrySelect && customIndustryWrapper && customIndustryInput) {
+      industrySelect.addEventListener('change', () => {
+        if (industrySelect.value === 'other') {
+          customIndustryWrapper.style.display = 'flex';
+          setTimeout(() => {
+            customIndustryWrapper.classList.remove('scale-95', 'opacity-0', 'hidden');
+            customIndustryWrapper.classList.add('scale-100', 'opacity-100');
+          }, 10);
+          customIndustryInput.required = true;
+          customIndustryInput.focus();
+        } else {
+          customIndustryWrapper.classList.remove('scale-100', 'opacity-100');
+          customIndustryWrapper.classList.add('scale-95', 'opacity-0');
+          setTimeout(() => { customIndustryWrapper.classList.add('hidden'); }, 200);
+          customIndustryInput.required = false;
+          customIndustryInput.value = '';
+        }
+      });
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit Message';
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Processing Data...';
+        submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+      }
+
+      const collectedData = new FormData(form);
+      const response = await sendContactData(collectedData);
+
+      if (response.success) {
+        alert('Thank you! Your strategic application data has been registered.');
+        form.reset();
+        if (customIndustryWrapper) customIndustryWrapper.classList.add('hidden', 'scale-95', 'opacity-0');
+        if (tzSelect) tzSelect.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        initContactUX(); 
+      } else {
+        alert(`Error: ${response.error}`);
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initContactUX);
+  } else {
+    initContactUX();
+  }
+  document.addEventListener('astro:page-load', initContactUX);
+</script>
