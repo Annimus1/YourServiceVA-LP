@@ -1,0 +1,406 @@
+---
+import Layout from "../layouts/Layout.astro"
+import ClientReviews from "../components/Common/ClientReviews.astro"
+import HowItWorks from "../components/Common/HowItWorks.astro"
+
+// ==========================================
+// CONFIGURACIÓN DE PRECIOS DEL DIALER
+// ==========================================
+const pricing = {
+  starterDialer: {
+    title: "Starter Dialer",
+    badge: "Basic",
+    description: "The ideal setup for single agents or small telemarketing operations looking for maximum call efficiency.",
+    monthlyPrice: 80,
+    annualPrice: 64, 
+    savings: 192,
+    periodMonthly: "month",
+    periodAnnual: "month, billed annually",
+    link: "/dialer-contact?plan=starter",
+    includes: [
+      "<strong>1 Agent Credential</strong> included",
+      "<strong>Automatic Dialer</strong> & Outbound calls",
+      "Phone Reputation Monitoring & Smart local presence",
+      "5 FREE Phone Numbers (Anti-Spam)",
+      "90 Days Recording Vault Store",
+      "Standard General Support"
+    ]
+  },
+  premiumDialer: {
+    title: "Premium Dialer",
+    badge: "Most Popular",
+    description: "Perfect for growing teams requiring multi-line power, inbound routing, and CRM integrations.",
+    monthlyPrice: 140,
+    annualPrice: 112,
+    savings: 336,
+    periodMonthly: "month",
+    periodAnnual: "month, billed annually",
+    link: "/dialer-contact?plan=premium",
+    includes: [
+      "<strong>Everything included in Starter +</strong>",
+      "<strong>Multiline Dialer</strong> (up to 10 lines)",
+      "<strong>Inbound & Outbound</strong> Uncapped Calling",
+      "<strong>Real-time Agent Monitoring</strong>",
+      "<strong>Campaign Monitoring</strong>",
+      "<strong> 10 FREE Phone Numbers (Anti-Spam)</strong>",
+      "<strong>180 Days Recording Vault Store</strong>",
+      "<strong>Quality Control & External CRM Integration</strong>"
+    ]
+  },
+  enterpriseScale: {
+    title: "Enterprise Scale",
+    badge: "Company Custom",
+    description: "For full-scale outbound fleets and operations needing high-volume infrastructure deployment.",
+    price: "Custom",
+    link: "/dialer-contact?plan=custom",
+    includes: [
+      "<strong>Everything included in Premium +</strong>",
+      "<strong>Custom Agent & Admin licenses volume discounts</strong>",
+      "<strong>Centralized Multi-Campaign Dashboard</strong>",
+      "<strong>Extended 360 Days Recording Vault Store</strong>",
+      "<strong>Dedicated Priority Support</strong>"
+    ]
+  }
+}
+---
+<Layout title="High-Performance Dialer Software Pricing - YourServiceVA">
+  <section class="py-24 bg-white text-gray-900 relative overflow-hidden border-t border-gray-100 font-sans">
+    {/* Sutiles destellos de color de fondo */}
+    <div class="absolute top-1/4 -right-60 h-125 w-125 rounded-full bg-brand-green/30 blur-[120px] pointer-events-none"></div>
+    <div class="absolute bottom-1/4 -left-60 h-125 w-125 rounded-full bg-brand-blue/20 blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      {/* Encabezado Principal */}
+      <div class="text-center max-w-2xl mx-auto mb-12 flex flex-col gap-3">
+        <div class="flex items-center justify-center gap-2">
+          <span class="inline-block h-2 w-2 rounded-full bg-brand-green shadow-[0_0_6px_rgba(164,202,57,0.6)]"></span>
+          <span class="text-brand-blue font-bold text-xs uppercase tracking-widest">Predictive Dialer Solution</span>
+        </div>
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-brand-dark-blue">
+          Transparent Pricing, <span class="text-brand-green">Uncapped Volume</span>
+        </h2>
+        <p class="text-gray-600 text-xs sm:text-sm leading-relaxed max-w-lg mx-auto font-medium">
+          Scale your outbound call center operations with an enterprise-grade cloud dialer. No hidden fees.
+        </p>
+      </div>
+
+      {/* Switcher Interactiva Anual / Mensual con Nota de Cancelación */}
+      <div class="flex flex-col items-center justify-center mb-16 gap-3">
+        <div class="flex items-center justify-center gap-4">
+          <span class="text-sm font-bold text-gray-500 id-billing-label-monthly">Monthly</span>
+          <button 
+            id="billing-toggle" 
+            type="button"
+            class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-brand-blue transition-colors duration-200 ease-in-out focus:outline-hidden"
+            role="switch" 
+            aria-checked="false"
+          >
+            <span 
+              id="billing-toggle-dot"
+              class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out translate-x-0"
+            ></span>
+          </button>
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-bold text-gray-900 id-billing-label-annual">Yearly</span>
+            <span class="bg-brand-green/10 text-brand-green text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-sm">
+              Save 20%
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Grid de Precios de 3 Columnas */}
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto mt-10 mb-10">
+        
+        {/* PLAN STARTER */}
+        <div class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-xl p-8 relative">
+          <div class="flex flex-col gap-6">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-brand-blue bg-brand-blue/10 px-2.5 py-1 rounded-md">
+                {pricing.starterDialer.badge}
+              </span>
+              <h3 class="text-2xl font-extrabold mt-4 text-brand-dark-blue">{pricing.starterDialer.title}</h3>
+              <p class="text-gray-500 text-xs mt-2 leading-relaxed">{pricing.starterDialer.description}</p>
+            </div>
+
+            <div class="flex flex-col justify-center min-h-[90px]">
+              <div class="flex items-baseline text-brand-dark-blue font-black tracking-tight">
+                <span class="text-2xl font-semibold text-brand-green self-start mt-2">$</span>
+                <span 
+                  id="starter-price" 
+                  class="text-6xl flex items-baseline font-black transition-all duration-200"
+                  data-monthly={pricing.starterDialer.monthlyPrice}
+                  data-annual={pricing.starterDialer.annualPrice}
+                >
+                  {pricing.starterDialer.monthlyPrice}
+                </span>
+                <span id="starter-period" class="ms-1 text-xs font-bold text-gray-400 self-end mb-2">/{pricing.starterDialer.periodMonthly}</span>
+              </div>
+              <p id="starter-savings" class="text-[11px] font-black text-brand-green uppercase tracking-wide mt-1 hidden">
+                ✓ Saves ${pricing.starterDialer.savings}/year per license
+              </p>
+            </div>
+
+            <div class="border-t border-gray-100 pt-6">
+              <p class="text-[11px] font-bold text-brand-dark-blue uppercase tracking-wider mb-4">Core Features:</p>
+              <ul class="flex flex-col gap-3.5 text-xs text-gray-600 font-medium">
+                {pricing.starterDialer.includes.map((item) => (
+                  <li class="flex items-start gap-3">
+                    <span class="h-4 w-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">✓</span>
+                    <span set:html={item}></span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <a href={pricing.starterDialer.link} class="w-full block text-center bg-gray-50 text-brand-dark-blue border border-gray-200 py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-dark-blue hover:text-white hover:border-transparent transition-all duration-200">
+              Deploy Starter
+            </a>
+          </div>
+        </div>
+
+        {/* PLAN PREMIUM (Destacado en Oscuro) */}
+        <div class="bg-brand-dark-blue rounded-3xl border border-brand-dark-blue shadow-xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-2xl p-8 relative md:-translate-y-4 md:scale-105 z-10">
+          <div class="absolute top-6 right-6">
+            <span class="bg-brand-green text-brand-dark-blue text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md shadow-xs">
+              {pricing.premiumDialer.badge}
+            </span>
+          </div>
+
+          <div class="flex flex-col gap-6">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-brand-dark-blue bg-white/30 px-2.5 py-1 rounded-md">Cloud Architecture</span>
+              <h3 class="text-2xl font-extrabold mt-4 text-white">{pricing.premiumDialer.title}</h3>
+              <p class="text-gray-300 text-xs mt-2 leading-relaxed">{pricing.premiumDialer.description}</p>
+            </div>
+
+            <div class="flex flex-col justify-center min-h-[90px]">
+              <div class="flex items-baseline text-white font-black tracking-tight">
+                <span class="text-2xl font-semibold text-brand-green self-start mt-2">$</span>
+                <span 
+                  id="premium-price" 
+                  class="text-6xl text-white flex items-baseline font-black transition-all duration-200"
+                  data-monthly={pricing.premiumDialer.monthlyPrice}
+                  data-annual={pricing.premiumDialer.annualPrice}
+                >
+                  {pricing.premiumDialer.monthlyPrice}
+                </span>
+                <span id="premium-period" class="ms-1 text-xs font-bold text-gray-400 self-end mb-2">/{pricing.premiumDialer.periodMonthly}</span>
+              </div>
+              <p id="premium-savings" class="text-[11px] font-black text-brand-green uppercase tracking-wide mt-1 hidden">
+                ✓ Saves ${pricing.premiumDialer.savings}/year per license
+              </p>
+            </div>
+
+            <div class="border-t border-white/10 pt-6">
+              <p class="text-[11px] font-bold text-brand-green uppercase tracking-wider mb-4">What's Included:</p>
+              <ul class="flex flex-col gap-3.5 text-xs text-gray-200 font-medium">
+                {pricing.premiumDialer.includes.map((item) => (
+                  <li class="flex items-start gap-3">
+                    <span class="h-4 w-4 rounded-full bg-brand-green/20 text-brand-green flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">✓</span>
+                    <span set:html={item}></span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <a href={pricing.premiumDialer.link} class="w-full block text-center bg-brand-green text-brand-dark-blue py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-green/90 shadow-md shadow-brand-green/20 transition-all duration-200">
+              Deploy Premium
+            </a>
+          </div>
+        </div>
+
+        {/* PLAN ENTERPRISE: Custom */}
+        <div class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-xl p-8 relative">
+          <div class="flex flex-col gap-6">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-brand-blue bg-brand-blue/10 px-2.5 py-1 rounded-md">
+                {pricing.enterpriseScale.badge}
+              </span>
+              <h3 class="text-2xl font-extrabold mt-4 text-brand-dark-blue">{pricing.enterpriseScale.title}</h3>
+              <p class="text-gray-500 text-xs mt-2 leading-relaxed">{pricing.enterpriseScale.description}</p>
+            </div>
+
+            <div class="flex flex-col justify-center min-h-[90px]">
+              <div class="flex items-baseline text-brand-dark-blue my-2">
+                <span class="text-5xl font-black tracking-tight">{pricing.enterpriseScale.price}</span>
+                <span class="ms-2 text-xs font-bold text-gray-400">Custom Deployment</span>
+              </div>
+            </div>
+
+            <div class="border-t border-gray-100 pt-6">
+              <p class="text-[11px] font-bold text-brand-dark-blue uppercase tracking-wider mb-4">Enterprise Features:</p>
+              <ul class="flex flex-col gap-3.5 text-xs text-gray-600 font-medium">
+                {pricing.enterpriseScale.includes.map((item) => (
+                  <li class="flex items-start gap-3">
+                    <span class="h-4 w-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">✓</span>
+                    <span set:html={item}></span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <a href={pricing.enterpriseScale.link} class="w-full block text-center bg-gray-50 text-brand-dark-blue border border-gray-200 py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-dark-blue hover:text-white hover:border-transparent transition-all duration-200">
+              Contact Sales
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      {/* LA NOTA AGREGADA AQUÍ: Se muestra dinámicamente solo en modo anual */}
+        <p id="cancellation-note" class="text-[12px] mx-auto font-medium text-gray-600 text-center max-w-md hidden transition-all duration-200">
+          <span class="text-brand-green font-bold">* Note</span>: In case of cancellation, subscription months used will be calculated and billed at the standard monthly pricing.
+        </p>
+
+    </div>
+  </section>
+
+  {/* SECCIÓN DE CARACTERÍSTICAS */}
+  <section class="py-24 bg-[#FAF8F5] text-gray-950 font-sans relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 flex flex-col gap-3">
+        <div class="flex items-center justify-center gap-2">
+          <span class="inline-block h-2 w-2 rounded-full bg-brand-green shadow-[0_0_6px_rgba(164,202,57,0.6)]"></span>
+          <span class="text-brand-blue font-bold text-xs uppercase tracking-widest">Platform Core Architecture</span>
+        </div>
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-brand-dark-blue">
+          Engineered for Zero Downtime
+        </h2>
+        <p class="text-gray-500 text-xs sm:text-sm leading-relaxed max-w-lg mx-auto font-medium">
+          Robust, cloud-native technology designed to support intensive telemarketing workflows seamlessly.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        
+        {/* CARACTERÍSTICA 1 */}
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 flex flex-col items-center gap-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-md">
+          <div class="text-[#a4ca39]">
+            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z" />
+            </svg>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="text-lg font-bold text-[#0c2340] tracking-tight leading-snug text-center">Live Agent Auditing</h3>
+            <p class="text-gray-500 text-xs sm:text-sm leading-relaxed font-medium text-center">Listen in on active agent calls, whisper key directions dynamically, or barge into critical closings via your dashboard.</p>
+          </div>
+        </div>
+
+        {/* CARACTERÍSTICA 2 */}
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 flex flex-col items-center gap-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-md">
+          <div class="text-[#a4ca39]">
+            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 a3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+            </svg>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="text-lg font-bold text-[#0c2340] tracking-tight leading-snug text-center">Anti-Spam Caller IDs</h3>
+            <p class="text-gray-500 text-xs sm:text-sm leading-relaxed font-medium text-center">Clean Caller IDs architecture to ensure maximum call connection rates and protect your system from carrier spam filters.</p>
+          </div>
+        </div>
+
+        {/* CARACTERÍSTICA 3 */}
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 flex flex-col items-center gap-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-md">
+          <div class="text-[#a4ca39]">
+            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a3 3 0 003 3m13.5-3a3 3 0 003 3m-3-3a3 3 0 00-3-3m-7.5 3l-3-3m0 0l-3 3m3-3v11.25" />
+            </svg>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="text-lg font-bold text-[#0c2340] tracking-tight leading-snug text-center md:mb-7">SIP & VoIP Elasticity</h3>
+            <p class="text-gray-500 text-xs sm:text-sm leading-relaxed font-medium text-center">High-concurrency infrastructure engineered to route calls without packet loss or structural degradation.</p>
+          </div>
+        </div>
+
+        {/* CARACTERÍSTICA 4 */}
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 flex flex-col items-center gap-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-md">
+          <div class="text-[#a4ca39]">
+            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+            </svg>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="text-lg font-bold text-[#0c2340] tracking-tight leading-snug text-center md:mb-5">Predictive Pacing</h3>
+            <p class="text-gray-500 text-xs sm:text-sm leading-relaxed font-medium text-center">Fine-tune drop rates and dialing algorithms dynamically to maximize agent talk time and reduce idle periods.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <HowItWorks />
+
+  <ClientReviews />
+</Layout>
+
+<script>
+  function initBillingToggle() {
+    const toggleBtn = document.getElementById('billing-toggle');
+    const toggleDot = document.getElementById('billing-toggle-dot');
+    const cancelNote = document.getElementById('cancellation-note');
+    
+    const starterPrice = document.getElementById('starter-price');
+    const starterPeriod = document.getElementById('starter-period');
+    const starterSavings = document.getElementById('starter-savings');
+
+    const premiumPrice = document.getElementById('premium-price');
+    const premiumPeriod = document.getElementById('premium-period');
+    const premiumSavings = document.getElementById('premium-savings');
+
+    if (!toggleBtn || !toggleDot) return;
+
+    let isAnnual = false;
+
+    toggleBtn.addEventListener('click', () => {
+      isAnnual = !isAnnual;
+      
+      toggleBtn.setAttribute('aria-checked', isAnnual.toString());
+      if (isAnnual) {
+        toggleDot.classList.remove('translate-x-0');
+        toggleDot.classList.add('translate-x-5');
+        if (cancelNote) cancelNote.classList.remove('hidden');
+        
+        if (starterPrice && starterPeriod && starterSavings) {
+          starterPrice.textContent = starterPrice.getAttribute('data-annual');
+          starterPeriod.textContent = '/month, billed annually';
+          starterSavings.classList.remove('hidden');
+        }
+        
+        if (premiumPrice && premiumPeriod && premiumSavings) {
+          premiumPrice.textContent = premiumPrice.getAttribute('data-annual');
+          premiumPeriod.textContent = '/month, billed annually';
+          premiumSavings.classList.remove('hidden');
+        }
+      } else {
+        toggleDot.classList.remove('translate-x-5');
+        toggleDot.classList.add('translate-x-0');
+        if (cancelNote) cancelNote.classList.add('hidden');
+        
+        if (starterPrice && starterPeriod && starterSavings) {
+          starterPrice.textContent = starterPrice.getAttribute('data-monthly');
+          starterPeriod.textContent = '/month';
+          starterSavings.classList.add('hidden');
+        }
+        
+        if (premiumPrice && premiumPeriod && premiumSavings) {
+          premiumPrice.textContent = premiumPrice.getAttribute('data-monthly');
+          premiumPeriod.textContent = '/month';
+          premiumSavings.classList.add('hidden');
+        }
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initBillingToggle);
+  document.addEventListener('astro:page-load', initBillingToggle);
+</script>
