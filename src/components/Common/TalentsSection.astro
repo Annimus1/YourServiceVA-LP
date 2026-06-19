@@ -1,43 +1,7 @@
 ---
-interface Talent {
-  name: string;
-  role: string;
-  image: string;
-  tags: string[];
-}
+import { type Talent, getTalent } from "../../lib/Talent";
 
-const talents: Talent[] = [
-  {
-    name: "Olivia Sanders",
-    role: "Bookkeeping Assistant",
-    image: "https://cdn.prod.website-files.com/6880b79a825dc00d03bc2ee6/688736829fd6aa88db2cd37b_136d37611ef6b44299697f10d985b09f_card-image1.webp", // Asegúrate de colocar las imágenes en tu carpeta public
-    tags: ["QuickBooks", "Invoicing", "Accounts Payable", "Bank Reconciliation", "Financial Reports"]
-  },
-  {
-    name: "Maya Rodriguez",
-    role: "Executive Virtual Assistant",
-    image: "https://cdn.prod.website-files.com/6880b79a825dc00d03bc2ee6/68875c73cb78f539bf9f5b3f_Frame%205209%20(1).webp",
-    tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
-  },
-  {
-    name: "Daniel Kim",
-    role: "Customer Support Specialist",
-    image: "https://cdn.prod.website-files.com/6880b79a825dc00d03bc2ee6/68875c9136c294a71517098c_Frame%205209%20(2).webp",
-    tags: ["Email Support", "Live Chat", "Zendesk", "Troubleshooting", "Customer Retention"]
-  },
-  {
-    name: "Maya Rodriguez",
-    role: "Executive Virtual Assistant",
-    image: "https://cdn.prod.website-files.com/6880b79a825dc00d03bc2ee6/68875cfd26c4ff9d6660d8bb_Frame%205209%20(3).webp",
-    tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
-  },
-  {
-    name: "Maya Rodriguez",
-    role: "Executive Virtual Assistant",
-    image: "https://cdn.prod.website-files.com/6880b79a825dc00d03bc2ee6/68875c73cb78f539bf9f5b3f_Frame%205209%20(1).webp",
-    tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
-  },
-];
+const talents: Talent[] = getTalent();
 ---
 
 <section class="bg-[#FAF8F5] py-16 px-0 md:px-12 w-full text-[#3d1d0e] overflow-hidden">
