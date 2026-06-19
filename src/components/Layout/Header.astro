@@ -1,5 +1,5 @@
 ---
-import HeaderItem from './HeaderItem.astro'; // Asegúrate de apuntar a la ruta correcta
+import HeaderItem from './HeaderItem.astro';
 
 const dropdowns = [
   {
@@ -24,7 +24,6 @@ const dropdowns = [
       { name: 'Legal', url: '/industry/legal' },
       { name: 'Real Estate', url: '/industry/real-estate' },
       { name: 'Solar', url: '/industry/solar' },
-
     ]
   },
   {
@@ -43,7 +42,8 @@ const simpleLinks = [
 ];
 ---
 
-<header class="top-0 z-50 w-full bg-[#FAF8F5] border-b border-gray-100 px-6">
+{/* CORRECCIÓN: Se añade 'relative' a la etiqueta header */}
+<header class="relative top-0 z-50 w-full bg-[#FAF8F5] border-b border-gray-100 px-6">
   <div class="mx-auto flex max-w-7xl items-center justify-between">
     
     <a href="/" class="flex items-center group transition-transform active:scale-98 py-4">
@@ -76,7 +76,8 @@ const simpleLinks = [
     </div>
   </div>
 
-  <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-[#FAF8F5] border-b border-gray-200 px-6 py-6 shadow-lg max-h-[calc(100vh-80px)] overflow-y-auto">
+  {/* CONTENEDOR MÓVIL: Se le añade z-50 para forzar el render sobre capas secundarias */}
+  <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-[#FAF8F5] border-b border-gray-200 px-6 py-6 shadow-lg max-h-[calc(100vh-80px)] overflow-y-auto z-50">
     <nav class="flex flex-col gap-2 font-medium text-brand-blue">
       
       {dropdowns.map((dropdown) => (
@@ -102,7 +103,7 @@ const simpleLinks = [
         <a href={link.url} class="py-3 border-b border-gray-100/80 hover:text-brand-green">{link.name}</a>
       ))}
       
-      <a href="#" class="sm:hidden mt-4 w-full inline-flex items-center justify-center rounded-xl bg-brand-blue py-3 text-sm font-semibold text-white shadow-sm">
+      <a href="/contact" class="sm:hidden mt-4 w-full inline-flex items-center justify-center rounded-xl bg-brand-blue py-3 text-sm font-semibold text-white shadow-sm">
         Get Started
       </a>
     </nav>
@@ -111,26 +112,42 @@ const simpleLinks = [
 
 <script>
   function setupNavbar() {
-    // Menú Móvil Hamburguesa
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
-    const hamburgerIcon = document.getElementById('hamburger-icon');
-    const closeIcon = document.getElementById('close-icon');
 
-    mobileMenuButton?.addEventListener('click', () => {
-      const isHidden = mobileMenu?.classList.toggle('hidden');
+    if (!mobileMenuButton || !mobileMenu) return;
+
+    // 1. Limpieza de eventos anteriores para Astro View Transitions
+    mobileMenuButton.replaceWith(mobileMenuButton.cloneNode(true));
+    
+    // Recapturamos el botón ya clonado y limpio
+    const activeMenuButton = document.getElementById('mobile-menu-button');
+
+    activeMenuButton?.addEventListener('click', () => {
+      const isHidden = mobileMenu.classList.toggle('hidden');
+      
+      // Buscamos los iconos directamente dentro del botón activo
+      const hamburgerIcon = activeMenuButton.querySelector('#hamburger-icon');
+      const closeIcon = activeMenuButton.querySelector('#close-icon');
+
+      // Alternamos las clases de visibilidad de manera segura
       hamburgerIcon?.classList.toggle('hidden', !isHidden);
       closeIcon?.classList.toggle('hidden', isHidden);
     });
 
-    // Dropdowns Móviles (Mantienen click para usabilidad móvil)
+    // 2. Dropdowns internos del menú móvil
     const mobileDropdowns = document.querySelectorAll('.mobile-dropdown-container');
     mobileDropdowns.forEach(container => {
       const button = container.querySelector('button');
       const subMenu = container.querySelector('.mobile-sub-menu');
       const arrow = container.querySelector('.mobile-arrow');
 
-      button?.addEventListener('click', () => {
+      if (!button) return;
+
+      button.replaceWith(button.cloneNode(true));
+      const activeButton = container.querySelector('button');
+
+      activeButton?.addEventListener('click', () => {
         const isHidden = subMenu?.classList.toggle('hidden');
         subMenu?.classList.toggle('flex', !isHidden);
         arrow?.classList.toggle('rotate-180', !isHidden);
@@ -138,6 +155,11 @@ const simpleLinks = [
     });
   }
 
-  setupNavbar();
+  // Inicialización robusta para entornos Astro
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupNavbar);
+  } else {
+    setupNavbar();
+  }
   document.addEventListener('astro:page-load', setupNavbar);
 </script>
