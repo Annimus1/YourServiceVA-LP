@@ -218,7 +218,7 @@ const FAQs = {
         </div>
 
         {/* Columna Derecha: Contenedor de Imagen Estilizado (Ocupa 5 de 12 columnas) */}
-        <div class="lg:col-span-5 relative w-full h-full min-h-[350px] md:min-h-[450px] flex items-center justify-center group">
+        <div class="lg:col-span-5 relative w-full h-full min-h-87.5 md:min-h-112.5 flex items-center justify-center group">
           {/* Efecto de fondo brillante detrás de la imagen para dar aspecto tecnológico */}
           <div class="absolute inset-0 bg-brand-blue/10 rounded-3xl filter blur-xl group-hover:bg-brand-blue/15 transition-all duration-300 scale-95"></div>
           
@@ -245,8 +245,8 @@ const FAQs = {
   <ClientReviews />
   <section class="py-24 bg-white text-gray-900 relative overflow-hidden border-t border-gray-100">
   {/* Sutiles destellos de color de fondo muy difuminados para dar profundidad */}
-  <div class="absolute top-1/4 -right-60 h-[500px] w-[500px] rounded-full bg-brand-blue/5 blur-[120px] pointer-events-none"></div>
-  <div class="absolute bottom-1/4 -left-60 h-[500px] w-[500px] rounded-full bg-brand-green/5 blur-[120px] pointer-events-none"></div>
+  <div class="absolute top-1/4 -right-60 h-125 w-125 rounded-full bg-brand-blue/5 blur-[120px] pointer-events-none"></div>
+  <div class="absolute bottom-1/4 -left-60 h-125 w-125 rounded-full bg-brand-green/5 blur-[120px] pointer-events-none"></div>
 
   <div id="Dialer-tutos" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     
@@ -301,11 +301,11 @@ const FAQs = {
           </label>
 
           {/* Contenido Desplegable -> FONDO BLANCO PURO */}
-          <div class="max-h-0 overflow-hidden peer-checked:max-h-[1500px] transition-all duration-500 ease-in-out bg-white">
+          <div class="max-h-0 overflow-hidden peer-checked:max-h-375 transition-all duration-500 ease-in-out bg-white">
             {/* Grid inteligente: Si solo hay un item, ocupa todo el ancho de forma limpia, si no, se divide en 2 columnas */}
             <div class={`p-6 grid gap-5 ${category.modules.length === 1 ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}`}>
               {category.modules.map((mod) => (
-                <div class="bg-gray-50/60 border border-gray-200/80 rounded-xl p-5 flex flex-col justify-between gap-5 hover:bg-white hover:border-brand-blue/30 hover:shadow-lg hover:shadow-brand-dark-blue/[0.02] transition-all duration-300 group/card relative overflow-hidden">
+                <div class="bg-gray-50/60 border border-gray-200/80 rounded-xl p-5 flex flex-col justify-between gap-5 hover:bg-white hover:border-brand-blue/30 hover:shadow-lg hover:shadow-brand-dark-blue/2 transition-all duration-300 group/card relative overflow-hidden">
                   
                   {/* Detalles del texto con la escala de grises solicitada */}
                   <div class="flex flex-col gap-2">

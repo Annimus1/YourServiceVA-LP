@@ -134,7 +134,7 @@ const FAQs = {
         </p>
       </div>
 
-      <div class="absolute bottom-4 -right-2 md:-right-8 bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-xl border border-gray-100 z-20 flex flex-col gap-2 min-w-[170px] sm:min-w-[200px]">
+      <div class="absolute bottom-4 -right-2 md:-right-8 bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-xl border border-gray-100 z-20 flex flex-col gap-2 min-w-42.5 sm:min-w-50">
         <div class="flex items-center gap-1.5 text-xs font-bold text-gray-800">
           <span class="text-brand-blue">📥</span> CRM Deal Desk <span class="text-orange-500 font-extrabold text-[11px]">(3 New)</span>
         </div>
@@ -187,7 +187,7 @@ const FAQs = {
               return (
                 <div 
                   class={`bg-white p-6 rounded-2xl border border-gray-100/80 flex flex-col justify-between gap-4 shadow-xs hover:shadow-md hover:border-brand-blue/20 transition-all duration-300 group ${
-                    isFirst ? 'sm:col-span-2 min-h-[150px] order-last' : 'min-h-[180px]'
+                    isFirst ? 'sm:col-span-2 min-h-37.5 order-last' : 'min-h-45'
                   }`}
                 >
                   <div class={`${isFirst ? 'flex flex-col sm:flex-row sm:items-baseline sm:gap-3' : 'flex flex-col gap-1'}`}>
@@ -195,7 +195,7 @@ const FAQs = {
                       {bigStat}
                     </span>
                     {subStat && (
-                      <span class="text-xs font-bold text-[#3d1d0e] tracking-tight mt-0.5 sm:mt-0 uppercase tracking-wider text-[11px]">
+                      <span class="text-xs font-bold text-[#3d1d0e] mt-0.5 sm:mt-0 uppercase tracking-wider text-[11px]">
                         {subStat}
                       </span>
                     )}
@@ -210,14 +210,14 @@ const FAQs = {
           </div>
         </div>
 
-        <div class="relative lg:h-[480px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+        <div class="relative lg:h-120 rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
           <img 
             src={hrMetrics.image} 
             alt="Inside Sales Analytics Growth" 
             class="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700 ease-out"
             loading="lazy"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#3d1d0e]/40 to-transparent pointer-events-none"></div>
+          <div class="absolute inset-0 bg-linear-to-t from-[#3d1d0e]/40 to-transparent pointer-events-none"></div>
         </div>
 
       </div>
