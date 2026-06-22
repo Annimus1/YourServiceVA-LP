@@ -55,7 +55,10 @@ import ClientReviews from "../components/Common/ClientReviews.astro";
       
     </section>
 
-    <ContactForm />
+    {/* Contenedor con ID para poder enlazar el scroll y la inyección de datos */}
+    <div id="contact-section">
+      <ContactForm />
+    </div>
     
     <section class="border-t border-gray-100 bg-[#FAF8F5]/30">
       <ClientReviews />
@@ -64,8 +67,53 @@ import ClientReviews from "../components/Common/ClientReviews.astro";
   </main>
 </Layout>
 
+<script>
+  function prefillContactForm() {
+    // 1. Obtener parámetros de la URL actual en el cliente
+    const params = new URLSearchParams(window.location.search);
+    const serviceParam = params.get('service');
+    const industryParam = params.get('industry');
+    const planParam = params.get('plan');
+    const anualParam = params.get('plan');
+
+    // 2. Buscar los elementos select o inputs dentro del formulario de contacto
+    // Nota: Asegúrate de que los elementos <select> de tu <ContactForm /> coincidan con estos selectores de nombre
+    const serviceSelect = document.querySelector('select[name="service"]') as HTMLSelectElement | null;
+    const industrySelect = document.querySelector('select[name="industry"]') as HTMLSelectElement | null;
+    
+    // Si manejas los planes como un select, inputs de tipo radio, o un input hidden:
+    const planSelect = document.querySelector('select[name="plan"]') as HTMLSelectElement | null;
+    const planRadios = document.querySelectorAll('input[name="plan"]');
+
+    // 3. Asignar valores de forma segura si el parámetro existe en la URL
+    if (serviceSelect && serviceParam) {
+      serviceSelect.value = serviceParam;
+    }
+
+    if (industrySelect && industryParam) {
+      industrySelect.value = industryParam;
+    }
+
+    if (planParam) {
+      if (planSelect) {
+        planSelect.value = planParam;
+      } else if (planRadios.length > 0) {
+        planRadios.forEach((radio) => {
+          if ((radio as HTMLInputElement).value === planParam) {
+            (radio as HTMLInputElement).checked = true;
+          }
+        });
+      }
+    }
+  }
+
+  // Ejecutar al cargar la página de forma convencional
+  document.addEventListener('DOMContentLoaded', prefillContactForm);
+  // Ejecutar si utilizas Astro View Transitions para mantener la persistencia al navegar
+  document.addEventListener('astro:page-load', prefillContactForm);
+</script>
+
 <style>
-  /* Animaciones de entrada escalonadas */
   .animate-fade-in {
     opacity: 0;
     animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -87,7 +135,6 @@ import ClientReviews from "../components/Common/ClientReviews.astro";
     }
   }
 
-  /* Forzar un bounce un poco más suave y marcado */
   .animate-bounce {
     animation: softBounce 2s infinite;
   }

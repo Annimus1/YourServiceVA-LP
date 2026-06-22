@@ -1,5 +1,18 @@
 ---
-// src/components/Contact/ContactForm.astro
+interface Props {
+  service?: string;
+  industry?: string;
+  plan?: string;
+  anual?: string;
+}
+
+// 1. Intentar leer de Props, si no, capturar directamente de los SearchParams de la URL
+const service = Astro.props.service || Astro.url.searchParams.get('service') || '';
+const industry = Astro.props.industry || Astro.url.searchParams.get('industry') || '';
+const plan = Astro.props.plan || Astro.url.searchParams.get('plan') || '';
+const anual = Astro.props.anual || Astro.url.searchParams.get('anual') || '';
+
+const isAnualInitial = anual === 'Y';
 
 const services = [
   { value: "customer-service", label: "Customer Service" },
@@ -11,6 +24,7 @@ const services = [
   { value: "tech-support", label: "Tech Support" },
   { value: "virtual-assistants", label: "Virtual Assistants" }
 ];
+
 const industries = [
   { value: "finance", label: "Finance" },
   { value: "healthcare", label: "Healthcare" },
@@ -20,18 +34,29 @@ const industries = [
   { value: "solar", label: "Solar" },
   { value: "other", label: "Other (Please specify)" }
 ];
+
+// Alineado con los datos comerciales exactos provistos
+const dialerPlans = [
+  { value: "starter", labelMonthly: "Básico Plan ($80/mo)", labelAnual: "Básico Plan ($64/mo - Billed Annually)" },
+  { value: "premium", labelMonthly: "Medio Plan ($140/mo)", labelAnual: "Medio Plan ($112/mo - Billed Annually)" },
+  { value: "enterprise", labelMonthly: "Company Plan ($180/mo)", labelAnual: "Company Plan ($144/mo - Billed Annually)" }
+];
+
 const countryCodes = [
   { code: "+1", flag: "🇺🇸", label: "USA/CA", id: "US" },
   { code: "+58", flag: "🇻🇪", label: "VE", id: "VE" },
   { code: "+44", flag: "🇬🇧", label: "UK", id: "UK" },
   { code: "+61", flag: "🇦🇺", label: "AU", id: "AU" },
   { code: "+34", flag: "🇪🇸", label: "ES", id: "ES" },
-  { code: "+52", fill: "🇲🇽", label: "MX", id: "MX" },
+  { code: "+52", flag: "🇲🇽", label: "MX", id: "MX" },
   { code: "+57", flag: "🇨🇴", label: "CO", id: "CO" },
   { code: "+54", flag: "🇦🇷", label: "AR", id: "AR" },
   { code: "+56", flag: "🇨🇱", label: "CL", id: "CL" },
   { code: "+51", flag: "🇵🇪", label: "PE", id: "PE" }
 ];
+
+const isDialerActive = service === 'predictive-dialer';
+const isOtherIndustryActive = industry === 'other';
 ---
 
 <section id="contact-section" class="w-full bg-white py-20 px-6 md:py-28 md:px-12 text-[#3d1d0e] overflow-hidden">
@@ -62,7 +87,7 @@ const countryCodes = [
           <p class="text-gray-500 text-xs font-medium leading-relaxed">
             Want to speak with our team directly?
           </p>
-          <a href="https://calendly.com/" target="_blank" rel="noopener noreferrer" class="mt-2 bg-brand-blue text-white text-xs font-black px-4 py-2.5 rounded-lg hover:bg-brand-green transition-all duration-200 uppercase tracking-wider shadow-2xs hover:scale-105 transform dynamic-btn">
+          <a href="https://calendar.app.google/yxWAZB4xdo6yx2mD8" target="_blank" rel="noopener noreferrer" class="mt-2 bg-brand-blue text-white text-xs font-black px-4 py-2.5 rounded-lg hover:bg-brand-green transition-all duration-200 uppercase tracking-wider shadow-2xs hover:scale-105 transform dynamic-btn">
             Book a Free Discovery Call
           </a>
         </div>
@@ -75,9 +100,18 @@ const countryCodes = [
             <h3 class="text-lg font-black text-[#3d1d0e]">Support</h3>
           </div>
           <p class="text-gray-500 text-xs font-medium leading-relaxed">
-            Want to speak with our team directly?
+            Need Help?
           </p>
-          <a href="/help" class="mt-2 bg-transparent border border-gray-200 text-[#3d1d0e] hover:border-brand-blue hover:text-brand-blue text-xs font-black px-4 py-2.5 rounded-lg transition-all duration-200 uppercase tracking-wider hover:scale-105 transform dynamic-btn">
+          <a href="/services/predictive-dialer-software#Dialer-tutos" class="flex items-center justify-center gap-2 mt-2 border border-gray-200 text-brand-dark-blue bg-brand-green hover:border-brand-green text-xs font-black px-4 py-2.5 rounded-lg transition-all duration-200 uppercase tracking-wider hover:scale-105 transform dynamic-btn">
+            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+            </svg>
+            Dialer Tutorials
+          </a>
+          <a href="mailto:Sales@yourserviceva.com" class="mt-2 bg-transparent flex items-center justify-center gap-2 border border-gray-200 text-[#3d1d0e] hover:border-brand-blue hover:text-brand-blue text-xs font-black px-4 py-2.5 rounded-lg transition-all duration-200 uppercase tracking-wider hover:scale-105 transform dynamic-btn">
+            <svg class="inline w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+            </svg>
             Get Help
           </a>
         </div>
@@ -104,7 +138,7 @@ const countryCodes = [
 
     <div class="lg:col-span-7 w-full bg-[#FAF8F5] rounded-3xl border border-gray-100 shadow-2xs p-8 md:p-12 scroll-reveal scroll-reveal-delayed">
       <form id="business-contact-form" class="flex flex-col gap-6">
-        
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="flex flex-col gap-2">
             <label for="contact-first-name" class="text-xs md:text-md font-black tracking-wide uppercase text-[#3d1d0e]">
@@ -181,8 +215,10 @@ const countryCodes = [
               id="contact-service" name="service" required
               class="w-full bg-white border border-gray-200/80 rounded-xl px-4 py-3.5 text-sm font-medium text-[#3d1d0e] focus:outline-hidden focus:border-brand-blue transition-all duration-200 cursor-pointer"
             >
-              <option value="" disabled selected>Select a service</option>
-              {services.map(s => <option value={s.value}>{s.label}</option>)}
+              <option value="" disabled selected={!service}>Select a service</option>
+              {services.map(s => (
+                <option value={s.value} selected={service === s.value}>{s.label}</option>
+              ))}
             </select>
           </div>
           <div class="flex flex-col gap-2">
@@ -193,18 +229,70 @@ const countryCodes = [
               id="contact-industry" name="industry" required
               class="w-full bg-white border border-gray-200/80 rounded-xl px-4 py-3.5 text-sm font-medium text-[#3d1d0e] focus:outline-hidden focus:border-brand-blue transition-all duration-200 cursor-pointer"
             >
-              <option value="" disabled selected>Select your industry</option>
-              {industries.map(i => <option value={i.value}>{i.label}</option>)}
+              <option value="" disabled selected={!industry}>Select your industry</option>
+              {industries.map(i => (
+                <option value={i.value} selected={industry === i.value}>{i.label}</option>
+              ))}
             </select>
           </div>
         </div>
 
-        <div id="custom-industry-wrapper" class="flex-col gap-2 hidden transition-all duration-300 transform scale-95 opacity-0">
+        <div 
+          id="plan-wrapper" 
+          style={{ display: isDialerActive ? 'flex' : 'none' }}
+          class={`flex-col gap-4 bg-white border border-gray-100 rounded-2xl p-5 shadow-2xs transition-all duration-300 transform ${isDialerActive ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}
+        >
+          <div class="flex flex-col gap-2">
+            <span class="text-xs font-black tracking-wide uppercase text-[#3d1d0e]">Billing Cycle</span>
+            <div class="grid grid-cols-2 bg-[#FAF8F5] p-1 rounded-xl border border-gray-200/60 max-w-xs relative">
+              <label class="flex justify-center items-center gap-1.5 py-2 px-3 rounded-lg text-xs font-black uppercase tracking-wider cursor-pointer transition-all duration-200 text-center select-none z-10 native-tab">
+                <input type="radio" name="billing_cycle" value="monthly" class="hidden" checked={!isAnualInitial} />
+                <span class="tab-text">Monthly</span>
+              </label>
+              <label class="flex justify-center items-center gap-1.5 py-2 px-3 rounded-lg text-xs font-black uppercase tracking-wider cursor-pointer transition-all duration-200 text-center select-none z-10 native-tab">
+                <input type="radio" name="billing_cycle" value="annually" class="hidden" checked={isAnualInitial} />
+                <span class="tab-text">Annually</span>
+                <span class="bg-brand-green text-white text-[9px] px-1.5 py-0.5 rounded-sm scale-95 origin-right font-black">Save</span>
+              </label>
+              <div class="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-white rounded-lg shadow-2xs transition-transform duration-300 ease-out border border-gray-100 tab-slider"></div>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="contact-plan" class="text-xs md:text-md font-black tracking-wide uppercase text-brand-blue">
+              Select Dialer Infrastructure Plan <span class="text-[#FF6B4A]">*</span>
+            </label>
+            <select 
+              id="contact-plan" name="plan"
+              required={isDialerActive}
+              class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3.5 text-sm font-medium text-[#3d1d0e] focus:outline-hidden focus:border-brand-blue transition-all duration-200 cursor-pointer"
+            >
+              <option value="" disabled selected={!plan}>Select your dialer tiered plan</option>
+              {dialerPlans.map(p => (
+                <option 
+                  value={p.value} 
+                  selected={plan === p.value}
+                  data-label-monthly={p.labelMonthly}
+                  data-label-anual={p.labelAnual}
+                >
+                  {isAnualInitial ? p.labelAnual : p.labelMonthly}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div 
+          id="custom-industry-wrapper" 
+          style={{ display: isOtherIndustryActive ? 'flex' : 'none' }}
+          class={`flex-col gap-2 transition-all duration-300 transform ${isOtherIndustryActive ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}
+        >
           <label for="contact-custom-industry" class="text-xs md:text-md font-black tracking-wide uppercase text-brand-blue">
             Please specify your industry <span class="text-[#FF6B4A]">*</span>
           </label>
           <input 
             type="text" id="contact-custom-industry" name="custom_industry" placeholder="E.g., Logistics, Operations..."
+            required={isOtherIndustryActive}
             class="w-full bg-white border border-brand-blue/30 rounded-xl px-4 py-3.5 text-sm font-medium text-[#3d1d0e] focus:outline-hidden focus:border-brand-blue transition-all duration-200"
           />
         </div>
@@ -279,7 +367,6 @@ const countryCodes = [
 </section>
 
 <style>
-  /* Estado inicial: oculto y desplazado hacia abajo */
   .scroll-reveal {
     opacity: 0;
     transform: translateY(30px);
@@ -287,13 +374,11 @@ const countryCodes = [
     transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease-out;
   }
 
-  /* Clase que inyecta JS cuando se llega al 30% del viewport */
   .scroll-reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
   }
 
-  /* Retraso escalonado controlado nativamente por CSS en vez de JS redundante */
   .scroll-reveal-delayed.is-visible {
     transition-delay: 0.15s;
   }
@@ -305,6 +390,20 @@ const countryCodes = [
   @keyframes pulseGlow {
     0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.2); }
     50% { box-shadow: 0 0 8px 2px rgba(34, 197, 94, 0.4); }
+  }
+
+  .native-tab {
+    color: #6b7280;
+  }
+  .native-tab:has(input:checked) {
+    color: #3d1d0e;
+  }
+  
+  .grid:has(label:nth-child(1) input:checked) .tab-slider {
+    transform: translateX(0);
+  }
+  .grid:has(label:nth-child(2) input:checked) .tab-slider {
+    transform: translateX(100%);
   }
 
   input, select, textarea {
@@ -327,32 +426,40 @@ const countryCodes = [
   }
 
   function initContactUX() {
-    const form = document.getElementById('business-contact-form') as HTMLFormElement;
-    if (!form) return;
-
-    // --- NUEVA LÓGICA DE INTERSECTION OBSERVER AL 30% ---
-    const revealElements = document.querySelectorAll('.scroll-reveal');
+    console.log('📦 [UX Init] Inicializando listeners del formulario de contacto...');
     
-    const observerOptions = {
-      root: null, // Relativo al viewport
-      threshold: 0.30 // Cambiado exactamente al 30% de visibilidad del elemento
-    };
+    // Capturar el formulario activo en el DOM actual
+    const form = document.querySelector('#business-contact-form') as HTMLFormElement;
+    if (!form) {
+      console.warn('⚠️ [UX Init] No se encontró el formulario #business-contact-form en el DOM todavía.');
+      return;
+    }
 
+    // Buscamos los elementos del scope interno del formulario
+    const serviceSelect = form.querySelector('#contact-service') as HTMLSelectElement;
+    const planWrapper = form.querySelector('#plan-wrapper') as HTMLDivElement;
+    const planSelect = form.querySelector('#contact-plan') as HTMLSelectElement;
+    const billingRadios = form.querySelectorAll('input[name="billing_cycle"]');
+    const industrySelect = form.querySelector('#contact-industry') as HTMLSelectElement;
+    const customIndustryWrapper = form.querySelector('#custom-industry-wrapper') as HTMLDivElement;
+    const customIndustryInput = form.querySelector('#contact-custom-industry') as HTMLInputElement;
+    const tzSelect = form.querySelector('#contact-timezone') as HTMLSelectElement;
+    const phoneCountrySelect = form.querySelector('#contact-country-code') as HTMLSelectElement;
+
+    // --- REVEAL ANIMATIONS ---
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+    const observerOptions = { root: null, threshold: 0.10 };
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target); // Deja de observar una vez ejecutado
+          observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
-
     revealElements.forEach(el => revealObserver.observe(el));
-    // ---------------------------------------------------
 
-    const tzSelect = document.getElementById('contact-timezone') as HTMLSelectElement;
-    const phoneCountrySelect = document.getElementById('contact-country-code') as HTMLSelectElement;
-
+    // --- AUTOMATED TIMEZONE & COUNTRY CODE ---
     if (tzSelect && tzSelect.options.length === 0) {
       const timeZones = (Intl as any).supportedValuesOf?.('timeZone') || ['UTC', 'America/New_York', 'America/Caracas', 'Europe/London'];
       const userTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -368,7 +475,6 @@ const countryCodes = [
       if (phoneCountrySelect) {
         const tzLower = userTz.toLowerCase();
         let targetCountryId = "US";
-
         if (tzLower.includes('caracas') || tzLower.includes('venezuela')) targetCountryId = "VE";
         else if (tzLower.includes('london') || tzLower.includes('europe/london') || tzLower.includes('gb')) targetCountryId = "UK";
         else if (tzLower.includes('sydney') || tzLower.includes('melbourne') || tzLower.includes('australia')) targetCountryId = "AU";
@@ -385,30 +491,107 @@ const countryCodes = [
       }
     }
 
-    const industrySelect = document.getElementById('contact-industry') as HTMLSelectElement;
-    const customIndustryWrapper = document.getElementById('custom-industry-wrapper');
-    const customIndustryInput = document.getElementById('contact-custom-industry') as HTMLInputElement;
-
-    if (industrySelect && customIndustryWrapper && customIndustryInput) {
-      industrySelect.addEventListener('change', () => {
-        if (industrySelect.value === 'other') {
-          customIndustryWrapper.style.display = 'flex';
-          setTimeout(() => {
-            customIndustryWrapper.classList.remove('scale-95', 'opacity-0', 'hidden');
-            customIndustryWrapper.classList.add('scale-100', 'opacity-100');
-          }, 10);
-          customIndustryInput.required = true;
-          customIndustryInput.focus();
-        } else {
-          customIndustryWrapper.classList.remove('scale-100', 'opacity-100');
-          customIndustryWrapper.classList.add('scale-95', 'opacity-0');
-          setTimeout(() => { customIndustryWrapper.classList.add('hidden'); }, 200);
-          customIndustryInput.required = false;
-          customIndustryInput.value = '';
+    // --- INTERACTIVE LABELS AND VISIBILITY ---
+    function updatePlanLabels(cycle: string) {
+      Array.from(planSelect.options).forEach((option) => {
+        const monthlyLabel = option.getAttribute('data-label-monthly');
+        const anualLabel = option.getAttribute('data-label-anual');
+        if (monthlyLabel && anualLabel) {
+          option.textContent = cycle === 'annually' ? anualLabel : monthlyLabel;
         }
       });
     }
 
+    function togglePlanFields(serviceValue: string) {
+      console.log('🔄 [Toggle Plans] Evaluando servicio activo:', serviceValue);
+      
+      if (serviceValue === 'predictive-dialer') {
+        planWrapper.style.setProperty('display', 'flex', 'important');
+        planSelect.required = true;
+        
+        setTimeout(() => {
+          planWrapper.classList.remove('scale-95', 'opacity-0', 'hidden');
+          planWrapper.classList.add('scale-100', 'opacity-100');
+        }, 50);
+      } else {
+        planSelect.required = false;
+        planWrapper.classList.remove('scale-100', 'opacity-100');
+        planWrapper.classList.add('scale-95', 'opacity-0');
+        
+        setTimeout(() => { 
+          if (serviceSelect.value !== 'predictive-dialer') {
+            planWrapper.style.display = 'none';
+            planWrapper.classList.add('hidden');
+          }
+        }, 300);
+        planSelect.value = '';
+      }
+    }
+
+    function toggleIndustryFields(industryValue: string) {
+      if (!customIndustryWrapper || !customIndustryInput) return;
+
+      if (industryValue === 'other') {
+        customIndustryWrapper.style.setProperty('display', 'flex', 'important');
+        customIndustryInput.required = true;
+        setTimeout(() => {
+          customIndustryWrapper.classList.remove('scale-95', 'opacity-0', 'hidden');
+          customIndustryWrapper.classList.add('scale-100', 'opacity-100');
+        }, 50);
+      } else {
+        customIndustryInput.required = false;
+        customIndustryWrapper.classList.remove('scale-100', 'opacity-100');
+        customIndustryWrapper.classList.add('scale-95', 'opacity-0');
+        setTimeout(() => {
+          if (industrySelect.value !== 'other') {
+            customIndustryWrapper.style.display = 'none';
+            customIndustryWrapper.classList.add('hidden');
+          }
+        }, 300);
+        customIndustryInput.value = '';
+      }
+    }
+
+    // --- SINCRONIZACIÓN ACTIVA DE URL (CLIENT-SIDE) ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const annualParam = urlParams.get('anual') || urlParams.get('annual');
+
+    if (annualParam === 'Y') {
+      const annualRadio = form.querySelector('input[name="billing_cycle"][value="annually"]') as HTMLInputElement;
+      if (annualRadio) {
+        annualRadio.checked = true;
+        updatePlanLabels('annually');
+      }
+    } else if (annualParam === 'N') {
+      const monthlyRadio = form.querySelector('input[name="billing_cycle"][value="monthly"]') as HTMLInputElement;
+      if (monthlyRadio) {
+        monthlyRadio.checked = true;
+        updatePlanLabels('monthly');
+      }
+    }
+
+    // Evaluaciones forzadas de estado al iniciar
+    if (serviceSelect) {
+      togglePlanFields(serviceSelect.value);
+      serviceSelect.addEventListener('change', () => togglePlanFields(serviceSelect.value));
+    }
+
+    if (industrySelect) {
+      toggleIndustryFields(industrySelect.value);
+      industrySelect.addEventListener('change', () => toggleIndustryFields(industrySelect.value));
+    }
+
+    const activeRadio = form.querySelector('input[name="billing_cycle"]:checked') as HTMLInputElement;
+    if (activeRadio) updatePlanLabels(activeRadio.value);
+
+    billingRadios.forEach((radio) => {
+      radio.addEventListener('change', (e) => {
+        const target = e.target as HTMLInputElement;
+        if (target.checked) updatePlanLabels(target.value);
+      });
+    });
+
+    // --- FORM SUBMIT ---
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
@@ -426,7 +609,14 @@ const countryCodes = [
       if (response.success) {
         alert('Thank you! Your strategic application data has been registered.');
         form.reset();
-        if (customIndustryWrapper) customIndustryWrapper.classList.add('hidden', 'scale-95', 'opacity-0');
+        if (customIndustryWrapper) {
+          customIndustryWrapper.style.display = 'none';
+          customIndustryWrapper.classList.add('hidden', 'scale-95', 'opacity-0');
+        }
+        if (planWrapper) {
+          planWrapper.style.display = 'none';
+          planWrapper.classList.add('hidden', 'scale-95', 'opacity-0');
+        }
         if (tzSelect) tzSelect.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
         initContactUX(); 
       } else {
@@ -441,10 +631,13 @@ const countryCodes = [
     });
   }
 
+  // Ejecución adaptativa al ciclo de vida del DOM del navegador y SPA Transitions de Astro
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initContactUX);
   } else {
     initContactUX();
   }
+  
   document.addEventListener('astro:page-load', initContactUX);
+  document.addEventListener('astro:after-swap', initContactUX);
 </script>
