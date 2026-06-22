@@ -168,50 +168,122 @@
   </div>
 </section>
 
+<div id="popup-success" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-950/40 backdrop-blur-xs hidden opacity-0 transition-opacity duration-300">
+  <div class="bg-white rounded-3xl max-w-md w-full p-8 text-center shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col items-center gap-4 border border-gray-100">
+    <div class="w-16 h-16 bg-brand-green/10 text-brand-green text-3xl rounded-full flex items-center justify-center font-black animate-bounce">
+      ✓
+    </div>
+    <h3 class="text-2xl font-black text-gray-950 tracking-tight">Application Sent!</h3>
+    <p class="text-gray-500 text-sm font-medium leading-relaxed">
+      Thank you for your submission. Our recruitment operations team will evaluate your profile and voice introduction. We will get in touch with you shortly.
+    </p>
+    <button type="button" class="close-popup-btn w-full bg-brand-blue text-white font-bold py-3.5 px-4 rounded-xl text-sm hover:bg-brand-green transition-colors duration-200 cursor-pointer mt-2 uppercase tracking-wider">
+      Great, thank you
+    </button>
+  </div>
+</div>
+
+<div id="popup-error" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-950/40 backdrop-blur-xs hidden opacity-0 transition-opacity duration-300">
+  <div class="bg-white rounded-3xl max-w-md w-full p-8 text-center shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col items-center gap-4 border border-gray-100">
+    <div class="w-16 h-16 bg-red-50 text-red-500 text-3xl rounded-full flex items-center justify-center font-black">
+      ✕
+    </div>
+    <h3 class="text-2xl font-black text-red-600 tracking-tight">Submission Failed</h3>
+    <p id="popup-error-message" class="text-gray-500 text-sm font-medium leading-relaxed">
+      An unexpected system error occurred while trying to push your data to our systems.
+    </p>
+    <button type="button" class="close-popup-btn w-full bg-red-600 text-white font-bold py-3.5 px-4 rounded-xl text-sm hover:bg-red-700 transition-colors duration-200 cursor-pointer mt-2 uppercase tracking-wider">
+      Review and Try Again
+    </button>
+  </div>
+</div>
+
 <script>
-  /**
-   * FUNCIÓN DE ENVÍO DE DATOS (Maneja la lógica de negocio / Fetch API)
-   * Recibe un objeto FormData con toda la información ya recolectada.
-   */
-  async function sendApplicationData(formData: FormData): Promise<{ success: boolean; error?: string }> {
-    // --- CONSULTA EN CONSOLA (Verificación del Payload) ---
-    console.log('🚀 [Data Collected] Sending payload...');
+  async function sendApplicationData(formElement: HTMLFormElement): Promise<{ success: boolean; error?: string }> {  
+    const GOOGLE_APPLICANTS_URL = 'https://script.google.com/macros/s/AKfycbx-B9PI4n04oQV-8X7UQ9bAZ31dal4_bTpqMuJCeHPkXK10wX0s90tUuitr1sW2pymMgQ/exec'; 
+    const formData = new FormData(formElement);
+    const urlParams = new URLSearchParams();
+
+    // 1. Mapeamos todos los campos de texto normales
     for (let [key, value] of formData.entries()) {
-      if (value instanceof File) {
-        console.log(`🔹 ${key}: Archivo -> ${value.name} (${value.size} bytes)`);
-      } else {
-        console.log(`🔹 ${key}: ${value}`);
+      if (!(value instanceof File)) {
+        urlParams.append(key, value.toString());
       }
     }
 
-    try {
-      // Simulación de latencia de red (2 segundos)
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      /* INTEGRACIÓN FUTURA DE BACKEND:
-        Aquí es donde conectarás tu API route de Astro, Webhook o CRM.
-        
-        const response = await fetch('/api/apply', {
-          method: 'POST',
-          body: formData // Envía el FormData directamente (Mantiene codificación multipart/form-data)
+    // 2. Tratamiento especial para la carga del archivo CV
+    const cvFile = formData.get('cv') as File;
+    if (cvFile && cvFile.size > 0) {
+      try {
+        const base64String = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const result = reader.result as string;
+            const base64Clean = result.split(',')[1];
+            resolve(base64Clean);
+          };
+          reader.onerror = (err) => reject(err);
+          reader.readAsDataURL(cvFile);
         });
-        
-        if (!response.ok) {
-          throw new Error('Server responded with an error status');
-        }
-      */
 
-      return { success: true };
-    } catch (error: any) {
-      console.error('❌ Error in sendApplicationData:', error);
-      return { success: false, error: error?.message || 'Unknown network error' };
+        urlParams.append('cv_base64', base64String);
+        urlParams.append('cv_name', cvFile.name);
+      } catch (fileError) {
+        console.warn('⚠️ No se pudo procesar el archivo del CV, enviando sin adjunto:', fileError);
+      }
     }
+
+    // 3. Realizar la petición POST
+    try {
+      const response = await fetch(GOOGLE_APPLICANTS_URL, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: urlParams.toString()
+      });
+
+      if (!response.ok) throw new Error('Error en el servidor de Google Sheets');
+
+      const result = await response.json();
+      return { success: result.success, error: result.error };
+
+    } catch (error: any) {
+      return { success: false, error: error?.message || 'Network error' };
+    }
+  }
+
+  /**
+   * ANIMACIONES INTEGRADAS PARA ENTRADA/SALIDA DE MODALES
+   */
+  function showModal(modalId: string) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    setTimeout(() => {
+      modal.classList.add('opacity-100');
+      const container = modal.firstElementChild;
+      if (container) container.classList.replace('scale-95', 'scale-100');
+    }, 10);
+  }
+
+  function hideModal(modal: HTMLElement) {
+    modal.classList.remove('opacity-100');
+    const container = modal.firstElementChild;
+    if (container) container.classList.replace('scale-100', 'scale-95');
+    setTimeout(() => {
+      modal.classList.add('hidden');
+    }, 300);
   }
 
   /**
    * INICIALIZADOR DE INTERFAZ DE USUARIO (UX)
    */
   function initFormUX() {
+    const form = document.querySelector('form');
+    if (!form) return;
+
     // 1. Slider interactivo
     const slider = document.getElementById('experience-slider') as HTMLInputElement;
     const sliderValue = document.getElementById('slider-value');
@@ -241,55 +313,60 @@
       });
     }
 
-    // 3. Manejador del Evento Submit (UI Controller)
-    const form = document.querySelector('form');
-    if (form) {
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault(); // Detener recarga de página por defecto
-
-        const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-        const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit Application';
-
-        // Deshabilitar botón y mostrar estado de carga
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'Sending Application...';
-          submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
-        }
-
-        // --- RECOLECCIÓN AUTOMÁTICA DE DATOS ---
-        // FormData extrae los valores actuales usando el atributo 'name' de cada input
-        const collectedData = new FormData(form);
-
-        // --- INVOCACIÓN DE LA FUNCIÓN DE ENVÍO INDEPENDIENTE ---
-        const result = await sendApplicationData(collectedData);
-
-        // --- RESPUESTA VISUAL SEGÚN EL RESULTADO ---
-        if (result.success) {
-          alert('¡Application submitted successfully! Thank you for your interest.');
-          form.reset();
-          
-          // Resetear estados visuales de los inputs dinámicos
-          if (sliderValue) sliderValue.textContent = '0 years';
-          if (nameText) {
-            nameText.textContent = 'Click to upload or drag & drop';
-            nameText.classList.remove('text-brand-green');
-          }
-        } else {
-          alert(`An error occurred while sending your application: ${result.error}`);
-        }
-
-        // Restaurar estado original del botón
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalBtnText;
-          submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
-        }
+    // 3. Listeners colectivos para cerrar los Popups al hacer clic en los botones
+    const closeButtons = document.querySelectorAll('.close-popup-btn');
+    closeButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        const parentModal = target.closest('[id^="popup-"]') as HTMLElement;
+        if (parentModal) hideModal(parentModal);
       });
-    }
+    });
+
+    // 4. Manejador del Evento Submit (UI Controller con soporte de Modales)
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit Application';
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending Application...';
+        submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
+      }
+
+      // --- EJECUCIÓN ÚNICA DEL POST ---
+      const result = await sendApplicationData(form);
+
+      // --- RESPUESTA MEDIANTE POP-UPS ---
+      if (result.success) {
+        showModal('popup-success');
+        form.reset();
+        
+        // Resetear estados visuales
+        if (sliderValue) sliderValue.textContent = '0 years';
+        if (nameText) {
+          nameText.textContent = 'Click to upload or drag & drop';
+          nameText.classList.remove('text-brand-green');
+        }
+      } else {
+        const errMessageElement = document.getElementById('popup-error-message');
+        if (errMessageElement && result.error) {
+          errMessageElement.textContent = `Details: ${result.error}`;
+        }
+        showModal('popup-error');
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+        submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+      }
+    });
   }
 
-  // Soporte SPA de Astro y cargas tradicionales del navegador
+  // Soporte de inicialización para SSR, SPA Transitions y cargas tradicionales de Astro
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initFormUX);
   } else {
