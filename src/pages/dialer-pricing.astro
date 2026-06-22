@@ -16,7 +16,8 @@ const pricing = {
     savings: 192,
     periodMonthly: "month",
     periodAnnual: "month, billed annually",
-    link: "/dialer-contact?plan=starter",
+    linkMonthly: "/contact?service=predictive-dialer&plan=starter&annual=N",
+    linkAnnual: "/contact?service=predictive-dialer&plan=starter&annual=Y",
     includes: [
       "<strong>1 Agent Credential</strong> included",
       "<strong>Automatic Dialer</strong> & Outbound calls",
@@ -35,7 +36,8 @@ const pricing = {
     savings: 336,
     periodMonthly: "month",
     periodAnnual: "month, billed annually",
-    link: "/dialer-contact?plan=premium",
+    linkMonthly: "/contact?service=predictive-dialer&plan=premium&annual=N",
+    linkAnnual: "/contact?service=predictive-dialer&plan=premium&annual=Y",
     includes: [
       "<strong>Everything included in Starter +</strong>",
       "<strong>Multiline Dialer</strong> (up to 10 lines)",
@@ -52,7 +54,8 @@ const pricing = {
     badge: "Company Custom",
     description: "For full-scale outbound fleets and operations needing high-volume infrastructure deployment.",
     price: "Custom",
-    link: "/dialer-contact?plan=custom",
+    linkMonthly: "/contact?service=predictive-dialer&plan=enterprise&annual=N",
+    linkAnnual: "/contact?service=predictive-dialer&plan=enterprise&annual=Y",
     includes: [
       "<strong>Everything included in Premium +</strong>",
       "<strong>Custom Agent & Admin licenses volume discounts</strong>",
@@ -156,7 +159,13 @@ const pricing = {
           </div>
 
           <div class="mt-8">
-            <a href={pricing.starterDialer.link} class="w-full block text-center bg-gray-50 text-brand-dark-blue border border-gray-200 py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-dark-blue hover:text-white hover:border-transparent transition-all duration-200">
+            <a 
+              id="starter-btn" 
+              href={pricing.starterDialer.linkMonthly}
+              data-monthly-url={pricing.starterDialer.linkMonthly}
+              data-annual-url={pricing.starterDialer.linkAnnual}
+              class="w-full block text-center bg-gray-50 text-brand-dark-blue border border-gray-200 py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-dark-blue hover:text-white hover:border-transparent transition-all duration-200"
+            >
               Deploy Starter
             </a>
           </div>
@@ -209,7 +218,13 @@ const pricing = {
           </div>
 
           <div class="mt-8">
-            <a href={pricing.premiumDialer.link} class="w-full block text-center bg-brand-green text-brand-dark-blue py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-green/90 shadow-md shadow-brand-green/20 transition-all duration-200">
+            <a 
+              id="premium-btn" 
+              href={pricing.premiumDialer.linkMonthly}
+              data-monthly-url={pricing.premiumDialer.linkMonthly}
+              data-annual-url={pricing.premiumDialer.linkAnnual}
+              class="w-full block text-center bg-brand-green text-brand-dark-blue py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-green/90 shadow-md shadow-brand-green/20 transition-all duration-200"
+            >
               Deploy Premium
             </a>
           </div>
@@ -247,7 +262,13 @@ const pricing = {
           </div>
 
           <div class="mt-8">
-            <a href={pricing.enterpriseScale.link} class="w-full block text-center bg-gray-50 text-brand-dark-blue border border-gray-200 py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-dark-blue hover:text-white hover:border-transparent transition-all duration-200">
+            <a 
+              id="enterprise-btn" 
+              href={pricing.enterpriseScale.linkMonthly}
+              data-monthly-url={pricing.enterpriseScale.linkMonthly}
+              data-annual-url={pricing.enterpriseScale.linkAnnual}
+              class="w-full block text-center bg-gray-50 text-brand-dark-blue border border-gray-200 py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-dark-blue hover:text-white hover:border-transparent transition-all duration-200"
+            >
               Contact Sales
             </a>
           </div>
@@ -352,19 +373,42 @@ const pricing = {
     const starterPrice = document.getElementById('starter-price');
     const starterPeriod = document.getElementById('starter-period');
     const starterSavings = document.getElementById('starter-savings');
+    const starterBtn = document.getElementById('starter-btn') as HTMLAnchorElement | null;
 
     const premiumPrice = document.getElementById('premium-price');
     const premiumPeriod = document.getElementById('premium-period');
     const premiumSavings = document.getElementById('premium-savings');
+    const premiumBtn = document.getElementById('premium-btn') as HTMLAnchorElement | null;
+
+    const enterpriseBtn = document.getElementById('enterprise-btn') as HTMLAnchorElement | null;
 
     if (!toggleBtn || !toggleDot) return;
 
     let isAnnual = false;
 
+    function updateLinks(annualActive: boolean) {
+      const targetAttr = annualActive ? 'data-annual-url' : 'data-monthly-url';
+      
+      if (starterBtn) {
+        const url = starterBtn.getAttribute(targetAttr);
+        if (url) starterBtn.href = url;
+      }
+      if (premiumBtn) {
+        const url = premiumBtn.getAttribute(targetAttr);
+        if (url) premiumBtn.href = url;
+      }
+      if (enterpriseBtn) {
+        const url = enterpriseBtn.getAttribute(targetAttr);
+        if (url) enterpriseBtn.href = url;
+      }
+    }
+
     toggleBtn.addEventListener('click', () => {
       isAnnual = !isAnnual;
       
       toggleBtn.setAttribute('aria-checked', isAnnual.toString());
+      updateLinks(isAnnual);
+
       if (isAnnual) {
         toggleDot.classList.remove('translate-x-0');
         toggleDot.classList.add('translate-x-5');
