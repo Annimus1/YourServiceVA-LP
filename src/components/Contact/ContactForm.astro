@@ -37,9 +37,9 @@ const industries = [
 
 // Alineado con los datos comerciales exactos provistos
 const dialerPlans = [
-  { value: "starter", labelMonthly: "Básico Plan ($80/mo)", labelAnual: "Básico Plan ($64/mo - Billed Annually)" },
-  { value: "premium", labelMonthly: "Medio Plan ($140/mo)", labelAnual: "Medio Plan ($112/mo - Billed Annually)" },
-  { value: "enterprise", labelMonthly: "Company Plan ($180/mo)", labelAnual: "Company Plan ($144/mo - Billed Annually)" }
+  { value: "starter", labelMonthly: "Starter Plan ($80/mo)", labelAnual: "Starter Plan ($64/mo - Billed Annually)" },
+  { value: "premium", labelMonthly: "Premium Plan ($140/mo)", labelAnual: "Premium Plan ($112/mo - Billed Annually)" },
+  { value: "enterprise", labelMonthly: "Enterprise Plan ($180/mo)", labelAnual: "Enterprise Plan ($144/mo - Billed Annually)" }
 ];
 
 const countryCodes = [
@@ -417,10 +417,33 @@ const isOtherIndustryActive = industry === 'other';
     for (let [key, value] of formData.entries()) {
       console.log(`💼 ${key}: ${value}`);
     }
+
+    // REEMPLAZA ESTO con la URL que te dio Google Apps Script al publicar (Deploy -> New Deployment)
+    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwz7A_k5I4GDOGuedA_i78D2LxwVwjFS1bwXQbSLNk59DEX4MsFWn-F__tVZejKcGm-Gg/exec';
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      return { success: true };
+      console.log('📤 Enviando datos de registro a Google Sheets...');
+      
+      const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+        method: 'POST',
+        body: formData // Enviamos el FormData directamente, Apps Script lo procesa de forma nativa
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error en el servidor: ${response.status} ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      
+      if (result.success) {
+        console.log('✅ [Spreadsheet Sync] Fila agregada con éxito.');
+        return { success: true };
+      } else {
+        return { success: false, error: result.error || 'Apps Script devolvió un estado fallido.' };
+      }
+
     } catch (error: any) {
+      console.error('❌ [Network Error] El envío al backend de Sheets falló:', error);
       return { success: false, error: error?.message || 'Network error' };
     }
   }
