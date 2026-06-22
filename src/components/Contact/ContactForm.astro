@@ -103,13 +103,13 @@ const isOtherIndustryActive = industry === 'other';
             Need Help?
           </p>
           <a href="/services/predictive-dialer-software#Dialer-tutos" class="flex items-center justify-center gap-2 mt-2 border border-gray-200 text-brand-dark-blue bg-brand-green hover:border-brand-green text-xs font-black px-4 py-2.5 rounded-lg transition-all duration-200 uppercase tracking-wider hover:scale-105 transform dynamic-btn">
-            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
             </svg>
             Dialer Tutorials
           </a>
           <a href="mailto:Sales@yourserviceva.com" class="mt-2 bg-transparent flex items-center justify-center gap-2 border border-gray-200 text-[#3d1d0e] hover:border-brand-blue hover:text-brand-blue text-xs font-black px-4 py-2.5 rounded-lg transition-all duration-200 uppercase tracking-wider hover:scale-105 transform dynamic-btn">
-            <svg class="inline w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <svg class="inline w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
             </svg>
             Get Help
@@ -366,6 +366,36 @@ const isOtherIndustryActive = industry === 'other';
   </div>
 </section>
 
+<div id="popup-success" class="fixed inset-0 z-50 items-center justify-center p-4 bg-gray-950/40 backdrop-blur-xs flex hidden opacity-0 transition-opacity duration-300">
+  <div class="bg-white rounded-3xl max-w-md w-full p-8 text-center shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col items-center gap-4 border border-gray-100">
+    <div class="w-16 h-16 bg-brand-green/10 text-brand-green text-3xl rounded-full flex items-center justify-center font-black animate-bounce">
+      ✓
+    </div>
+    <h3 class="text-2xl font-black text-gray-950 tracking-tight">Message Received!</h3>
+    <p class="text-gray-500 text-sm font-medium leading-relaxed">
+      Your inquiry has been successfully captured. Our operations lead will review your infrastructure requirements and contact you within 24 business hours.
+    </p>
+    <button type="button" class="close-popup-btn w-full bg-brand-blue text-white font-bold py-3.5 px-4 rounded-xl text-sm hover:bg-brand-green transition-colors duration-200 cursor-pointer mt-2 uppercase tracking-wider">
+      Got it, thanks
+    </button>
+  </div>
+</div>
+
+<div id="popup-error" class="fixed inset-0 z-50 items-center justify-center p-4 bg-gray-950/40 backdrop-blur-xs flex hidden opacity-0 transition-opacity duration-300">
+  <div class="bg-white rounded-3xl max-w-md w-full p-8 text-center shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col items-center gap-4 border border-gray-100">
+    <div class="w-16 h-16 bg-red-50 text-red-500 text-3xl rounded-full flex items-center justify-center font-black">
+      ✕
+    </div>
+    <h3 class="text-2xl font-black text-red-600 tracking-tight">Submission Failed</h3>
+    <p id="popup-error-message" class="text-gray-500 text-sm font-medium leading-relaxed">
+      An unexpected corporate server error occurred while trying to submit your operational requirements.
+    </p>
+    <button type="button" class="close-popup-btn w-full bg-red-600 text-white font-bold py-3.5 px-4 rounded-xl text-sm hover:bg-red-700 transition-colors duration-200 cursor-pointer mt-2 uppercase tracking-wider">
+      Review and Try Again
+    </button>
+  </div>
+</div>
+
 <style>
   .scroll-reveal {
     opacity: 0;
@@ -412,53 +442,61 @@ const isOtherIndustryActive = industry === 'other';
 </style>
 
 <script>
-  async function sendContactData(formData: FormData): Promise<{ success: boolean; error?: string }> {
-    console.log('🚀 [Lead Captured] Compilando datos comerciales...');
-    for (let [key, value] of formData.entries()) {
-      console.log(`💼 ${key}: ${value}`);
-    }
-
-    // REEMPLAZA ESTO con la URL que te dio Google Apps Script al publicar (Deploy -> New Deployment)
+  async function sendContactData(formData: FormData): Promise<{ success: boolean; error?: string }> {    
     const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwz7A_k5I4GDOGuedA_i78D2LxwVwjFS1bwXQbSLNk59DEX4MsFWn-F__tVZejKcGm-Gg/exec';
 
-    try {
-      console.log('📤 Enviando datos de registro a Google Sheets...');
-      
+    try {      
       const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
         method: 'POST',
         body: formData // Enviamos el FormData directamente, Apps Script lo procesa de forma nativa
       });
 
       if (!response.ok) {
-        throw new Error(`Error en el servidor: ${response.status} ${response.statusText}`);
+        throw new Error(`Server Error: ${response.status} ${response.statusText}`);
       }
 
       const result = await response.json();
       
       if (result.success) {
-        console.log('✅ [Spreadsheet Sync] Fila agregada con éxito.');
         return { success: true };
       } else {
-        return { success: false, error: result.error || 'Apps Script devolvió un estado fallido.' };
+        return { success: false, error: result.error || 'Apps Script returned a failed execution status.' };
       }
 
     } catch (error: any) {
-      console.error('❌ [Network Error] El envío al backend de Sheets falló:', error);
       return { success: false, error: error?.message || 'Network error' };
     }
+  }
+
+  /**
+   * INTERFACES ANIMADAS PARA POPUPS (OPEN/CLOSE LOGIC)
+   */
+  function showModal(modalId: string) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    setTimeout(() => {
+      modal.classList.add('opacity-100');
+      const container = modal.firstElementChild;
+      if (container) container.classList.replace('scale-95', 'scale-100');
+    }, 10);
+  }
+
+  function hideModal(modal: HTMLElement) {
+    modal.classList.remove('opacity-100');
+    const container = modal.firstElementChild;
+    if (container) container.classList.replace('scale-100', 'scale-95');
+    setTimeout(() => {
+      modal.classList.add('hidden');
+    }, 300);
   }
 
   function initContactUX() {
     console.log('📦 [UX Init] Inicializando listeners del formulario de contacto...');
     
-    // Capturar el formulario activo en el DOM actual
     const form = document.querySelector('#business-contact-form') as HTMLFormElement;
-    if (!form) {
-      console.warn('⚠️ [UX Init] No se encontró el formulario #business-contact-form en el DOM todavía.');
-      return;
-    }
+    if (!form) return;
 
-    // Buscamos los elementos del scope interno del formulario
     const serviceSelect = form.querySelector('#contact-service') as HTMLSelectElement;
     const planWrapper = form.querySelector('#plan-wrapper') as HTMLDivElement;
     const planSelect = form.querySelector('#contact-plan') as HTMLSelectElement;
@@ -526,12 +564,9 @@ const isOtherIndustryActive = industry === 'other';
     }
 
     function togglePlanFields(serviceValue: string) {
-      console.log('🔄 [Toggle Plans] Evaluando servicio activo:', serviceValue);
-      
       if (serviceValue === 'predictive-dialer') {
         planWrapper.style.setProperty('display', 'flex', 'important');
         planSelect.required = true;
-        
         setTimeout(() => {
           planWrapper.classList.remove('scale-95', 'opacity-0', 'hidden');
           planWrapper.classList.add('scale-100', 'opacity-100');
@@ -540,7 +575,6 @@ const isOtherIndustryActive = industry === 'other';
         planSelect.required = false;
         planWrapper.classList.remove('scale-100', 'opacity-100');
         planWrapper.classList.add('scale-95', 'opacity-0');
-        
         setTimeout(() => { 
           if (serviceSelect.value !== 'predictive-dialer') {
             planWrapper.style.display = 'none';
@@ -575,7 +609,7 @@ const isOtherIndustryActive = industry === 'other';
       }
     }
 
-    // --- SINCRONIZACIÓN ACTIVA DE URL (CLIENT-SIDE) ---
+    // --- SINCRONIZACIÓN DE PARÁMETROS URL ---
     const urlParams = new URLSearchParams(window.location.search);
     const annualParam = urlParams.get('anual') || urlParams.get('annual');
 
@@ -593,7 +627,6 @@ const isOtherIndustryActive = industry === 'other';
       }
     }
 
-    // Evaluaciones forzadas de estado al iniciar
     if (serviceSelect) {
       togglePlanFields(serviceSelect.value);
       serviceSelect.addEventListener('change', () => togglePlanFields(serviceSelect.value));
@@ -614,53 +647,60 @@ const isOtherIndustryActive = industry === 'other';
       });
     });
 
-    // --- FORM SUBMIT ---
+    // --- CLOSE POPUP LISTENERS ---
+    const closeButtons = document.querySelectorAll('.close-popup-btn');
+    closeButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        const parentModal = target.closest('[id^="popup-"]') as HTMLElement;
+        if (parentModal) hideModal(parentModal);
+      });
+    });
+
+    // --- SUBMIT HANDLING WITH MODALS ---
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      
       const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
       const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit Message';
 
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Processing Data...';
-        submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+        submitBtn.textContent = 'Sending Message...';
+        submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
       }
 
-      const collectedData = new FormData(form);
-      const response = await sendContactData(collectedData);
+      const rawFormData = new FormData(form);
+      const result = await sendContactData(rawFormData);
 
-      if (response.success) {
-        alert('Thank you! Your strategic application data has been registered.');
+      if (result.success) {
+        showModal('popup-success');
         form.reset();
-        if (customIndustryWrapper) {
-          customIndustryWrapper.style.display = 'none';
-          customIndustryWrapper.classList.add('hidden', 'scale-95', 'opacity-0');
-        }
-        if (planWrapper) {
-          planWrapper.style.display = 'none';
-          planWrapper.classList.add('hidden', 'scale-95', 'opacity-0');
-        }
-        if (tzSelect) tzSelect.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        initContactUX(); 
+        
+        // Reset manual de campos dinámicos
+        if (serviceSelect) togglePlanFields(serviceSelect.value);
+        if (industrySelect) toggleIndustryFields(industrySelect.value);
       } else {
-        alert(`Error: ${response.error}`);
+        const errMessageElement = document.getElementById('popup-error-message');
+        if (errMessageElement && result.error) {
+          errMessageElement.textContent = `Details: ${result.error}`;
+        }
+        showModal('popup-error');
       }
 
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = originalBtnText;
-        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
       }
     });
   }
 
-  // Ejecución adaptativa al ciclo de vida del DOM del navegador y SPA Transitions de Astro
+  // Soporte SPA de Astro (astro:page-load) e inicialización tradicional
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initContactUX);
   } else {
     initContactUX();
   }
-  
   document.addEventListener('astro:page-load', initContactUX);
-  document.addEventListener('astro:after-swap', initContactUX);
 </script>
