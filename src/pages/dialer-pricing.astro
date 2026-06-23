@@ -72,26 +72,26 @@ const pricing = {
     <div class="absolute top-1/4 -right-60 h-125 w-125 rounded-full bg-brand-green/30 blur-[120px] pointer-events-none"></div>
     <div class="absolute bottom-1/4 -left-60 h-125 w-125 rounded-full bg-brand-blue/20 blur-[120px] pointer-events-none"></div>
 
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       
       {/* Encabezado Principal */}
       <div class="text-center max-w-2xl mx-auto mb-12 flex flex-col gap-3">
         <div class="flex items-center justify-center gap-2">
           <span class="inline-block h-2 w-2 rounded-full bg-brand-green shadow-[0_0_6px_rgba(164,202,57,0.6)]"></span>
-          <span class="text-brand-blue font-bold text-xs uppercase tracking-widest">Predictive Dialer Solution</span>
+          <span class="text-brand-blue font-bold text-xs md:text-md uppercase tracking-widest">Predictive Dialer Solution</span>
         </div>
         <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-brand-dark-blue">
           Transparent Pricing, <span class="text-brand-green">Uncapped Volume</span>
         </h2>
-        <p class="text-gray-600 text-xs sm:text-sm leading-relaxed max-w-lg mx-auto font-medium">
+        <p class="text-gray-600 text-sm md:text-lg leading-relaxed max-w-lg mx-auto font-medium">
           Scale your outbound call center operations with an enterprise-grade cloud dialer. No hidden fees.
         </p>
       </div>
 
       {/* Switcher Interactiva Anual / Mensual con Nota de Cancelación */}
-      <div class="flex flex-col items-center justify-center mb-16 gap-3">
+      <div class="flex flex-col items-center justify-center mb-5 gap-3">
         <div class="flex items-center justify-center gap-4">
-          <span class="text-sm font-bold text-gray-500 id-billing-label-monthly">Monthly</span>
+          <span class="text-sm md:text-lg font-bold text-gray-500 id-billing-label-monthly">Monthly</span>
           <button 
             id="billing-toggle" 
             type="button"
@@ -101,12 +101,12 @@ const pricing = {
           >
             <span 
               id="billing-toggle-dot"
-              class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out translate-x-0"
+              class="pointer-events-none md:text-lg inline-block h-5 w-5 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out translate-x-0"
             ></span>
           </button>
           <div class="flex items-center gap-2">
-            <span class="text-sm font-bold text-gray-900 id-billing-label-annual">Yearly</span>
-            <span class="bg-brand-green/10 text-brand-green text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-sm">
+            <span class="text-sm md:text-lg font-bold text-gray-900 id-billing-label-annual">Yearly</span>
+            <span class="bg-brand-green/10 text-brand-green font-bold text-[10px] md:text-mdfont-black uppercase tracking-wider px-2 py-0.5 rounded-sm">
               Save 20%
             </span>
           </div>
@@ -114,22 +114,22 @@ const pricing = {
       </div>
 
       {/* Grid de Precios de 3 Columnas */}
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto mt-10 mb-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch mx-auto mt-12 mb-10">
         
         {/* PLAN STARTER */}
-        <div class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-xl p-8 relative">
+        <div class="bg-white rounded-3xl border w-95 border-gray-200 shadow-sm overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-xl p-8 relative">
           <div class="flex flex-col gap-6">
             <div>
-              <span class="text-[10px] font-bold uppercase tracking-widest text-brand-blue bg-brand-blue/10 px-2.5 py-1 rounded-md">
+              <span class="text-[10px] md:text-md font-bold uppercase tracking-widest text-brand-blue bg-brand-blue/10 px-2.5 py-1 rounded-md">
                 {pricing.starterDialer.badge}
               </span>
-              <h3 class="text-2xl font-extrabold mt-4 text-brand-dark-blue">{pricing.starterDialer.title}</h3>
-              <p class="text-gray-500 text-xs mt-2 leading-relaxed">{pricing.starterDialer.description}</p>
+              <h3 class="text-2xl md:text-4xl font-extrabold mt-4 text-brand-dark-blue">{pricing.starterDialer.title}</h3>
+              <p class="text-gray-500 text-xs md:text-lg mt-2 leading-relaxed">{pricing.starterDialer.description}</p>
             </div>
 
             <div class="flex flex-col justify-center min-h-22.5">
               <div class="flex items-baseline text-brand-dark-blue font-black tracking-tight">
-                <span class="text-2xl font-semibold text-brand-green self-start mt-2">$</span>
+                <span class="text-2xl md:text-4xl font-semibold text-brand-green self-start mt-2">$</span>
                 <span 
                   id="starter-price" 
                   class="text-6xl flex items-baseline font-black transition-all duration-200"
@@ -138,19 +138,19 @@ const pricing = {
                 >
                   {pricing.starterDialer.monthlyPrice}
                 </span>
-                <span id="starter-period" class="ms-1 text-xs font-bold text-gray-400 self-end mb-2">/{pricing.starterDialer.periodMonthly}</span>
+                <span id="starter-period" class="ms-1 text-xs md:text-lg font-bold text-gray-400 self-end mb-2">/{pricing.starterDialer.periodMonthly}</span>
               </div>
-              <p id="starter-savings" class="text-[11px] font-black text-brand-green uppercase tracking-wide mt-1 hidden">
+              <p id="starter-savings" class="text-[11px] md:text-lg font-black text-brand-green uppercase tracking-wide mt-1 hidden">
                 ✓ Saves ${pricing.starterDialer.savings}/year per license
               </p>
             </div>
 
             <div class="border-t border-gray-100 pt-6">
-              <p class="text-[11px] font-bold text-brand-dark-blue uppercase tracking-wider mb-4">Core Features:</p>
-              <ul class="flex flex-col gap-3.5 text-xs text-gray-600 font-medium">
+              <p class="text-[11px] md:text-xl font-bold text-brand-dark-blue uppercase tracking-wider mb-4">Core Features:</p>
+              <ul class="flex flex-col gap-3.5 text-xs md:text-lg text-gray-600 font-medium">
                 {pricing.starterDialer.includes.map((item) => (
                   <li class="flex items-start gap-3">
-                    <span class="h-4 w-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">✓</span>
+                    <span class="h-6 w-6 md:text-lg rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">✓</span>
                     <span set:html={item}></span>
                   </li>
                 ))}
@@ -164,7 +164,7 @@ const pricing = {
               href={pricing.starterDialer.linkMonthly}
               data-monthly-url={pricing.starterDialer.linkMonthly}
               data-annual-url={pricing.starterDialer.linkAnnual}
-              class="w-full block text-center bg-gray-50 text-brand-dark-blue border border-gray-200 py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-dark-blue hover:text-white hover:border-transparent transition-all duration-200"
+              class="w-full md:text-lg block text-center bg-gray-50 text-brand-dark-blue border border-gray-200 py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-dark-blue hover:text-white hover:border-transparent transition-all duration-200"
             >
               Deploy Starter
             </a>
@@ -172,9 +172,9 @@ const pricing = {
         </div>
 
         {/* PLAN PREMIUM (Destacado en Oscuro) */}
-        <div class="bg-brand-dark-blue rounded-3xl border border-brand-dark-blue shadow-xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-2xl p-8 relative md:-translate-y-4 md:scale-105 z-10">
+        <div class="bg-brand-dark-blue rounded-3xl w-100 border border-brand-dark-blue shadow-xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-2xl p-8 relative md:scale-105 z-10">
           <div class="absolute top-6 right-6">
-            <span class="bg-brand-green text-brand-dark-blue text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md shadow-xs">
+            <span class="bg-brand-green md:text-md text-brand-dark-blue text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md shadow-xs">
               {pricing.premiumDialer.badge}
             </span>
           </div>
@@ -182,13 +182,13 @@ const pricing = {
           <div class="flex flex-col gap-6">
             <div>
               <span class="text-[10px] font-bold uppercase tracking-widest text-brand-dark-blue bg-white/30 px-2.5 py-1 rounded-md">Cloud Architecture</span>
-              <h3 class="text-2xl font-extrabold mt-4 text-white">{pricing.premiumDialer.title}</h3>
-              <p class="text-gray-300 text-xs mt-2 leading-relaxed">{pricing.premiumDialer.description}</p>
+              <h3 class="text-2xl md:text-4xl font-extrabold mt-4 text-white">{pricing.premiumDialer.title}</h3>
+              <p class="text-gray-300 text-xs md:text-lg mt-2 leading-relaxed">{pricing.premiumDialer.description}</p>
             </div>
 
             <div class="flex flex-col justify-center min-h-22.5">
               <div class="flex items-baseline text-white font-black tracking-tight">
-                <span class="text-2xl font-semibold text-brand-green self-start mt-2">$</span>
+                <span class="text-2xl md:text-4xl font-semibold text-brand-green self-start mt-2">$</span>
                 <span 
                   id="premium-price" 
                   class="text-6xl text-white flex items-baseline font-black transition-all duration-200"
@@ -197,19 +197,19 @@ const pricing = {
                 >
                   {pricing.premiumDialer.monthlyPrice}
                 </span>
-                <span id="premium-period" class="ms-1 text-xs font-bold text-gray-400 self-end mb-2">/{pricing.premiumDialer.periodMonthly}</span>
+                <span id="premium-period" class="ms-1 text-xs md:text-lg font-bold text-gray-400 self-end mb-2">/{pricing.premiumDialer.periodMonthly}</span>
               </div>
-              <p id="premium-savings" class="text-[11px] font-black text-brand-green uppercase tracking-wide mt-1 hidden">
+              <p id="premium-savings" class="text-[11px] md:text-lg font-black text-brand-green uppercase tracking-wide mt-1 hidden">
                 ✓ Saves ${pricing.premiumDialer.savings}/year per license
               </p>
             </div>
 
             <div class="border-t border-white/10 pt-6">
-              <p class="text-[11px] font-bold text-brand-green uppercase tracking-wider mb-4">What's Included:</p>
-              <ul class="flex flex-col gap-3.5 text-xs text-gray-200 font-medium">
+              <p class="text-[11px] md:text-xl font-bold text-brand-green uppercase tracking-wider mb-4">What's Included:</p>
+              <ul class="flex flex-col gap-3.5 text-xs md:text-lg text-gray-200 font-medium">
                 {pricing.premiumDialer.includes.map((item) => (
                   <li class="flex items-start gap-3">
-                    <span class="h-4 w-4 rounded-full bg-brand-green/20 text-brand-green flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">✓</span>
+                    <span class="h-6 w-6 md:text-lg rounded-full bg-brand-green/20 text-brand-green flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">✓</span>
                     <span set:html={item}></span>
                   </li>
                 ))}
@@ -223,7 +223,7 @@ const pricing = {
               href={pricing.premiumDialer.linkMonthly}
               data-monthly-url={pricing.premiumDialer.linkMonthly}
               data-annual-url={pricing.premiumDialer.linkAnnual}
-              class="w-full block text-center bg-brand-green text-brand-dark-blue py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-green/90 shadow-md shadow-brand-green/20 transition-all duration-200"
+              class="w-full block md:text-lg text-center bg-brand-green text-brand-dark-blue py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-green/90 shadow-md shadow-brand-green/20 transition-all duration-200"
             >
               Deploy Premium
             </a>
@@ -231,29 +231,29 @@ const pricing = {
         </div>
 
         {/* PLAN ENTERPRISE: Custom */}
-        <div class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-xl p-8 relative">
+        <div class="bg-white rounded-3xl border w-95 ml-5 border-gray-200 shadow-sm overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-xl p-8 relative">
           <div class="flex flex-col gap-6">
             <div>
-              <span class="text-[10px] font-bold uppercase tracking-widest text-brand-blue bg-brand-blue/10 px-2.5 py-1 rounded-md">
+              <span class="text-[10px] md:text-md font-bold uppercase tracking-widest text-brand-blue bg-brand-blue/10 px-2.5 py-1 rounded-md">
                 {pricing.enterpriseScale.badge}
               </span>
-              <h3 class="text-2xl font-extrabold mt-4 text-brand-dark-blue">{pricing.enterpriseScale.title}</h3>
-              <p class="text-gray-500 text-xs mt-2 leading-relaxed">{pricing.enterpriseScale.description}</p>
+              <h3 class="text-2xl md:text-4xl font-extrabold mt-4 text-brand-dark-blue">{pricing.enterpriseScale.title}</h3>
+              <p class="text-gray-500 text-xs md:text-lg mt-2 leading-relaxed">{pricing.enterpriseScale.description}</p>
             </div>
 
             <div class="flex flex-col justify-center min-h-22.5">
               <div class="flex items-baseline text-brand-dark-blue my-2">
                 <span class="text-5xl font-black tracking-tight">{pricing.enterpriseScale.price}</span>
-                <span class="ms-2 text-xs font-bold text-gray-400">Custom Deployment</span>
+                <span class="ms-2 text-xs md:text-lg font-bold text-gray-400">Custom Deployment</span>
               </div>
             </div>
 
             <div class="border-t border-gray-100 pt-6">
-              <p class="text-[11px] font-bold text-brand-dark-blue uppercase tracking-wider mb-4">Enterprise Features:</p>
-              <ul class="flex flex-col gap-3.5 text-xs text-gray-600 font-medium">
+              <p class="text-[11px] md:text-xl font-bold text-brand-dark-blue uppercase tracking-wider mb-4">Enterprise Features:</p>
+              <ul class="flex flex-col gap-3.5 text-xs md:text-lg text-gray-600 font-medium">
                 {pricing.enterpriseScale.includes.map((item) => (
                   <li class="flex items-start gap-3">
-                    <span class="h-4 w-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">✓</span>
+                    <span class="h-6 w-6 md:text-lg rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">✓</span>
                     <span set:html={item}></span>
                   </li>
                 ))}
@@ -267,7 +267,7 @@ const pricing = {
               href={pricing.enterpriseScale.linkMonthly}
               data-monthly-url={pricing.enterpriseScale.linkMonthly}
               data-annual-url={pricing.enterpriseScale.linkAnnual}
-              class="w-full block text-center bg-gray-50 text-brand-dark-blue border border-gray-200 py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-dark-blue hover:text-white hover:border-transparent transition-all duration-200"
+              class="w-full block md:text-lg text-center bg-gray-50 text-brand-dark-blue border border-gray-200 py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-dark-blue hover:text-white hover:border-transparent transition-all duration-200"
             >
               Contact Sales
             </a>
@@ -277,7 +277,7 @@ const pricing = {
       </div>
 
       {/* LA NOTA AGREGADA AQUÍ: Se muestra dinámicamente solo en modo anual */}
-        <p id="cancellation-note" class="text-[12px] mx-auto font-medium text-gray-600 text-center max-w-md hidden transition-all duration-200">
+        <p id="cancellation-note" class="text-[12px] mx-auto md:text-lg font-medium text-gray-600 text-center max-w-md hidden transition-all duration-200">
           <span class="text-brand-green font-bold">* Note</span>: In case of cancellation, subscription months used will be calculated and billed at the standard monthly pricing.
         </p>
 
@@ -286,17 +286,17 @@ const pricing = {
 
   {/* SECCIÓN DE CARACTERÍSTICAS */}
   <section class="py-24 bg-[#FAF8F5] text-gray-950 font-sans relative overflow-hidden">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       
       <div class="text-center max-w-2xl mx-auto mb-16 flex flex-col gap-3">
         <div class="flex items-center justify-center gap-2">
           <span class="inline-block h-2 w-2 rounded-full bg-brand-green shadow-[0_0_6px_rgba(164,202,57,0.6)]"></span>
-          <span class="text-brand-blue font-bold text-xs uppercase tracking-widest">Platform Core Architecture</span>
+          <span class="text-brand-blue font-bold text-xs md:text-md uppercase tracking-widest">Platform Core Architecture</span>
         </div>
         <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-brand-dark-blue">
-          Engineered for Zero Downtime
+          Engineered for <span class="text-brand-green">Zero Downtime</span>
         </h2>
-        <p class="text-gray-500 text-xs sm:text-sm leading-relaxed max-w-lg mx-auto font-medium">
+        <p class="text-gray-500 text-sm md:text-lg leading-relaxed max-w-lg mx-auto font-medium">
           Robust, cloud-native technology designed to support intensive telemarketing workflows seamlessly.
         </p>
       </div>
@@ -311,8 +311,8 @@ const pricing = {
             </svg>
           </div>
           <div class="flex flex-col gap-2">
-            <h3 class="text-lg font-bold text-[#0c2340] tracking-tight leading-snug text-center">Live Agent Auditing</h3>
-            <p class="text-gray-500 text-xs sm:text-sm leading-relaxed font-medium text-center">Listen in on active agent calls, whisper key directions dynamically, or barge into critical closings via your dashboard.</p>
+            <h3 class="text-lg md:text-xl font-bold text-[#0c2340] tracking-tight leading-snug text-center">Live Agent Auditing</h3>
+            <p class="text-gray-500 text-sm md:text-lg leading-relaxed font-medium text-center">Listen in on active agent calls, whisper key directions dynamically, or barge into critical closings via your dashboard.</p>
           </div>
         </div>
 
@@ -324,8 +324,8 @@ const pricing = {
             </svg>
           </div>
           <div class="flex flex-col gap-2">
-            <h3 class="text-lg font-bold text-[#0c2340] tracking-tight leading-snug text-center">Anti-Spam Caller IDs</h3>
-            <p class="text-gray-500 text-xs sm:text-sm leading-relaxed font-medium text-center">Clean Caller IDs architecture to ensure maximum call connection rates and protect your system from carrier spam filters.</p>
+            <h3 class="text-lg md:text-xl font-bold text-[#0c2340] tracking-tight leading-snug text-center">Anti-Spam Caller IDs</h3>
+            <p class="text-gray-500 text-sm md:text-lg leading-relaxed font-medium text-center">Clean Caller IDs architecture to ensure maximum call connection rates and protect your system from carrier spam filters.</p>
           </div>
         </div>
 
@@ -337,8 +337,8 @@ const pricing = {
             </svg>
           </div>
           <div class="flex flex-col gap-2">
-            <h3 class="text-lg font-bold text-[#0c2340] tracking-tight leading-snug text-center md:mb-7">SIP & VoIP Elasticity</h3>
-            <p class="text-gray-500 text-xs sm:text-sm leading-relaxed font-medium text-center">High-concurrency infrastructure engineered to route calls without packet loss or structural degradation.</p>
+            <h3 class="text-lg md:text-xl font-bold text-[#0c2340] tracking-tight leading-snug text-center md:mb-7">SIP & VoIP Elasticity</h3>
+            <p class="text-gray-500 text-sm md:text-lg leading-relaxed font-medium text-center">High-concurrency infrastructure engineered to route calls without packet loss or structural degradation.</p>
           </div>
         </div>
 
@@ -350,8 +350,8 @@ const pricing = {
             </svg>
           </div>
           <div class="flex flex-col gap-2">
-            <h3 class="text-lg font-bold text-[#0c2340] tracking-tight leading-snug text-center md:mb-5">Predictive Pacing</h3>
-            <p class="text-gray-500 text-xs sm:text-sm leading-relaxed font-medium text-center">Fine-tune drop rates and dialing algorithms dynamically to maximize agent talk time and reduce idle periods.</p>
+            <h3 class="text-lg md:text-xl font-bold text-[#0c2340] tracking-tight leading-snug text-center md:mb-5">Predictive Pacing</h3>
+            <p class="text-gray-500 text-sm md:text-lg leading-relaxed font-medium text-center">Fine-tune drop rates and dialing algorithms dynamically to maximize agent talk time and reduce idle periods.</p>
           </div>
         </div>
 
