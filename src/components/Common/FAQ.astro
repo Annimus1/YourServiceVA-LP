@@ -20,7 +20,7 @@ const FAQs: FAQType = Astro.props.FAQs;
       <h2 class="text-3xl md:text-5xl font-extrabold text-[#3d1d0e] tracking-tight leading-tight">
         {FAQs.title} <span class="text-brand-green">FAQs</span>
       </h2>
-      <p class="text-gray-500 font-medium text-base md:text-lg">
+      <p class="text-gray-500 font-medium text-base md:text-2xl">
         {FAQs.description}
       </p>
     </div>
@@ -31,7 +31,7 @@ const FAQs: FAQType = Astro.props.FAQs;
           class="group bg-white rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 [&_summary::-webkit-details-marker]:hidden open:shadow-md faq-item-slide"
           style={`transition-delay: ${index * 0.1}s`}>
           <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer select-none list-none gap-4">
-            <h3 class="text-base md:text-lg font-bold text-[#3d1d0e] group-hover:text-brand-green transition-colors duration-200 tracking-tight">
+            <h3 class="text-base md:text-2xl font-bold text-[#3d1d0e] group-hover:text-brand-green transition-colors duration-200 tracking-tight">
               {faq.question}
             </h3>
             
@@ -42,7 +42,7 @@ const FAQs: FAQType = Astro.props.FAQs;
                 viewBox="0 0 24 24" 
                 stroke-width="2.5" 
                 stroke="currentColor" 
-                class="w-4 h-4 transform transition-transform duration-300 group-open:rotate-180"
+                class="w-6 h-6 transform transition-transform duration-300 group-open:rotate-180"
               >
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
@@ -50,11 +50,11 @@ const FAQs: FAQType = Astro.props.FAQs;
           </summary>
 
           <div class="px-6 md:px-8 pb-6 md:pb-8 border-t border-gray-50 pt-4">
-            <p class="text-gray-600 text-sm md:text-base leading-relaxed font-medium">
+            <p class="text-gray-600 text-sm md:text-xl leading-relaxed font-medium">
               {faq.answer}
             </p>
             
-            <div class="flex items-center gap-1.5 text-brand-green text-xs font-bold mt-4">
+            <div class="flex items-center gap-1.5 text-brand-green text-md font-bold mt-4">
               <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span>
               Your Service Verified Info
             </div>

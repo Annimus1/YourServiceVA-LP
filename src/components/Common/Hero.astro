@@ -26,7 +26,7 @@ const heroData: heroDataType = Astro.props.heroData || {
     {/* COLUMNA IZQUIERDA: Añadida clase 'animate-fade-up' */}
     <div class="lg:col-span-7 flex flex-col gap-6 md:gap-8 order-2 lg:order-1 text-left animate-fade-up">
       
-      <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#3d1d0e] tracking-tight leading-tight">
+      <h1 class="text-[50px] sm:text-5xl md:text-6xl font-extrabold text-[#3d1d0e] tracking-tight leading-tight">
         {heroData.titleA} <br class="hidden sm:inline"/> {heroData.titleB}
       </h1>
 
@@ -36,7 +36,7 @@ const heroData: heroDataType = Astro.props.heroData || {
           <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-green text-white text-xs font-bold mt-0.5">
             ✓
           </span>
-          <span>{item}</span>
+          <span class="text-lg md:text-xl">{item}</span>
         </li>
         ))}
       </ul>

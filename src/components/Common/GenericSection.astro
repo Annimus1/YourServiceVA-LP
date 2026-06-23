@@ -22,11 +22,11 @@ const genericData: GenericSectionProps = Astro.props.genericData
         genericData.flow === "reverse" ? "lg:order-2" : "" 
       ]}
     >
-      <h2 class=`text-3xl sm:text-4xl md:text-5xl font-extrabold ${ genericData.bg == "dark" ? "text-white":"text-[#3d1d0e]"} tracking-tight leading-tight`>
+      <h2 class=`text-3xl sm:text-4xl md:text-6xl font-extrabold ${ genericData.bg == "dark" ? "text-white":"text-[#3d1d0e]"} tracking-tight leading-tight`>
         {genericData.title}
       </h2>
       
-      <p class=`${ genericData.bg == "dark" ? "text-gray-300":"text-gray-600"} font-medium text-base sm:text-lg leading-relaxed max-w-xl`>
+      <p class=`${ genericData.bg == "dark" ? "text-gray-300":"text-gray-600"} font-medium text-4xl sm:text-lg leading-relaxed max-w-xl`>
         {genericData.description}
       </p>
 
