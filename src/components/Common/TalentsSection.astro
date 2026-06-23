@@ -1,7 +1,13 @@
 ---
-import { type Talent, getTalent } from "../../lib/Talent";
+import { type Talent, getTalent, getRandomTalent } from "../../lib/Talent";
 
 const talents: Talent[] = getTalent();
+
+const ITEMS_PER_PAGE = 4;
+const desktopDotCount = Math.ceil(talents.length / ITEMS_PER_PAGE);
+
+// Creamos arreglos vacíos basados en la longitud para usarlos en el .map()
+const desktopDots = Array.from({ length: desktopDotCount });
 ---
 
 <section class="bg-[#FAF8F5] py-16 px-0 md:px-12 w-full text-[#3d1d0e] overflow-hidden">
@@ -81,10 +87,22 @@ const talents: Talent[] = getTalent();
       
     </div>
 
-    <div id="slider-dots" class="flex items-center justify-center gap-2 mt-2">
+    {/* DOTS DE DESKTOP: 1 dot cada 4 items */}
+    <div id="slider-dots-desktop" class="hidden md:flex items-center justify-center gap-2 mt-2">
+      {desktopDots.map((_, index) => (
+        <button
+          class={`slider-dot-desktop h-2.5 rounded-full transition-all duration-300 ${index === 0 ? 'w-7 bg-[#0066cc]' : 'w-2.5 bg-gray-300'}`}
+          data-index={index}
+          aria-label={`Go to page ${index + 1}`}
+        />
+      ))}
+    </div>
+
+    {/* DOTS DE MÓVIL: Mantiene un dot por tarjeta individual */}
+    <div id="slider-dots-mobile" class="flex md:hidden items-center justify-center gap-2 mt-2">
       {talents.map((_, index) => (
         <button
-          class={`slider-dot h-2.5 rounded-full transition-all duration-300 ${index === 0 ? 'w-7 bg-brand-blue' : 'w-2.5 bg-gray-300'}`}
+          class={`slider-dot-mobile h-2.5 rounded-full transition-all duration-300 ${index === 0 ? 'w-7 bg-[#0066cc]' : 'w-2.5 bg-gray-300'}`}
           data-index={index}
           aria-label={`Go to slide ${index + 1}`}
         />
@@ -99,13 +117,20 @@ const talents: Talent[] = getTalent();
     const slider = document.getElementById('talent-slider');
     const nextBtn = document.getElementById('next-btn');
     const prevBtn = document.getElementById('prev-btn');
-    const dots = document.querySelectorAll('.slider-dot');
+    const desktopDots = document.querySelectorAll('.slider-dot-desktop');
+    const mobileDots = document.querySelectorAll('.slider-dot-mobile');
 
     if (!slider) return;
 
-    const getScrollAmount = () => {
+    // Retorna el ancho de una tarjeta + el gap (20px)
+    const getCardWidth = () => {
       const firstCard = slider.firstElementChild as HTMLElement;
       return firstCard ? firstCard.offsetWidth + 20 : 340;
+    };
+
+    // En Desktop avanzamos de 4 en 4 tarjetas, en móvil de 1 en 1
+    const getScrollAmount = () => {
+      return window.innerWidth >= 768 ? getCardWidth() * 4 : getCardWidth();
     };
 
     if (nextBtn && prevBtn) {
@@ -119,14 +144,17 @@ const talents: Talent[] = getTalent();
 
     slider.addEventListener('scroll', () => {
       const scrollLeft = slider.scrollLeft;
-      const cardWidth = getScrollAmount();
+      const cardWidth = getCardWidth();
       
-      const activeIndex = Math.round(scrollLeft / cardWidth);
+      // Índice de tarjeta activa
+      const activeCardIndex = Math.round(scrollLeft / cardWidth);
+      // Índice de página activa (cada 4 tarjetas en desktop)
+      const activePageIndex = Math.round(scrollLeft / (cardWidth * 4));
 
-      dots.forEach((dot, idx) => {
-        if (idx === activeIndex) {
+      // Actualizar dots de Desktop
+      desktopDots.forEach((dot, idx) => {
+        if (idx === activePageIndex) {
           dot.classList.remove('w-2.5', 'bg-gray-300');
-          // Cambia 'bg-brand-blue' por tu color primario (ej: bg-emerald-600 o el que uses)
           dot.classList.add('w-7', 'bg-[#0066cc]'); 
         } else {
           dot.classList.remove('w-7', 'bg-[#0066cc]');
@@ -134,6 +162,18 @@ const talents: Talent[] = getTalent();
         }
       });
 
+      // Actualizar dots de Móvil
+      mobileDots.forEach((dot, idx) => {
+        if (idx === activeCardIndex) {
+          dot.classList.remove('w-2.5', 'bg-gray-300');
+          dot.classList.add('w-7', 'bg-[#0066cc]'); 
+        } else {
+          dot.classList.remove('w-7', 'bg-[#0066cc]');
+          dot.classList.add('w-2.5', 'bg-gray-300');
+        }
+      });
+
+      // Visibilidad del botón "Atrás"
       if (prevBtn) {
         if (scrollLeft > 10) {
           prevBtn.classList.remove('md:hidden');
@@ -143,12 +183,25 @@ const talents: Talent[] = getTalent();
       }
     });
 
-    dots.forEach((dot) => {
+    // Eventos Click en Desktop (mueve por bloques de 4)
+    desktopDots.forEach((dot) => {
       dot.addEventListener('click', (e) => {
         const target = e.currentTarget as HTMLElement;
         const index = parseInt(target.dataset.index || '0');
         slider.scrollTo({
-          left: index * getScrollAmount(),
+          left: index * (getCardWidth() * 4),
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Eventos Click en Móvil (mueve por tarjetas individuales)
+    mobileDots.forEach((dot) => {
+      dot.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLElement;
+        const index = parseInt(target.dataset.index || '0');
+        slider.scrollTo({
+          left: index * getCardWidth(),
           behavior: 'smooth'
         });
       });
