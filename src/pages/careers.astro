@@ -50,19 +50,19 @@ const values = [
   <section class="relative py-24 md:py-32 bg-brand-dark-blue overflow-hidden text-white font-sans">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(164,202,57,0.15),transparent_45%)]"></div>
     
-    <div class="max-w-4xl mx-auto px-6 text-center relative z-10 flex flex-col gap-6 initial-career-reveal">
+    <div class="max-w-7xl mx-auto px-6 text-center relative z-10 flex flex-col gap-6 initial-career-reveal">
       <div class="flex items-center justify-center gap-2">
         <span class="h-2 w-2 rounded-full bg-brand-green shadow-[0_0_6px_rgba(164,202,57,0.6)]"></span>
-        <span class="text-brand-green font-bold text-xs uppercase tracking-widest">We Are Hiring</span>
+        <span class="text-brand-green font-bold text-xs md:text-lg uppercase tracking-widest">We Are Hiring</span>
       </div>
       <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-none">
-        Build the Future of <span class="text-brand-green">Cloud Dialing</span>
+        Scale Your Impact, <br/> <span class="text-brand-green">100% Remotely</span>
       </h1>
       <p class="text-gray-300 text-base md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
-        We are building high-performance outbound communication infrastructure. Join a fully remote, agile team dedicated to operational excellence.
+        We’re looking for exceptional talent to help us reinvent cloud dialing infrastructure. Discover what it’s like to work in a fully remote, agile team built on trust and excellence.
       </p>
       <div class="mt-4">
-        <a href="#aplication" class="bg-brand-green hover:bg-brand-green/90 text-brand-dark-blue font-extrabold text-sm px-8 py-4 rounded-xl shadow-lg transition-all duration-200 inline-block">
+        <a href="#aplication" class="md:text-xl bg-brand-green hover:bg-brand-green/90 text-brand-dark-blue font-extrabold text-sm px-8 py-4 rounded-xl shadow-lg transition-all duration-200 inline-block">
           Apply Now
         </a>
       </div>
@@ -77,19 +77,19 @@ const values = [
         <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-brand-dark-blue">
           Our Core Architecture
         </h2>
-        <p class="text-gray-500 text-sm md:text-base font-medium">
+        <p class="text-gray-500 text-sm md:text-xl font-medium">
           How we synchronize as a remote team to deliver global enterprise value.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
         {values.map((val) => (
-          <div class="bg-white rounded-2xl p-8 border border-gray-100 flex flex-col gap-4 shadow-xs transition-all duration-300 hover:shadow-md values-fade">
+          <div class="bg-white rounded-2xl p-8 border border-gray-100 flex flex-col gap-4 shadow-xs transition-all text-center duration-300 hover:shadow-md values-fade">
             <div class="w-15 h-15 mx-auto text-2xl rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue font-black">
               ✓
             </div>
-            <h3 class="text-xl font-bold text-brand-dark-blue tracking-tight">{val.title}</h3>
-            <p class="text-gray-600 text-sm md:text-base leading-relaxed font-medium">{val.description}</p>
+            <h3 class="text-xl md:text-2xl font-bold text-brand-blue tracking-tight">{val.title}</h3>
+            <p class="text-gray-600 text-sm md:text-lg leading-relaxed font-medium">{val.description}</p>
           </div>
         ))}
       </div>

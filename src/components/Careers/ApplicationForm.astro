@@ -5,13 +5,13 @@
   <div class="max-w-3xl mx-auto bg-white rounded-3xl border border-gray-100 shadow-md p-8 md:p-12">
     
     <div class="mb-10 text-center md:text-left">
-      <span class="text-brand-green font-black uppercase tracking-widest text-xs block mb-2">
+      <span class="text-brand-green font-black uppercase tracking-widest text-xs md:text-lg block mb-2">
         Join Our Team
       </span>
-      <h2 class="text-3xl md:text-4xl font-black tracking-tight text-[#3d1d0e]">
+      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-[#3d1d0e]">
         Submit Your Application
       </h2>
-      <p class="text-gray-500 text-sm font-medium mt-2">
+      <p class="text-gray-500 text-sm md:text-lg font-medium mt-2">
         Complete the form below. All fields marked with an asterisk (<span class="text-red-500">*</span>) are strictly required.
       </p>
     </div>
@@ -20,7 +20,7 @@
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="flex flex-col gap-2">
-          <label for="fullname" class="text-sm font-extrabold tracking-wide uppercase text-[#3d1d0e]">
+          <label for="fullname" class="text-sm  md:text-lg font-extrabold tracking-wide uppercase text-[#3d1d0e]">
             Full Name <span class="text-red-500">*</span>
           </label>
           <input 
@@ -34,7 +34,7 @@
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="phone" class="text-sm font-extrabold tracking-wide uppercase text-[#3d1d0e]">
+          <label for="phone" class="text-sm md:text-lg font-extrabold tracking-wide uppercase text-[#3d1d0e]">
             Phone Number <span class="text-red-500">*</span>
           </label>
           <input 
@@ -49,7 +49,7 @@
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="email" class="text-sm font-extrabold tracking-wide uppercase text-[#3d1d0e]">
+        <label for="email" class="text-sm md:text-lg font-extrabold tracking-wide uppercase text-[#3d1d0e]">
           Email Address <span class="text-red-500">*</span>
         </label>
         <input 
@@ -64,10 +64,10 @@
 
       <div class="flex flex-col gap-3 bg-[#FAF8F5] p-6 rounded-2xl border border-gray-100">
         <div class="flex justify-between items-center">
-          <label for="experience-slider" class="text-sm font-extrabold tracking-wide uppercase text-[#3d1d0e]">
+          <label for="experience-slider" class="text-sm md:text-lg font-extrabold tracking-wide uppercase text-[#3d1d0e]">
             Years of Experience
           </label>
-          <span id="slider-value" class="bg-brand-blue text-white text-xs font-black px-3 py-1.5 rounded-lg min-w-12 text-center">
+          <span id="slider-value" class="bg-brand-blue text-white text-xs md:text-md font-black px-3 py-1.5 rounded-lg min-w-12 text-center">
             0 years
           </span>
         </div>
@@ -81,15 +81,15 @@
           class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-brand-blue"
         />
         <div class="flex justify-between text-[11px] font-bold text-gray-400 uppercase tracking-wider px-1">
-          <span>0 yrs</span>
-          <span>10 yrs</span>
-          <span>20+ yrs</span>
+          <span class="md:text-md">0 yrs</span>
+          <span class="md:text-md">10 yrs</span>
+          <span class="md:text-md">20+ yrs</span>
         </div>
       </div>
 
       {/* Descripción de Experiencia */}
       <div class="flex flex-col gap-2">
-        <label for="experience_description" class="text-sm font-extrabold tracking-wide uppercase text-[#3d1d0e]">
+        <label for="experience_description" class="text-sm md:text-lg font-extrabold tracking-wide uppercase text-[#3d1d0e]">
           Experience Description
         </label>
         <textarea 
@@ -103,7 +103,7 @@
 
       {/* Subir CV */}
       <div class="flex flex-col gap-2">
-        <label class="text-sm font-extrabold tracking-wide uppercase text-[#3d1d0e]">
+        <label class="text-sm md:text-lg font-extrabold tracking-wide uppercase text-[#3d1d0e]">
           Upload CV / Resume <span class="text-red-500">*</span>
         </label>
         <div class="relative w-full border-2 border-dashed border-gray-200 hover:border-brand-blue/60 bg-[#FAF8F5] rounded-xl transition-all duration-200 group">
@@ -132,7 +132,7 @@
       {/* Link de Vocaroo + Explicación */}
       <div class="flex flex-col gap-3">
         <div class="flex flex-col gap-1">
-          <label for="vocaroo_link" class="text-sm font-extrabold tracking-wide uppercase text-[#3d1d0e]">
+          <label for="vocaroo_link" class="text-sm md:text-lg font-extrabold tracking-wide uppercase text-[#3d1d0e]">
             Vocaroo Audio Introduction Link <span class="text-red-500">*</span>
           </label>
           <input 
@@ -150,7 +150,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-brand-blue shrink-0 mt-0.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 111.063 1.06l-.041.02a.75.75 0 01-1.063-1.06zm0 4.5l.041-.02a.75.75 0 111.063 1.06l-.041.02a.75.75 0 01-1.063-1.06zM12 22.5c5.799 0 10.5-4.701 10.5-10.5S17.299 1.5 12 1.5 1.5 6.201 1.5 12 6.201 22.5 12 22.5z" />
           </svg>
-          <div class="text-xs leading-relaxed text-gray-600 font-medium">
+          <div class="text-xs md:text-md leading-relaxed text-gray-600 font-medium">
             <strong class="text-[#3d1d0e] font-extrabold">What is Vocaroo?</strong> It's a free web service to record voice notes. Go to <a href="https://vocaroo.com/" target="_blank" rel="noopener noreferrer" class="text-brand-blue font-extrabold underline hover:text-brand-green transition-colors duration-200">vocaroo.com</a> to record your presentation or upload an audio file directly, then copy and paste the generated share link right here.
           </div>
         </div>
@@ -159,7 +159,7 @@
       {/* Botón Submit */}
       <button 
         type="submit" 
-        class="w-full text-center bg-brand-blue text-white font-extrabold px-8 py-4 rounded-xl hover:bg-brand-green transition-all duration-200 shadow-xs uppercase tracking-wider text-sm mt-2 cursor-pointer"
+        class="w-full text-center bg-brand-blue text-white font-extrabold px-8 py-4 rounded-xl hover:bg-brand-green transition-all duration-200 shadow-xs uppercase tracking-wider text-sm md:text-lg mt-2 cursor-pointer"
       >
         Submit Application
       </button>
