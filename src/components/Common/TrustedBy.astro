@@ -1,18 +1,18 @@
 ---
 const companies = [
-  { name: 'FOX', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/2b/Fox_Broadcasting_Company_logo.svg' },
-  { name: 'HP', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/ad/HP_logo_2012.svg' },
-  { name: 'Forbes', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Forbes_logo.svg' },
-  { name: 'Entrepreneur', logo: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Entrepreneur_magazine_logo.svg' },
-  { name: 'Yahoo!', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Yahoo_logo_2019.svg' },
-  { name: 'CNN', logo: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/CNN.svg' },
+  { name: 'SONY', logo: 'g' },
+  { name: 'HP', logo: '' },
+  { name: 'Unwind Land CO', logo: '/img/trustedBy/Unwind_Land_CO.png' },
+  { name: 'Entrepreneur', logo: '' },
+  { name: 'Yahoo!', logo: '' },
+  { name: 'CNN', logo: '' },
 ];
 ---
 
 <section class="w-full bg-[#FAF8F5] py-10 overflow-hidden border-b border-gray-100">
   <div class="mx-auto max-w-7xl px-6">
     
-    <h2 class="text-center text-xs font-bold tracking-widest text-[#3d1d0e]/60 uppercase mb-8">
+    <h2 class="text-center text-xs md:text-[20px] font-bold tracking-widest text-[#3d1d0e]/60 uppercase mb-8">
       TRUSTED BY 1,000+ ENTREPRENEURS, AGENCIES, AND GROWING COMPANIES
     </h2>
 
@@ -25,7 +25,8 @@ const companies = [
             <img 
               src={company.logo} 
               alt={`${company.name} logo`} 
-              class="h-7 sm:h-9 w-32 object-contain opacity-40 grayscale hover:opacity-80 hover:grayscale-0 transition-all duration-300"
+              class="h-18 sm:h-9 w-32 object-contain opacity-40 grayscale hover:opacity-80 hover:grayscale-0 transition-all duration-300"
+              title={company.name}
             />
           ))}
         </div>
@@ -35,7 +36,8 @@ const companies = [
             <img 
               src={company.logo} 
               alt={`${company.name} logo`} 
-              class="h-7 sm:h-9 w-32 object-contain opacity-40 grayscale hover:opacity-80 hover:grayscale-0 transition-all duration-300"
+              class="h-18 sm:h-9 w-32 object-contain opacity-40 grayscale hover:opacity-80 hover:grayscale-0 transition-all duration-300"
+              title={company.name}
             />
           ))}
         </div>
