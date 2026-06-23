@@ -2,28 +2,28 @@
 const reviews = [
   {
     rating: "5.0",
-    text: "“They were well organized for the interview and onboarding process.”",
-    author: "Physician",
-    company: "Balance in Health"
+    text: 'You guys provide an awesome service that I had no idea was possible through Upwork!',
+    author: "Isham Hipsher",
+    company: "Unwind Land CO"
   },
   {
     rating: "5.0",
-    text: "“I feel like I have a true employee working with my company.”",
-    author: "Owner & Marketing Strategist",
-    company: "Ashley Melton Media"
+    text: "Great news team, the new hires both showed up today and impressed our team manager!",
+    author: "Joel",
+    company: ""
   },
   {
     rating: "5.0",
-    text: "“The team is very attentive to my needs.”",
-    author: "Owner & Nurse Practitioner",
-    company: "The WoundCare NP"
+    text: "Just want to say thanks so much for putting me in contact with Sean. I was officially hired by him after the 14 days trial!",
+    author: "Melvin",
+    company: "Virtual Assistant"
   },
   {
     rating: "5.0",
-    text: "“I felt they understood my needs and did not hard sell me.”",
-    author: "Director",
-    company: "Hope Healthcares"
-  }
+    text: "You guys provide an awesome service that I had no idea was possible through Upwork!",
+    author: "Isham Hipsher",
+    company: ""
+  },
 ];
 ---
 
@@ -36,9 +36,9 @@ const reviews = [
           Client <span class="text-brand-green">Reviews</span>
         </h2>
         <div class="flex flex-wrap items-center gap-3 mt-2">
-          <span class="font-bold text-[#3d1d0e] text-base md:text-lg">Your Service Reviews</span>
-          <span class="font-extrabold text-brand-green text-lg">4.8</span>
-          <div class="flex text-amber-500 text-lg">★★★★★</div>
+          <span class="font-bold text-[#3d1d0e] text-base md:text-2xl">Your Service Reviews</span>
+          <span class="font-extrabold text-brand-green text-2xl">4.8</span>
+          <div class="flex text-amber-500 text-xl">★★★★★</div>
           <span class="text-gray-500 text-sm font-medium">189 reviews</span>
         </div>
       </div>
@@ -67,18 +67,18 @@ const reviews = [
           >
             <div class="flex flex-col gap-4">
               <div class="flex items-center gap-2">
-                <span class="font-extrabold text-brand-green">{review.rating}</span>
-                <div class="flex text-amber-500 text-sm">★★★★★</div>
+                <span class="font-extrabold text-brand-green md:text-xl">{review.rating}</span>
+                <div class="flex text-amber-500 text-sm md:text-xl">★★★★★</div>
               </div>
-              <p class="text-gray-600 font-medium text-base leading-relaxed">
+              <p class="text-gray-600 font-medium text-base leading-relaxed md:text-xl">
                 "{review.text}"
               </p>
             </div>
             
             <div class="border-t border-gray-100 pt-4 flex flex-col">
-              <span class="font-bold text-[#3d1d0e] text-sm">{review.author}</span>
-              <span class="text-gray-400 text-xs font-semibold">{review.company}</span>
-              <div class="flex items-center gap-1.5 text-brand-green text-xs font-bold mt-3">
+              <span class="font-bold text-[#3d1d0e] text-sm md:text-xl">{review.author}</span>
+              <span class="text-gray-400 text-xs font-semibold md:text-md">{review.company}</span>
+              <div class="flex items-center gap-1.5 text-brand-green text-xs md:text-md font-bold mt-3">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                   <path fill-rule="evenodd" d="M16.403 12.652a3 3 0 000-5.304 3 3 0 00-3.75-3.751 3 3 0 00-5.305 0 3 3 0 00-3.751 3.75 3 3 0 000 5.305 3 3 0 003.75 3.751 3 3 0 005.305 0 3 3 0 003.751-3.75zm-7.446-2.15a.75.75 0 00-1.064-1.054L6.16 11.18l-.947-.948a.75.75 0 10-1.06 1.06l1.477 1.477a.75.75 0 001.06 0l2.266-2.265z" clip-rule="evenodd" />
                 </svg>

@@ -9,7 +9,7 @@ const talents: Talent[] = [
   {
     name: "Steve Bravo",
     role: "Bookkeeping Assistant",
-    image: "/img/agents/Steve.webp", // Asegúrate de colocar las imágenes en tu carpeta public
+    image: "/img/agents/Steve.webp", 
     tags: ["QuickBooks", "Invoicing", "Accounts Payable", "Bank Reconciliation", "Financial Reports"]
   },
   {
@@ -28,6 +28,12 @@ const talents: Talent[] = [
     name: "Ana Castrillo",
     role: "Executive Virtual Assistant",
     image: "/img/agents/ana.webp",
+    tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
+  },
+  {
+    name: "Adriana Ferrer",
+    role: "Executive Virtual Assistant",
+    image: "/img/agents/Adriana.webp",
     tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
   },
 ];
