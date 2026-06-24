@@ -20,13 +20,13 @@ const heroData = {
     "Drastically reduce administrative friction by offloading ATS updates, background check coordination, and employee documentation management from a single, organized workflow.",
     "Maintain a flawless candidate experience with consistent follow-ups and synchronized onboarding tracking, ensuring top-tier talent stays engaged through every hiring phase."
   ],
-  photo: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1470&auto=format&fit=crop"
+  photo: "/img/pages/hr1.webp"
 }
 
 const findAndHire = {
   title: "Streamline People Operations with Dedicated HR Support",
   description: "Stop struggling with clogged talent pipelines and calendar coordination backlogs. Hire specialized HR operations assistants trained in proactive candidate sourcing, high-volume interview logistics, documentation compliance, and ATS management. Our remote specialists help maintain database hygiene, coordinate employee milestone tracks, and handle repetitive compliance tasks so your core HR partners can focus on culture, strategy, and retention.",
-  image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  image: "/img/pages/hr2.webp",
   flow: "reverse"
 } 
 
@@ -87,33 +87,33 @@ const hrRoles = {
 <Layout title="YourServiceva | Human Resources & Recruiting Support Services">
   <Hero heroData={heroData} >
     
-    <div class="absolute -top-14.5 md:top-8 right-44 md:right-36 sm:right-4 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-xl border border-gray-100 z-20 md:flex flex-col gap-2 min-w-40 sm:min-w-47.5 animate-bounce-slow">
-      <div class="flex items-center justify-between text-xs font-bold text-gray-400">
+    <div class="absolute -top-14.5 md:top-0 right-44 md:right-36 sm:right-4 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-xl border border-gray-100 z-20 md:flex flex-col gap-2 min-w-40 sm:min-w-47.5 animate-bounce-slow">
+      <div class="flex items-center justify-between text-xs md:text-lg font-bold text-gray-400">
         <span>Talent Pipeline</span>
-        <span class="h-5 w-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-extrabold text-[10px]">Active</span>
+        <span class="px-2 py-1 md:text-[14px] rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-extrabold text-[10px]">Active</span>
       </div>
-      <label class="flex items-center gap-2 text-[11px] sm:text-xs font-medium text-gray-400 line-through decoration-gray-300">
+      <label class="flex items-center gap-2 text-xs md:text-[14px] font-medium text-gray-400 line-through decoration-gray-300">
         <input type="checkbox" checked disabled class="rounded text-brand-green focus:ring-0 h-3.5 w-3.5" />
           Screening Round Complete
         </label>
-      <label class="flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-gray-700">
+      <label class="flex items-center gap-2 text-xs md:text-[14px] font-semibold text-gray-700">
         <span class="animate-pulse h-2 w-2 rounded-full bg-orange-500"></span>
         <span class="text-orange-600 font-bold">[Urgent]</span> Coordinate Tech Interview
       </label>
     </div>
 
-    <div class="hidden absolute bottom-0 left-0 md:-left-14 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-xl border border-gray-100 z-20 max-w-50 sm:max-w-60 md:flex flex-col gap-2">
+    <div class="hidden absolute bottom-0 left-0 md:-left-10 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-xl border border-gray-100 z-20 max-w-50 sm:max-w-60 md:flex flex-col gap-2">
       <div class="flex items-center gap-2 border-b border-gray-100 pb-1.5">
         <div class="h-6 w-6 rounded-full bg-brand-blue text-white text-[10px] font-bold flex items-center justify-center">HR</div>
         <div class="flex flex-col">
-          <span class="text-[11px] font-bold text-gray-800 leading-none">Talent Acquisition</span>
-          <span class="text-[9px] text-brand-green font-semibold">Coordinator Online</span>
+          <span class="text-[11px] md:text-lg font-bold text-gray-800 leading-none">Talent Acquisition</span>
+          <span class="text-[9px] md:text-[12px] text-brand-green font-semibold">Coordinator Online</span>
         </div>
       </div>
-      <p class="text-[10px] sm:text-[11px] font-medium text-gray-600 bg-gray-50 rounded-lg p-2">
+      <p class="text-[10px] sm:text-[11px] md:text-[12px] font-medium text-gray-600 bg-gray-50 rounded-lg p-2">
         Hi Alex! We loved your profile. Could you share your availability for a brief call next week?
       </p>
-      <p class="text-[10px] sm:text-[11px] font-semibold text-white bg-brand-blue rounded-lg p-2 self-end text-right">
+      <p class="text-[10px] sm:text-[11px] md:text-[12px] font-semibold text-white bg-brand-blue rounded-lg p-2 self-end text-right">
         Hi! Great news, I'm available Tuesday or Thursday afternoon.
       </p>
     </div>
@@ -140,12 +140,12 @@ const hrRoles = {
       <div class="text-center max-w-3xl mx-auto mb-16 flex flex-col gap-3">
         <div class="flex items-center justify-center gap-2">
           <span class="inline-block h-1.5 w-1.5 rounded-full bg-brand-green"></span>
-          <span class="text-brand-green font-bold text-xs uppercase tracking-widest">Expert Administrative Staffing</span>
+          <span class="text-brand-green font-bold text-xs md:text-lg uppercase tracking-widest">Expert Administrative Staffing</span>
         </div>
-        <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight">
+        <h2 class="text-3xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
           {hrRoles.title}
         </h2>
-        <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
+        <p class="text-gray-300 text-sm sm:text-xl leading-relaxed">
           {hrRoles.description}
         </p>
       </div>
@@ -158,20 +158,20 @@ const hrRoles = {
             
             <div class="flex flex-col gap-4">
               <div class="flex flex-col gap-1">
-                <span class="text-brand-green font-bold text-[10px] uppercase tracking-wider">
+                <span class="text-brand-green font-bold text-[10px] md:text-[14px] uppercase tracking-wider">
                   {item.focus}
                 </span>
-                <h3 class="text-lg font-bold text-[#3d1d0e] tracking-tight group-hover:text-brand-blue transition-colors duration-300">
+                <h3 class="text-lg md:text-2xl font-bold text-[#3d1d0e] tracking-tight group-hover:text-brand-blue transition-colors duration-300">
                   {item.role}
                 </h3>
               </div>
 
-              <p class="text-xs text-gray-600 font-medium leading-relaxed">
+              <p class="text-xs md:text-lg text-gray-600 font-medium leading-relaxed">
                 {item.tasks}
               </p>
             </div>
 
-            <a href="/contact" class="flex items-center gap-1.5 text-xs font-bold text-brand-blue group-hover:gap-3 transition-all duration-300 pt-2 cursor-pointer">
+            <a href="/contact" class="flex items-center gap-1.5 text-xs md:text-lg font-bold text-brand-blue group-hover:gap-3 transition-all duration-300 pt-2 cursor-pointer">
               <span>Delegate this role</span>
               <span class="text-sm font-light transform translate-y-[0.5px]">→</span>
             </a>
@@ -181,7 +181,7 @@ const hrRoles = {
       </div>
 
       <div class="mt-12 bg-[#FAF8F5] p-4 rounded-2xl border border-dashed border-gray-200 text-center max-w-2xl mx-auto">
-        <p class="text-xs font-semibold text-gray-500">
+        <p class="text-xs md:text-[16px] font-semibold text-gray-500">
           💡 <span class="text-[#3d1d0e]">Need a custom pipeline profile?</span> Our remote specialists can map to your company's internal tools and precise standard operating procedures (SOPs).
         </p>
       </div>

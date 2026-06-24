@@ -55,13 +55,25 @@ const talents: Talent[] = [
     tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
   },
   {
-    name: "maria",
+    name: "Elizabeth Aviles",
     role: "Executive Virtual Assistant",
-    image: "/img/agents/maria.webp",
+    image: "/img/agents/Elizabeth.webp",
     tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
   },
   {
     name: "Abdulrahman Elhefnawy",
+    role: "Executive Virtual Assistant",
+    image: "/img/agents/Abdelrahman.webp",
+    tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
+  },
+  {
+    name: "Byron Heredia",
+    role: "Executive Virtual Assistant",
+    image: "/img/agents/byron.webp",
+    tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
+  },
+  {
+    name: "Jellomae Colina Quirante",
     role: "Executive Virtual Assistant",
     image: "/img/agents/Abdelrahman.webp",
     tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
