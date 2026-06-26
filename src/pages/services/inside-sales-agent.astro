@@ -78,10 +78,6 @@ const FAQs = {
       answer: "Our agents are highly proficient or certified across industry-standard sales tech stacks, including Salesforce, HubSpot, Zoho CRM, HighLevel, Pipedrive, Outreach.io, Apollo.io, and multiple enterprise VoIP dialers."
     },
     {
-      question: "Do you supply cold lead contact databases, or do we provide them?",
-      answer: "We work seamlessly with your existing databases or lead generation frameworks. Additionally, our outbound specialists are highly skilled in scraping and compiling custom targeted prospecting lists based on your precise Ideal Customer Profile (ICP)."
-    },
-    {
       question: "Will I get a dedicated sales agent or shared operational team members?",
       answer: "We exclusively assign strictly dedicated specialists. Your designated Inside Sales Agent acts as an integrated extension of your internal sales division, learning your product advantages, value propositions, and corporate script voice."
     },
@@ -150,7 +146,7 @@ const FAQs = {
   <GenericSection genericData={findAndHire} />
   <TalentsSection />
   <section class="py-16 md:py-24 bg-brand-dark-blue border-y border-gray-900">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-360 mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         
         <div class="flex flex-col gap-8">
@@ -159,10 +155,10 @@ const FAQs = {
               <span class="inline-block h-1.5 w-1.5 rounded-full bg-brand-green"></span>
               <span class="text-brand-green font-bold text-xs md:text-lg uppercase tracking-widest">High-Velocity Sales Operations</span>
             </div>
-            <h2 class="text-2xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mt-1">
+            <h2 class="text-2xl md:text-6xl font-extrabold text-white tracking-tight leading-tight mt-1">
               {hrMetrics.title}
             </h2>
-            <p class="text-gray-400 text-sm sm:text-xl leading-relaxed mt-1 max-w-xl">
+            <p class="text-gray-400 text-sm md:text-2xl leading-relaxed mt-1 max-w-xl">
               {hrMetrics.description}
             </p>
           </div>
@@ -191,17 +187,17 @@ const FAQs = {
                   }`}
                 >
                   <div class={`${isFirst ? 'flex flex-col sm:flex-row sm:items-baseline sm:gap-3' : 'flex flex-col gap-1'}`}>
-                    <span class="grow text-2xl md:text-2xl font-black text-brand-blue tracking-tight group-hover:text-brand-green transition-colors duration-300">
+                    <span class="grow text-xl md:text-2xl font-black text-brand-blue tracking-tight group-hover:text-brand-green transition-colors duration-300">
                       {bigStat}
                     </span>
                     {subStat && (
-                      <span class="text-xs md:text-[16px] font-bold text-[#3d1d0e] mt-0.5 sm:mt-0 uppercase tracking-wider text-[11px]">
+                      <span class="text-xs md:text-xl font-bold text-[#3d1d0e] mt-0.5 sm:mt-0 uppercase tracking-wider text-[11px]">
                         {subStat}
                       </span>
                     )}
                   </div>
                   <div class=" w-6 h-0.5 bg-brand-green/90 group-hover:w-20 transition-all duration-300"></div>
-                  <p class="text-xs md:text-lg text-gray-600 font-medium leading-relaxed max-w-xl">
+                  <p class="text-xs md:text-xl text-gray-600 font-medium leading-relaxed max-w-xl">
                     {metric.description}
                   </p>
                 </div>
@@ -210,7 +206,7 @@ const FAQs = {
           </div>
         </div>
 
-        <div class="relative lg:h-120 rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+        <div class="relative top-40 md:h-200 md:w-170 rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
           <img 
             src={hrMetrics.image} 
             alt="Inside Sales Analytics Growth" 
@@ -226,17 +222,17 @@ const FAQs = {
   <HowItWorks />
   <ClientReviews />
   <section class="py-16 md:py-24 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-340 mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto mb-16 flex flex-col gap-3">
         <div class="flex items-center justify-center gap-2">
           <span class="inline-block h-1.5 w-1.5 rounded-full bg-brand-green"></span>
-          <span class="text-brand-green font-bold text-xs md:text-[14px] uppercase tracking-widest">Expert Revenue Acquisition Staffing</span>
+          <span class="text-brand-green font-bold text-xs md:text-lg uppercase tracking-widest">Expert Revenue Acquisition Staffing</span>
         </div>
         <h2 class="text-3xl md:text-6xl font-extrabold text-[#3d1d0e] tracking-tight leading-tight">
           {hrRoles.title}
         </h2>
-        <p class="text-gray-600 text-sm sm:text-xl leading-relaxed">
+        <p class="text-gray-600 text-sm sm:text-2xl leading-relaxed">
           {hrRoles.description}
         </p>
       </div>
@@ -247,18 +243,18 @@ const FAQs = {
             <div class="absolute top-0 left-0 right-0 h-1 bg-transparent group-hover:bg-brand-blue transition-colors duration-300"></div>
             <div class="flex flex-col gap-4">
               <div class="flex flex-col gap-1">
-                <span class="text-brand-green font-bold text-[10px] md:text-[14px] uppercase tracking-wider">
+                <span class="text-brand-green font-bold text-[10px] md:text-lg uppercase tracking-wider">
                   {item.focus}
                 </span>
-                <h3 class="text-lg md:text-2xl font-bold text-[#3d1d0e] tracking-tight group-hover:text-brand-blue transition-colors duration-300">
+                <h3 class="text-lg md:text-4xl font-bold text-[#3d1d0e] tracking-tight group-hover:text-brand-blue transition-colors duration-300">
                   {item.role}
                 </h3>
               </div>
-              <p class="text-xs md:text-lg text-gray-600 font-medium leading-relaxed">
+              <p class="text-xs md:text-xl text-gray-600 font-medium leading-relaxed">
                 {item.tasks}
               </p>
             </div>
-            <div class="flex items-center gap-1.5 text-xs md:text-lg font-bold text-brand-blue group-hover:gap-3 transition-all duration-300 pt-2 cursor-pointer">
+            <div class="flex items-center gap-1.5 text-xs md:text-xl font-bold text-brand-blue group-hover:gap-3 transition-all duration-300 pt-2 cursor-pointer">
               <span>Deploy this profile</span>
               <span class="text-sm font-light transform translate-y-[0.5px]">→</span>
             </div>
@@ -267,7 +263,7 @@ const FAQs = {
       </div>
 
       <div class="mt-12 bg-[#FAF8F5] p-4 rounded-2xl border border-dashed border-gray-200 text-center max-w-2xl mx-auto">
-        <p class="text-xs md:text-[16px] font-semibold text-gray-500">
+        <p class="text-xs md:text-lg font-semibold text-gray-500">
           💡 <span class="text-[#3d1d0e]">Need a specialized outbound script execution?</span> Our remote agents can effortlessly adapt to your specific target playbooks, calling parameters, and internal discovery frameworks.
         </p>
       </div>

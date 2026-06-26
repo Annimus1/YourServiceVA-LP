@@ -10,73 +10,73 @@ const talents: Talent[] = [
     name: "Steve Bravo",
     role: "Bookkeeping Assistant",
     image: "/img/agents/Steve.webp", 
-    tags: ["QuickBooks", "Invoicing", "Accounts Payable", "Bank Reconciliation", "Financial Reports"]
+    tags: ["QuickBooks", "Xero", "Invoicing", "Accounts Payable", "Bank Reconciliation"]
   },
   {
     name: "Keysha Thomas",
     role: "Executive Virtual Assistant",
     image: "/img/agents/Keysha.webp",
-    tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
+    tags: ["Google Workspace", "Asana", "Calendar Management", "Inbox Management", "Slack"]
   },
   {
     name: "William Narváez",
     role: "Customer Support Specialist",
     image: "/img/agents/william.webp",
-    tags: ["Email Support", "Live Chat", "Zendesk", "Troubleshooting", "Customer Retention"]
+    tags: ["Zendesk", "Freshdesk", "Live Chat", "Intercom", "Troubleshooting"]
   },
   {
     name: "Ana Castrillo",
     role: "Executive Virtual Assistant",
     image: "/img/agents/ana.webp",
-    tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
+    tags: ["Notion", "HubSpot CRM", "Inbox Management", "ClickUp", "Travel Coordination"]
   },
   {
     name: "Adriana Ferrer",
     role: "Executive Virtual Assistant",
     image: "/img/agents/Adriana.webp",
-    tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
+    tags: ["Microsoft 365", "Trello", "Calendar Management", "Zoom Scheduler", "Salesforce"]
   },
   {
     name: "Giselle Moret",
     role: "Executive Virtual Assistant",
     image: "/img/agents/Giselle.webp",
-    tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
+    tags: ["Monday.com", "Google Workspace", "Slack", "Inbox Management", "Canva Pro"]
   },
   {
     name: "Zeyad Koura",
     role: "Executive Virtual Assistant",
     image: "/img/agents/zeyad.webp",
-    tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
+    tags: ["HubSpot CRM", "Asana", "Calendar Management", "Calendly", "VoIP Systems"]
   },
   {
     name: "Rodrigo Blajine",
     role: "Executive Virtual Assistant",
     image: "/img/agents/rodrigo.webp",
-    tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
+    tags: ["ClickUp", "Notion", "Travel Coordination", "Slack", "Microsoft Teams"]
   },
   {
     name: "Elizabeth Aviles",
     role: "Executive Virtual Assistant",
     image: "/img/agents/Elizabeth.webp",
-    tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
+    tags: ["Google Workspace", "ActiveCampaign", "Inbox Management", "Trello", "Zapier"]
   },
   {
     name: "Abdulrahman Elhefnawy",
     role: "Executive Virtual Assistant",
     image: "/img/agents/Abdelrahman.webp",
-    tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
+    tags: ["Salesforce CRM", "Monday.com", "Calendar Management", "Microsoft 365", "Calendly"]
   },
   {
     name: "Byron Heredia",
     role: "Executive Virtual Assistant",
     image: "/img/agents/byron.webp",
-    tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
+    tags: ["Asana", "HubSpot", "Travel Coordination", "Google Workspace", "Slack"]
   },
   {
-    name: "Jellomae Colina Quirante",
+    name: "Maya Abu Aisha",
     role: "Executive Virtual Assistant",
-    image: "/img/agents/Abdelrahman.webp",
-    tags: ["Calendar Management", "Inbox Management", "Travel Coordination", "Client Communication", "CRM Tools"]
+    image: "/img/agents/maya.webp",
+    tags: ["ClickUp", "Notion", "Inbox Management", "Calendly", "Zoom Enterprise"]
   },
 ];
 
