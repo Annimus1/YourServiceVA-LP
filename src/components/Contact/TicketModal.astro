@@ -1,0 +1,196 @@
+---
+// Cambiado a la URL de producción o test de tu webhook de n8n
+const N8N_WEBHOOK = "https://n8n-n8n.tfpyme.easypanel.host/webhook/e39fd543-af8e-47a6-8b00-53ab75d61c9a";
+---
+
+<div id="ticket-modal" class="hidden fixed inset-0 z-50 items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs transition-opacity duration-300">
+  <div id="modal-box"
+    class="bg-white rounded-2xl border border-gray-100 shadow-xl w-full max-w-lg md:max-w-2xl overflow-hidden transform scale-95 opacity-0 transition-all duration-300 flex flex-col">
+    <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between bg-[#FAF8F5]">
+      <div>
+        <h3 class="text-xl md:text-4xl font-black text-[#3d1d0e] tracking-tight">Submit a Support Ticket</h3>
+        <p class="text-xs md:text-lg text-gray-500 font-medium mt-0.5">Are you an existing client? <span class="text-brand-green">Let us know how we can help.</span></p>
+      </div>
+      <button 
+        id="close-modal-btn"
+        class="text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+        aria-label="Close modal"
+      >
+        <svg class="w-5 h-5 md:w-8 md:h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <form id="ticket-form" class="p-6 flex flex-col gap-4">
+       <div>
+        <label for="client-name" class="block text-xs md:text-xl font-bold uppercase tracking-wider text-[#3d1d0e] mb-1.5">Client Name <span class="text-[#FF6B4A]">*</span></label>
+        <input 
+          type="text" 
+          id="client-name" 
+          name="client_name"  required 
+          class="w-full px-4 py-2.5 rounded-xl border border-gray-200 md:text-lg focus:outline-none focus:border-[#0066cc] text-sm font-medium transition-colors"
+          placeholder="Jane Doe"
+        />
+      </div>
+      
+      <div>
+        <label for="company-name" class="block text-xs md:text-xl font-bold uppercase tracking-wider text-[#3d1d0e] mb-1.5">Company Name <span class="text-[#FF6B4A]">*</span></label>
+        <input 
+          type="text" 
+          id="company-name" 
+          name="company_name" required 
+          class="w-full px-4 py-2.5 rounded-xl border border-gray-200 md:text-lg focus:outline-none focus:border-[#0066cc] text-sm font-medium transition-colors"
+          placeholder="YourServiceva"
+        />
+      </div>
+
+      <div>
+        <label for="client-email" class="block text-xs md:text-xl font-bold uppercase tracking-wider text-[#3d1d0e] mb-1.5">Company Email <span class="text-[#FF6B4A]">*</span></label>
+        <input 
+          type="email" 
+          id="client-email" 
+          name="email" 
+          required 
+          class="w-full px-4 py-2.5 rounded-xl border border-gray-200 md:text-lg focus:outline-none focus:border-[#0066cc] text-sm font-medium transition-colors"
+          placeholder="john@company.com"
+        />
+      </div>
+
+      <div>
+        <label for="client-phone" class="block text-xs md:text-xl font-bold uppercase tracking-wider text-[#3d1d0e] mb-1.5">Phone Number <span class="text-[#FF6B4A]">*</span></label>
+        <input 
+          type="tel" 
+          id="client-phone" 
+          name="phone" 
+          required 
+          class="w-full px-4 py-2.5 rounded-xl border border-gray-200 md:text-lg focus:outline-none focus:border-[#0066cc] text-sm font-medium transition-colors"
+          placeholder="+1 (555) 000-0000"
+        />
+      </div>
+
+      <div>
+        <label for="ticket-subject" class="block text-xs md:text-xl font-bold uppercase tracking-wider text-[#3d1d0e] mb-1.5">Subject / Issue <span class="text-[#FF6B4A]">*</span></label>
+        <input 
+          type="text" 
+          id="ticket-subject" 
+          name="subject" 
+          required 
+          class="w-full px-4 py-2.5 rounded-xl border border-gray-200 md:text-lg focus:outline-none focus:border-[#0066cc] text-sm font-medium transition-colors"
+          placeholder="Billing, VA backup request, scaling team..."
+        />
+      </div>
+
+      <div>
+        <label for="ticket-message" class="block text-xs md:text-xl font-bold uppercase tracking-wider text-[#3d1d0e] mb-1.5">How can we help you? <span class="text-[#FF6B4A]">*</span></label>
+        <textarea 
+          id="ticket-message" 
+          name="message" 
+          rows="4" 
+          required 
+          class="w-full px-4 py-2.5 rounded-xl border border-gray-200 md:text-lg focus:outline-none focus:border-[#0066cc] text-sm font-medium transition-colors resize-none"
+          placeholder="Please describe your request in detail..."
+        ></textarea>
+      </div>
+
+      <button 
+        type="submit" 
+        id="submit-ticket-btn"
+        class="mt-2 w-full bg-brand-green hover:bg-opacity-95 hover:scale-105 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+      >
+        <span>Generate Ticket</span>
+      </button>
+    </form>
+  </div>
+</div>
+
+<script define:vars={{ N8N_WEBHOOK }}>
+  const modal = document.getElementById('ticket-modal');
+  const modalBox = document.getElementById('modal-box');
+  const closeBtn = document.getElementById('close-modal-btn');
+  const form = document.getElementById('ticket-form');
+  const submitBtn = document.getElementById('submit-ticket-btn');
+
+  const openModal = () => {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    setTimeout(() => {
+      modalBox.classList.remove('scale-95', 'opacity-0');
+      modalBox.classList.add('scale-100', 'opacity-100');
+    }, 10);
+  };
+
+  const closeModal = () => {
+    modalBox.classList.remove('scale-100', 'opacity-100');
+    modalBox.classList.add('scale-95', 'opacity-0');
+    setTimeout(() => {
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }, 300);
+  };
+
+  window.addEventListener('open-ticket-modal', openModal);
+
+  closeBtn?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    
+    // Limpieza básica del teléfono usando regex antes de mandar a n8n
+    if (data.phone) {
+      data.phone = data.phone.replace(/[\s+()[-]/g, '');
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span>Sending...</span>
+      `;
+    }
+
+    try {
+      // Enviamos la petición POST a n8n sin 'no-cors' para capturar errores de red reales
+      const response = await fetch(N8N_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...data, timestamp: new Date().toISOString() })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      form.innerHTML = `
+        <div class="text-center py-8 flex flex-col items-center gap-3">
+          <div class="w-12 h-12 md:w-18 md:h-18 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100">
+            <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h4 class="text-lg font-bold md:text-4xl text-[#3d1d0e]">Ticket Received!</h4>
+          <p class="text-sm md:text-2xl text-gray-500 max-w-xs">Our team has been notified. An operations lead will reach out to your email shortly.</p>
+        </div>
+      `;
+      
+      setTimeout(closeModal, 3500);
+
+    } catch (error) {
+      console.error("Error submitting ticket:", error);
+      alert("Something went wrong. Please try again or email support directly.");
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Send Ticket";
+      }
+    }
+  });
+</script>

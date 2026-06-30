@@ -1,0 +1,244 @@
+---
+// Tu URL del webhook de n8n para el formulario de contacto
+const N8N_WEBHOOK = "https://n8n-n8n.tfpyme.easypanel.host/webhook/9a263357-35ba-4d64-8b54-d594a1cc93a3";
+---
+
+<div id="contact-modal" class="hidden fixed inset-0 z-50 items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs transition-opacity duration-300">
+  <div id="modal-box"
+    class="bg-white rounded-2xl border border-gray-100 shadow-xl w-full max-w-lg md:max-w-2xl overflow-hidden transform scale-95 transition-all duration-300 flex flex-col">
+    
+    <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between bg-[#FAF8F5]">
+      <div>
+        <h3 class="text-xl md:text-4xl font-black text-[#3d1d0e] tracking-tight">Contact Us</h3>
+        <p class="text-xs md:text-lg text-gray-500 font-medium mt-0.5">Have a question or want to work together? <span class="text-brand-green">Drop us a line.</span></p>
+      </div>
+      <button 
+        id="close-modal-btn"
+        class="close-contact-modal text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+        aria-label="Close modal"
+      >
+        <svg class="w-5 h-5 md:w-8 md:h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div id="modal-content-wrapper" class="p-6">
+      <form id="contact-form" class="flex flex-col gap-4">
+         <div>
+          <label for="contact-name" class="block text-xs md:text-xl font-bold uppercase tracking-wider text-[#3d1d0e] mb-1.5">Full Name <span class="text-[#FF6B4A]">*</span></label>
+          <input 
+            type="text" 
+            id="contact-name" 
+            name="client_name"  
+            required 
+            class="w-full px-4 py-2.5 rounded-xl border border-gray-200 md:text-lg focus:outline-none focus:border-[#0066cc] text-sm font-medium transition-colors"
+            placeholder="Jane Doe"
+          />
+        </div>
+        
+        <div>
+          <label for="company-name" class="block text-xs md:text-xl font-bold uppercase tracking-wider text-[#3d1d0e] mb-1.5">Company Name <span class="text-[#FF6B4A]">*</span></label>
+          <input 
+            type="text" 
+            id="company-name" 
+            name="company_name" 
+            required 
+            class="w-full px-4 py-2.5 rounded-xl border border-gray-200 md:text-lg focus:outline-none focus:border-[#0066cc] text-sm font-medium transition-colors"
+            placeholder="YourServiceVA"
+          />
+        </div>
+
+        <div>
+          <label for="contact-email" class="block text-xs md:text-xl font-bold uppercase tracking-wider text-[#3d1d0e] mb-1.5">Email Address <span class="text-[#FF6B4A]">*</span></label>
+          <input 
+            type="email" 
+            id="contact-email" 
+            name="email" 
+            required 
+            class="w-full px-4 py-2.5 rounded-xl border border-gray-200 md:text-lg focus:outline-none focus:border-[#0066cc] text-sm font-medium transition-colors"
+            placeholder="john@company.com"
+          />
+        </div>
+
+        <div>
+          <label for="contact-phone" class="block text-xs md:text-xl font-bold uppercase tracking-wider text-[#3d1d0e] mb-1.5">Phone Number <span class="text-[#FF6B4A]">*</span></label>
+          <input 
+            type="tel" 
+            id="contact-phone" 
+            name="phone" 
+            required 
+            class="w-full px-4 py-2.5 rounded-xl border border-gray-200 md:text-lg focus:outline-none focus:border-[#0066cc] text-sm font-medium transition-colors"
+            placeholder="+1 (555) 000-0000"
+          />
+        </div>
+
+        <div>
+          <label for="contact-subject" class="block text-xs md:text-xl font-bold uppercase tracking-wider text-[#3d1d0e] mb-1.5">Subject <span class="text-gray-400 font-normal lowercase">(optional)</span></label>
+          <input 
+            type="text" 
+            id="contact-subject" 
+            name="subject" 
+            class="w-full px-4 py-2.5 rounded-xl border border-gray-200 md:text-lg focus:outline-none focus:border-[#0066cc] text-sm font-medium transition-colors"
+            placeholder="Partnership, hiring VAs, general inquiry..."
+          />
+        </div>
+
+        <div>
+          <label for="contact-message" class="block text-xs md:text-xl font-bold uppercase tracking-wider text-[#3d1d0e] mb-1.5">Message <span class="text-[#FF6B4A]">*</span></label>
+          <textarea 
+            id="contact-message" 
+            name="message" 
+            rows="4" 
+            required 
+            class="w-full px-4 py-2.5 rounded-xl border border-gray-200 md:text-lg focus:outline-none focus:border-[#0066cc] text-sm font-medium transition-colors resize-none"
+            placeholder="Tell us more about your project or needs..."
+          ></textarea>
+        </div>
+
+        <button 
+          type="submit" 
+          id="submit-contact-btn"
+          class="mt-2 w-full bg-brand-green hover:bg-opacity-95 hover:scale-105 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <span>Send Message</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ N8N_WEBHOOK }}>
+  const modal = document.getElementById('contact-modal');
+  const modalBox = document.getElementById('modal-box');
+  const closeBtn = document.getElementById('close-modal-btn');
+  const wrapper = document.getElementById('modal-content-wrapper');
+  
+  // Guardamos el HTML original del formulario para poder restaurarlo si deciden reintentar tras un error
+  const originalFormHTML = wrapper.innerHTML;
+
+  const openModal = () => {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    void modal.offsetWidth; 
+    modalBox.classList.remove('scale-95', 'opacity-0');
+    modalBox.classList.add('scale-100', 'opacity-100');
+  };
+
+  const closeModal = () => {
+    modalBox.classList.remove('scale-100', 'opacity-100');
+    modalBox.classList.add('scale-95', 'opacity-0');
+    setTimeout(() => {
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }, 300);
+  };
+
+  // Delegación global de clics para abrir el modal
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.open-contact-modal')) {
+      e.preventDefault();
+      openModal();
+    }
+    
+    // Acción para el botón "Try Again" en caso de error
+    if (e.target.closest('#retry-btn')) {
+      e.preventDefault();
+      wrapper.innerHTML = originalFormHTML;
+      attachFormSubmitListener(); // Re-vinculamos el listener al nuevo formulario insertado
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.close-contact-modal')) {
+      e.preventDefault();
+      closeModal();
+    }
+  });
+
+  // Encapsulamos el listener del submit para poder llamarlo si se reinicia el formulario
+  function attachFormSubmitListener() {
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-contact-btn');
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      
+      if (!data.subject) {
+        data.subject = "General Contact Inquiry";
+      }
+
+      if (data.phone) {
+        data.phone = data.phone.replace(/[\s+()[-]/g, '');
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `
+          <svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span>Sending...</span>
+        `;
+      }
+
+      try {
+        const response = await fetch(N8N_WEBHOOK, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...data, timestamp: new Date().toISOString() })
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP Error! Status: ${response.status}`);
+        }
+        
+        // ÉXITO: Renderizado integrado directamente en el contenedor del modal
+        wrapper.innerHTML = `
+          <div class="text-center py-8 flex flex-col items-center gap-3 animate-fade-in">
+            <div class="w-12 h-12 md:w-18 md:h-18 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100">
+              <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h4 class="text-lg font-bold md:text-4xl text-[#3d1d0e]">Message Sent!</h4>
+            <p class="text-sm md:text-2xl text-gray-500 max-w-xs">Thank you for reaching out. We will get back to you shortly.</p>
+          </div>
+        `;
+        
+        setTimeout(closeModal, 3500);
+
+      } catch (error) {
+        console.error("Error submitting contact form:", error);
+        
+        // ERROR: Renderizado de la ventana de error integrada en la interfaz (Chao Alert)
+        wrapper.innerHTML = `
+          <div class="text-center py-8 flex flex-col items-center gap-4">
+            <div class="w-12 h-12 md:w-18 md:h-18 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center border border-rose-100">
+              <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-lg font-bold md:text-3xl text-rose-950">Submission Failed</h4>
+              <p class="text-sm md:text-xl text-gray-500 mt-1 max-w-sm mx-auto">Something went wrong while connecting to our servers. Please try again or reach out directly via email.</p>
+            </div>
+            <button 
+              id="retry-btn"
+              class="bg-[#3d1d0e] hover:bg-opacity-90 text-white font-bold py-2.5 px-6 rounded-xl transition-all shadow-sm cursor-pointer text-sm md:text-lg"
+            >
+              Try Again
+            </button>
+          </div>
+        `;
+      }
+    });
+  }
+
+  // Inicializamos el listener la primera vez que se monta el componente
+  attachFormSubmitListener();
+</script>
