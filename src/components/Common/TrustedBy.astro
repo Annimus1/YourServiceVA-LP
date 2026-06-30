@@ -1,18 +1,18 @@
 ---
 const companies = [
   { name: 'Prestige Perfume', logo: '/img/trustedBy/pp.webp' },
-  { name: 'HP', logo: '/img/trustedBy/hp.svg' },
+  { name: 'Blu Realty', logo: '/img/trustedBy/bluRealty.svg' },
   { name: 'Unwind Land CO', logo: '/img/trustedBy/Unwind_Land_CO.png' },
-  { name: 'Amazon', logo: '/img/trustedBy/Amazon2024.svg' },
-  { name: 'SONY', logo: '/img/trustedBy/Sony.svg' },
-  { name: 'Airbnb', logo: '/img/trustedBy/Airbnb.webp' },
+  { name: 'Collective Energy', logo: '/img/trustedBy/collectiveEnergy.webp' },
+  { name: 'Keller Williams', logo: '/img/trustedBy/keller_williams.webp' },
+  { name: 'TruBuyers', logo: '/img/trustedBy/truebuyers.webp' },
 ];
 ---
 
 <section class="w-full bg-[#FAF8F5] py-10 overflow-hidden border-b border-gray-100">
   <div class="mx-auto max-w-7xl px-6">
     
-    <h2 class="text-center text-xs md:text-[20px] font-bold tracking-widest text-[#3d1d0e]/60 uppercase mb-8">
+    <h2 class="text-center text-xs md:text-4xl font-bold tracking-widest text-[#3d1d0e]/60 uppercase mb-8">
       TRUSTED BY 1,000+ ENTREPRENEURS, AGENCIES, AND GROWING COMPANIES
     </h2>
 
@@ -25,7 +25,7 @@ const companies = [
             <img 
               src={company.logo} 
               alt={`${company.name} logo`} 
-              class="h-18 sm:h-9 w-32 object-contain opacity-40 grayscale hover:opacity-80 hover:grayscale-0 transition-all duration-300"
+              class="h-9 w-32 md:h-20 object-contain opacity-40 grayscale hover:opacity-80 hover:grayscale-0 transition-all duration-300"
               title={company.name}
             />
           ))}
@@ -36,7 +36,7 @@ const companies = [
             <img 
               src={company.logo} 
               alt={`${company.name} logo`} 
-              class="h-18 sm:h-9 w-32 object-contain opacity-40 grayscale hover:opacity-80 hover:grayscale-0 transition-all duration-300"
+              class="h-9 w-32 md:h-20 object-contain opacity-40 grayscale hover:opacity-80 hover:grayscale-0 transition-all duration-300"
               title={company.name}
             />
           ))}
