@@ -2,18 +2,35 @@
 import Layout from "../layouts/Layout.astro"
 import ClientReviews from "../components/Common/ClientReviews.astro"
 import HowItWorks from "../components/Common/HowItWorks.astro"
+import PlanCalculator from "../components/Dialer/PlanCalculator.astro"
 
 // ==========================================
 // CONFIGURACIÓN DE PRECIOS DEL DIALER
 // ==========================================
+const extraNumberPrice = 1;
+const starterIncludedNumbers = 5;
+const premiumIncludedNumbers = 20;
+const enterpriseIncludedNumbers = 45;
+
+const listTiers = [
+  { maxRecords: 5000, rate: 0.03 },
+  { maxRecords: 15000, rate: 0.025 },
+  { maxRecords: null, rate: 0.02 },
+];
+
 const pricing = {
+  extraNumberPrice,
+  listTiers,
   starterDialer: {
+    id: "starter",
     title: "Starter Dialer",
+    shortName: "Starter",
     badge: "Basic",
     description: "The ideal setup for single agents or small telemarketing operations looking for maximum call efficiency.",
     monthlyPrice: 60,
     annualPrice: 48, 
     savings: 144,
+    includedNumbers: starterIncludedNumbers,
     periodMonthly: "month",
     periodAnnual: "month, billed annually",
     linkMonthly: "/contact?service=predictive-dialer&plan=starter&annual=N",
@@ -22,18 +39,21 @@ const pricing = {
       "<strong>1 Agent Credential</strong> included",
       "<strong>Single Line Automatic Dialer</strong> & Outbound calls",
       "Phone Reputation Monitoring & Smart local presence",
-      "5 Phone Numbers (Anti-Spam)",
+      `${starterIncludedNumbers} Phone Numbers (Anti-Spam)`,
       "90 Days Recording Vault Store",
       "Standard General Support"
     ]
   },
   premiumDialer: {
+    id: "premium",
     title: "Premium Dialer",
+    shortName: "Premium",
     badge: "Most Popular",
     description: "Perfect for growing teams requiring multi-line power, inbound routing, and CRM integrations.",
     monthlyPrice: 80,
     annualPrice: 64,
     savings: 192,
+    includedNumbers: premiumIncludedNumbers,
     periodMonthly: "month",
     periodAnnual: "month, billed annually",
     linkMonthly: "/contact?service=predictive-dialer&plan=premium&annual=N",
@@ -44,23 +64,29 @@ const pricing = {
       "<strong>Inbound & Outbound</strong> Uncapped Calling",
       "<strong>Real-time Agent Monitoring</strong>",
       "<strong>Campaign Monitoring</strong>",
-      "<strong> 20 Registered Phone Numbers (+1$ per extra Number)</strong>",
+      `<strong> ${premiumIncludedNumbers} Registered Phone Numbers (+${extraNumberPrice}$ per extra Number)</strong>`,
       "<strong>180 Days Recording Vault Store</strong>",
       "<strong>Quality Control & External CRM Integration</strong>"
     ]
   },
   enterpriseScale: {
+    id: "enterprise",
     title: "Enterprise Scale",
+    shortName: "Enterprise",
     badge: "Company Custom",
     description: "For full-scale outbound fleets and operations needing high-volume infrastructure deployment.",
     price: "Custom",
+    monthlyPrice: 0,
+    annualPrice: 0,
+    includedNumbers: enterpriseIncludedNumbers,
+    custom: true,
     linkMonthly: "/contact?service=predictive-dialer&plan=enterprise&annual=N",
     linkAnnual: "/contact?service=predictive-dialer&plan=enterprise&annual=Y",
     includes: [
       "<strong>Everything included in Premium +</strong>",
       "<strong>Custom Agent & Admin licenses volume discounts</strong>",
       "<strong>Multiline Dialer</strong> (up to 10 lines)",
-      "<strong> 45 Registered Phone Numbers (+1$ per extra Number)</strong>",
+      `<strong> ${enterpriseIncludedNumbers} Registered Phone Numbers (+${extraNumberPrice}$ per extra Number)</strong>`,
       "<strong>Extended 360 Days Recording Vault Store</strong>",
       "<strong>Dedicated Priority Support</strong>"
     ]
@@ -285,6 +311,9 @@ const pricing = {
     </div>
   </section>
 
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 text-gray-950 font-sans relative overflow-hidden">
+    <PlanCalculator pricing={pricing} />
+  </section> 
   {/* SECCIÓN DE CARACTERÍSTICAS */}
   <section class="py-24 bg-[#FAF8F5] text-gray-950 font-sans relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

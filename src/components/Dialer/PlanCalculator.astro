@@ -1,0 +1,1243 @@
+---
+type DialerPlan = {
+  id: string;
+  name: string;
+  shortName: string;
+  monthly: number;
+  annual: number;
+  custom: boolean;
+  includedNumbers: number;
+  badge?: string;
+};
+
+type PricingPlan = {
+  id: string;
+  title: string;
+  shortName: string;
+  monthlyPrice: number;
+  annualPrice: number;
+  includedNumbers: number;
+  custom?: boolean;
+  linkMonthly?: string;
+  linkAnnual?: string;
+};
+
+type ListTier = {
+  maxRecords: number | null;
+  rate: number;
+};
+
+type Pricing = {
+  extraNumberPrice: number;
+  listTiers: ListTier[];
+  starterDialer: PricingPlan;
+  premiumDialer: PricingPlan;
+};
+
+interface Props {
+  pricing: Pricing;
+}
+
+const { pricing } = Astro.props;
+
+const defaultListSize = 5000;
+const defaultListTier =
+  pricing.listTiers.find(
+    (tier) => tier.maxRecords === null || defaultListSize <= tier.maxRecords,
+  ) ?? pricing.listTiers[pricing.listTiers.length - 1];
+const defaultListRate = defaultListTier?.rate ?? 0;
+const defaultListCost = defaultListSize * defaultListRate;
+
+const formatRate = (rate: number) =>
+  `$${rate.toFixed(3).replace(/0+$/, "").replace(/\.$/, "")}`;
+
+const formatCurrency = (value: number) =>
+  new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  }).format(value);
+
+const toDialerPlan = (plan: PricingPlan, badge?: string): DialerPlan => ({
+  id: plan.id,
+  name: plan.title,
+  shortName: plan.shortName,
+  monthly: plan.monthlyPrice,
+  annual: plan.annualPrice,
+  custom: Boolean(plan.custom),
+  includedNumbers: plan.includedNumbers,
+  badge,
+});
+
+const plans: DialerPlan[] = [
+  toDialerPlan(pricing.starterDialer),
+  toDialerPlan(pricing.premiumDialer, "Popular"),
+];
+
+const leadTypes = [
+  "Absentee Owner",
+  "Vacant Property",
+  "High Equity",
+  "Free & Clear",
+  "Cash Buyers",
+  "Out of State Owners",
+  "Years Owned",
+  "Owner Occupied / Non Owner Occupied",
+  "Property Type (SFR, Land, Multifamily)",
+  "ZIP Code / City Filter",
+  "Estimated Value",
+  "Equity %",
+  "Corporate Owned",
+  "Vacant Land",
+];
+
+const dataList = {
+  id: "homeowners",
+  label: "Property data list",
+  description: "Home owners, companies, or any other targeted property records.",
+};
+
+const listSizes = [
+  { id: "2500", label: "2,500" },
+  { id: "5000", label: "5,000" },
+  { id: "10000", label: "10,000" },
+  { id: "custom", label: "+10k" },
+];
+
+const calculatorConfig = {
+  plans,
+  listTiers: pricing.listTiers,
+  dataList,
+  extraNumberPrice: pricing.extraNumberPrice,
+  defaultListSize,
+};
+---
+
+<section
+  id="dialer-calculator"
+  class="relative scroll-mt-24 overflow-hidden rounded-[2rem] border border-gray-200/80 bg-[#FAF8F5] p-4 font-sans sm:p-8 lg:p-10 xl:p-12"
+>
+  <div
+    class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand-green/20 blur-3xl"
+  >
+  </div>
+  <div
+    class="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-brand-blue/10 blur-3xl"
+  >
+  </div>
+
+  <div
+    class="relative z-10 grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-10 xl:gap-14"
+  >
+    <div class="flex flex-col gap-8 lg:col-span-5">
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-2">
+          <span
+            class="inline-block h-2 w-2 rounded-full bg-brand-green shadow-[0_0_6px_rgba(164,202,57,0.6)]"
+          ></span>
+          <span
+            class="text-xs font-bold uppercase tracking-widest text-brand-blue md:text-sm"
+          >
+            Build Your Custom Plan
+          </span>
+        </div>
+
+        <h2
+          class="text-3xl font-extrabold tracking-tight text-brand-dark-blue md:text-5xl"
+        >
+          The dialer that fits{" "}
+          <span class="text-brand-green">your operation.</span>
+        </h2>
+
+        <p
+          class="max-w-xl text-sm font-medium leading-relaxed text-gray-600 md:text-lg"
+        >
+          Choose your billing cycle, agent credentials, extra phone numbers,
+          and the data lists you need. Get an instant estimate — no hidden fees.
+        </p>
+      </div>
+
+      <div
+        class="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm md:p-8"
+      >
+        <div class="mb-5 flex items-start justify-between gap-4">
+          <div>
+            <p
+              class="text-[11px] font-bold uppercase tracking-widest text-brand-green"
+            >
+              Included list filters
+            </p>
+            <h3
+              class="mt-1 text-xl font-extrabold text-brand-dark-blue md:text-2xl"
+            >
+              Possible list types
+            </h3>
+          </div>
+          <span
+            class="hidden shrink-0 rounded-full bg-brand-blue/10 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-brand-blue sm:inline-flex"
+          >
+            {leadTypes.length} filters
+          </span>
+        </div>
+
+        <ul class="grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2">
+          {
+            leadTypes.map((lead) => (
+              <li class="flex items-start gap-2.5 text-xs font-medium text-gray-600 md:text-base">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-green/15 text-brand-green">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="h-3 w-3"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.704 5.296a1 1 0 010 1.415l-7.5 7.5a1 1 0 01-1.415 0l-3.5-3.5a1 1 0 111.415-1.415l2.793 2.794 6.793-6.794a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <span>{lead}</span>
+              </li>
+            ))
+          }
+        </ul>
+
+        <p
+          class="mt-6 text-[11px] font-medium leading-relaxed text-gray-400 md:text-sm"
+        >
+          List data is priced per record and billed monthly.
+        </p>
+      </div>
+    </div>
+
+    <div class="lg:col-span-7">
+      <div
+        id="plan-calculator"
+        class="overflow-hidden rounded-[2rem] border border-gray-200 bg-white shadow-[0_24px_80px_-24px_rgba(10,37,64,0.35)]"
+      >
+        <div class="flex flex-col gap-7 p-4 sm:p-7 md:p-8">
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center justify-between gap-2">
+              <p
+                class="shrink-0 text-[11px] font-bold uppercase tracking-widest text-gray-400 md:text-xs"
+              >
+                Billing cycle
+              </p>
+              <span
+                class="ml-auto inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full bg-brand-green/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-brand-green md:px-2.5 md:py-1 md:text-[11px]"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  class="h-2.5 w-2.5 md:h-3 md:w-3"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v3.586L7.293 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 10.586V7z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Save 20% <span class="hidden sm:inline">annually</span>
+              </span>
+            </div>
+
+            <div class="grid grid-cols-2 rounded-2xl bg-gray-100 p-1">
+              <button
+                type="button"
+                data-billing="monthly"
+                data-active="true"
+                class="billing-btn rounded-xl px-4 py-2.5 text-sm font-bold text-gray-500 transition-all duration-200 md:text-base"
+              >
+                Monthly
+              </button>
+              <button
+                type="button"
+                data-billing="annual"
+                data-active="false"
+                class="billing-btn rounded-xl px-4 py-2.5 text-sm font-bold text-gray-500 transition-all duration-200 md:text-base"
+              >
+                Annual
+              </button>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center justify-between gap-3">
+              <p
+                class="text-[11px] font-bold uppercase tracking-widest text-gray-400 md:text-xs"
+              >
+                Choose your plan
+              </p>
+              <span class="text-[10px] font-bold text-gray-400 md:text-xs">
+                Per credential
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {
+                plans.map((plan) => (
+                  <button
+                    type="button"
+                    data-plan={plan.id}
+                    data-active={plan.id === "starter" ? "true" : "false"}
+                    class="plan-btn relative rounded-2xl border border-gray-200 bg-white p-3.5 text-left transition-all duration-200 hover:border-brand-blue/40"
+                  >
+                    {plan.badge && (
+                      <span class="absolute right-2 top-2 rounded-full bg-brand-green px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-brand-dark-blue sm:-top-2">
+                        {plan.badge}
+                      </span>
+                    )}
+                    <span class="block text-[11px] font-bold uppercase tracking-wider text-gray-400">
+                      {plan.shortName}
+                    </span>
+                    <span class="mt-1.5 flex items-baseline gap-0.5">
+                      <span
+                        data-plan-price
+                        data-monthly={plan.monthly}
+                        data-annual={plan.annual}
+                        data-custom={plan.custom}
+                        class="block text-lg font-black text-brand-dark-blue"
+                      >
+                        {plan.custom ? "Custom" : `$${plan.monthly}`}
+                      </span>
+                      <span
+                        data-plan-suffix
+                        class={`text-[10px] font-bold text-gray-400 ${
+                          plan.custom ? "hidden" : ""
+                        }`}
+                      >
+                        /mo
+                      </span>
+                    </span>
+                    <span
+                      data-plan-meta
+                      class="mt-0.5 block text-[10px] font-bold text-gray-400"
+                    >
+                      {plan.custom
+                        ? "Tailored quote"
+                        : `${plan.includedNumbers} numbers included`}
+                    </span>
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+
+          <div
+            class="flex flex-col gap-4 rounded-2xl border border-gray-100 bg-[#FAF8F5] p-4 sm:p-5"
+          >
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+              <div>
+                <label
+                  for="agent-range"
+                  class="text-sm font-bold text-brand-dark-blue md:text-base"
+                >
+                  Agent credentials
+                </label>
+                <p class="mt-0.5 text-[11px] font-medium text-gray-500 md:text-sm">
+                  How many agents will use the dialer?
+                </p>
+              </div>
+
+              <div class="flex shrink-0 items-center gap-2 self-end sm:self-auto">
+                <button
+                  type="button"
+                  data-agent-step="-1"
+                  aria-label="Remove one agent credential"
+                  class="flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200 bg-white text-lg font-bold text-brand-dark-blue transition hover:border-brand-blue hover:text-brand-blue active:scale-95"
+                >
+                  −
+                </button>
+                <input
+                  id="agent-count"
+                  type="number"
+                  min="1"
+                  max="50"
+                  value="1"
+                  aria-label="Number of agent credentials"
+                  class="no-spinner w-14 rounded-xl border border-gray-200 bg-white px-2 py-2 text-center text-lg font-black text-brand-dark-blue outline-none transition focus:border-brand-blue"
+                />
+                <button
+                  type="button"
+                  data-agent-step="1"
+                  aria-label="Add one agent credential"
+                  class="flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200 bg-white text-lg font-bold text-brand-dark-blue transition hover:border-brand-blue hover:text-brand-blue active:scale-95"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <input
+              id="agent-range"
+              type="range"
+              min="1"
+              max="50"
+              value="1"
+              class="w-full cursor-pointer accent-brand-blue"
+            />
+
+            <div
+              class="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-gray-400"
+            >
+              <span>1 agent</span>
+              <span>50 agents</span>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-gray-100 p-4 sm:p-5">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-sm font-bold text-brand-dark-blue md:text-base">
+                  Extra phone numbers
+                </p>
+                <p class="mt-0.5 text-[11px] font-medium text-gray-500 md:text-sm">
+                  <span data-included-numbers>
+                    {pricing.starterDialer.includedNumbers}
+                  </span>
+                  anti-spam numbers included. Add more for
+                  <span class="font-bold text-brand-dark-blue">
+                    ${pricing.extraNumberPrice}/number/mo
+                  </span>.
+                </p>
+              </div>
+
+              <label class="relative mt-0.5 inline-flex h-6 w-11 shrink-0 cursor-pointer items-center">
+                <input
+                  id="extra-numbers-toggle"
+                  type="checkbox"
+                  aria-label="Add extra phone numbers"
+                  class="peer sr-only"
+                />
+                <span
+                  class="block h-6 w-11 rounded-full bg-gray-200 transition-colors duration-200 peer-checked:bg-brand-green peer-focus-visible:ring-2 peer-focus-visible:ring-brand-blue peer-focus-visible:ring-offset-2"
+                ></span>
+                <span
+                  class="absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform duration-200 peer-checked:translate-x-5"
+                ></span>
+              </label>
+            </div>
+
+            <div
+              id="extra-numbers-panel"
+              class="mt-4 hidden border-t border-gray-100 pt-4"
+            >
+              <div class="flex items-center justify-between gap-4">
+                <span class="text-xs font-bold text-gray-500">
+                  Additional numbers
+                </span>
+                <div class="flex items-center gap-2">
+                  <button
+                    type="button"
+                    data-extra-step="-1"
+                    aria-label="Remove one extra phone number"
+                    class="flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 bg-white text-base font-bold text-brand-dark-blue transition hover:border-brand-blue hover:text-brand-blue active:scale-95"
+                  >
+                    −
+                  </button>
+                  <input
+                    id="extra-numbers-count"
+                    type="number"
+                    min="1"
+                    max="100"
+                    value="1"
+                    aria-label="Number of extra phone numbers"
+                    class="no-spinner w-14 rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-center text-sm font-black text-brand-dark-blue outline-none transition focus:border-brand-blue"
+                  />
+                  <button
+                    type="button"
+                    data-extra-step="1"
+                    aria-label="Add one extra phone number"
+                    class="flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 bg-white text-base font-bold text-brand-dark-blue transition hover:border-brand-blue hover:text-brand-blue active:scale-95"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center justify-between gap-3">
+              <p
+                class="text-[11px] font-bold uppercase tracking-widest text-gray-400 md:text-xs"
+              >
+                List add-on
+              </p>
+              <span class="text-[10px] font-bold text-gray-400 md:text-xs">
+                Billed monthly
+              </span>
+            </div>
+
+            <div
+              data-list-card={dataList.id}
+              class="list-card rounded-2xl border border-gray-200 p-4 transition-colors duration-200 sm:p-5"
+            >
+              <div class="flex items-start justify-between gap-4">
+                <div class="min-w-0">
+                  <p class="text-base font-bold text-brand-dark-blue">
+                    {dataList.label}
+                  </p>
+                  <p class="mt-0.5 text-[11px] font-medium leading-relaxed text-gray-500">
+                    {dataList.description}
+                  </p>
+                </div>
+
+                <label class="relative mt-0.5 inline-flex h-6 w-11 shrink-0 cursor-pointer items-center">
+                  <input
+                    id="data-list-toggle"
+                    type="checkbox"
+                    aria-label="Add data list"
+                    class="peer sr-only"
+                  />
+                  <span class="block h-6 w-11 rounded-full bg-gray-200 transition-colors duration-200 peer-checked:bg-brand-green peer-focus-visible:ring-2 peer-focus-visible:ring-brand-blue peer-focus-visible:ring-offset-2"></span>
+                  <span class="absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform duration-200 peer-checked:translate-x-5"></span>
+                </label>
+              </div>
+
+              <div
+                id="data-list-panel"
+                class="mt-4 hidden border-t border-gray-100 pt-4"
+              >
+                <p class="mb-2 text-[11px] font-bold text-gray-500">
+                  Select list size
+                </p>
+
+                <div
+                  class="grid grid-cols-2 gap-2 sm:grid-cols-4"
+                  role="radiogroup"
+                  aria-label="List size"
+                >
+                  {
+                    listSizes.map((size) => (
+                      <label class="relative cursor-pointer">
+                        <input
+                          type="radio"
+                          name="data-list-size"
+                          value={size.id}
+                          checked={size.id === String(defaultListSize)}
+                          class="peer sr-only"
+                        />
+                        <span class="flex items-center justify-center rounded-xl border border-gray-200 bg-white px-2.5 py-2.5 text-center text-xs font-bold text-gray-500 transition peer-checked:border-brand-blue peer-checked:bg-brand-blue/5 peer-checked:text-brand-blue">
+                          {size.label}
+                        </span>
+                      </label>
+                    ))
+                  }
+                </div>
+
+                <div id="custom-list-size-panel" class="mt-3 hidden">
+                  <label
+                    for="custom-list-size"
+                    class="text-[11px] font-bold text-gray-500"
+                  >
+                    Exact number of records
+                  </label>
+                  <input
+                    id="custom-list-size"
+                    type="number"
+                    min="10001"
+                    max="100000"
+                    step="100"
+                    value="15000"
+                    aria-label="Number of records"
+                    class="no-spinner mt-1.5 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-bold text-brand-dark-blue outline-none transition focus:border-brand-blue"
+                  />
+                </div>
+
+                <div class="mt-3 flex items-end justify-between gap-3">
+                  <span
+                    data-list-rate
+                    class="text-[10px] font-bold text-gray-400"
+                  >
+                    {formatRate(defaultListRate)} / record
+                  </span>
+                  <span
+                    data-list-cost
+                    class="text-lg font-black text-brand-dark-blue"
+                  >
+                    {formatCurrency(defaultListCost)}/mo
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-brand-dark-blue p-4 text-white sm:p-7 md:p-8">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p
+                class="text-[10px] font-bold uppercase tracking-widest text-brand-green"
+              >
+                Your estimate
+              </p>
+              <p
+                id="summary-plan-name"
+                class="mt-1 text-xl font-extrabold md:text-2xl"
+              >
+                {pricing.starterDialer.title}
+              </p>
+            </div>
+            <span
+              id="summary-billing-badge"
+              class="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-gray-300"
+            >
+              Monthly
+            </span>
+          </div>
+
+          <div class="mt-6 flex flex-col gap-2.5 text-sm">
+            <div class="flex items-center justify-between gap-4 text-gray-300">
+              <span>
+                Agent credentials
+                <span id="summary-agents-note" class="text-gray-500">×1</span>
+              </span>
+              <span id="summary-plan-cost" class="font-bold text-white">
+                {`$${pricing.starterDialer.monthlyPrice}/mo`}
+              </span>
+            </div>
+
+            <div class="flex items-center justify-between gap-4 text-gray-300">
+              <span>
+                Extra phone numbers
+                <span id="summary-numbers-note" class="text-gray-500">
+                  included
+                </span>
+              </span>
+              <span id="summary-numbers-cost" class="font-bold text-white">
+                $0/mo
+              </span>
+            </div>
+
+            <div id="summary-data-row" class="hidden">
+              <div class="flex items-center justify-between gap-4 text-gray-300">
+                <span>List add-on (monthly)</span>
+                <span id="summary-data-cost" class="font-bold text-white">
+                  $0/mo
+                </span>
+              </div>
+            </div>
+
+            <div class="my-2 border-t border-white/10"></div>
+
+            <div class="flex items-center justify-between gap-4">
+              <span
+                id="summary-monthly-label"
+                class="text-[11px] font-bold uppercase tracking-wider text-gray-400"
+              >
+                Monthly total
+              </span>
+              <span class="text-base font-bold text-gray-300 md:text-lg">
+                <span id="summary-monthly-amount">
+                  {`$${pricing.starterDialer.monthlyPrice}`}
+                </span><span
+                  id="summary-monthly-suffix"
+                  class="text-[11px] font-bold text-gray-500">/mo</span
+                >
+              </span>
+            </div>
+
+            <div id="summary-annual-row" class="hidden">
+              <div
+                class="flex items-center justify-between gap-4 text-[11px] font-medium text-gray-400"
+              >
+                <span>Plan billed annually</span>
+                <span id="summary-annual-cost" class="font-bold text-gray-300">
+                  {`$${pricing.starterDialer.annualPrice * 12}`}
+                </span>
+              </div>
+            </div>
+
+            <div class="mt-2 flex items-end justify-between gap-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-gray-400">
+                First payment
+              </span>
+              <span class="text-right text-2xl font-black leading-tight text-brand-green sm:text-3xl md:text-4xl">
+                <span id="summary-first-payment">
+                  {`$${pricing.starterDialer.monthlyPrice}`}
+                </span>
+              </span>
+            </div>
+
+            <p
+              id="summary-savings"
+              class="hidden text-[11px] font-bold uppercase tracking-wider text-brand-green"
+            >
+              {`You save $${(pricing.starterDialer.monthlyPrice - pricing.starterDialer.annualPrice) * 12}/year`}
+            </p>
+
+            <p
+              id="summary-custom-note"
+              class="hidden text-[11px] leading-relaxed text-gray-300"
+            >
+              Enterprise pricing is tailored to your fleet. Our team will
+              confirm the final quote.
+            </p>
+          </div>
+
+          <a
+            id="summary-cta"
+            href={pricing.starterDialer.linkMonthly ??
+              "/contact?service=predictive-dialer&plan=starter&annual=N"}
+            class="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-brand-green px-4 py-3.5 text-sm font-black text-brand-dark-blue shadow-md shadow-brand-green/20 transition-all duration-200 hover:bg-brand-green/90 active:scale-[0.99]"
+          >
+            <span id="summary-cta-label">Get started</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              class="h-4 w-4"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </a>
+
+          <p class="mt-3 text-center text-[10px] font-medium text-gray-400">
+            No setup fees · Cancel anytime · Final pricing confirmed by our team.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script
+  type="application/json"
+  id="plan-calculator-config"
+  set:html={JSON.stringify(calculatorConfig)}
+></script>
+
+<script>
+  type CalculatorPlan = {
+    id: string;
+    name: string;
+    shortName: string;
+    monthly: number;
+    annual: number;
+    custom: boolean;
+    includedNumbers: number;
+    badge?: string;
+  };
+
+  type CalculatorListTier = {
+    maxRecords: number | null;
+    rate: number;
+  };
+
+  type CalculatorDataList = {
+    id: string;
+    label: string;
+    description: string;
+  };
+
+  type CalculatorConfig = {
+    plans: CalculatorPlan[];
+    listTiers: CalculatorListTier[];
+    dataList: CalculatorDataList;
+    extraNumberPrice: number;
+    defaultListSize: number;
+  };
+
+  type BillingCycle = "monthly" | "annual";
+
+  function setupPlanCalculator() {
+    const root = document.getElementById("plan-calculator");
+    const configElement = document.getElementById("plan-calculator-config");
+    if (!root || !configElement || root.dataset.initialized === "true") return;
+    root.dataset.initialized = "true";
+
+    let config: CalculatorConfig;
+    try {
+      config = JSON.parse(configElement.textContent ?? "{}") as CalculatorConfig;
+    } catch {
+      return;
+    }
+
+    if (
+      !config.plans?.length ||
+      !config.listTiers?.length ||
+      !config.dataList?.id
+    ) {
+      return;
+    }
+
+    const billingButtons = Array.from(
+      root.querySelectorAll<HTMLButtonElement>("[data-billing]"),
+    );
+    const planButtons = Array.from(
+      root.querySelectorAll<HTMLButtonElement>("[data-plan]"),
+    );
+    const agentInput = root.querySelector<HTMLInputElement>("#agent-count");
+    const agentRange = root.querySelector<HTMLInputElement>("#agent-range");
+    const extraToggle = root.querySelector<HTMLInputElement>(
+      "#extra-numbers-toggle",
+    );
+    const extraPanel = root.querySelector<HTMLElement>("#extra-numbers-panel");
+    const extraInput = root.querySelector<HTMLInputElement>(
+      "#extra-numbers-count",
+    );
+    const dataListToggle = root.querySelector<HTMLInputElement>(
+      "#data-list-toggle",
+    );
+    const dataListPanel = root.querySelector<HTMLElement>("#data-list-panel");
+    const customListSizePanel = root.querySelector<HTMLElement>(
+      "#custom-list-size-panel",
+    );
+    const customListSizeInput = root.querySelector<HTMLInputElement>(
+      "#custom-list-size",
+    );
+    const listSizeRadios = Array.from(
+      root.querySelectorAll<HTMLInputElement>('input[name="data-list-size"]'),
+    );
+    const dataListCard = root.querySelector<HTMLElement>("[data-list-card]");
+    const dataListRate = root.querySelector<HTMLElement>("[data-list-rate]");
+    const dataListCost = root.querySelector<HTMLElement>("[data-list-cost]");
+
+    const summaryPlanName = root.querySelector<HTMLElement>(
+      "#summary-plan-name",
+    );
+    const summaryBillingBadge = root.querySelector<HTMLElement>(
+      "#summary-billing-badge",
+    );
+    const summaryAgentsNote = root.querySelector<HTMLElement>(
+      "#summary-agents-note",
+    );
+    const summaryPlanCost = root.querySelector<HTMLElement>(
+      "#summary-plan-cost",
+    );
+    const summaryNumbersNote = root.querySelector<HTMLElement>(
+      "#summary-numbers-note",
+    );
+    const summaryNumbersCost = root.querySelector<HTMLElement>(
+      "#summary-numbers-cost",
+    );
+    const summaryDataRow = root.querySelector<HTMLElement>("#summary-data-row");
+    const summaryDataCost = root.querySelector<HTMLElement>(
+      "#summary-data-cost",
+    );
+    const summaryMonthlyLabel = root.querySelector<HTMLElement>(
+      "#summary-monthly-label",
+    );
+    const summaryMonthlyAmount = root.querySelector<HTMLElement>(
+      "#summary-monthly-amount",
+    );
+    const summaryMonthlySuffix = root.querySelector<HTMLElement>(
+      "#summary-monthly-suffix",
+    );
+    const summaryAnnualRow = root.querySelector<HTMLElement>(
+      "#summary-annual-row",
+    );
+    const summaryAnnualCost = root.querySelector<HTMLElement>(
+      "#summary-annual-cost",
+    );
+    const summaryFirstPayment = root.querySelector<HTMLElement>(
+      "#summary-first-payment",
+    );
+    const summarySavings = root.querySelector<HTMLElement>("#summary-savings");
+    const summaryCustomNote = root.querySelector<HTMLElement>(
+      "#summary-custom-note",
+    );
+    const summaryCta = root.querySelector<HTMLAnchorElement>("#summary-cta");
+    const summaryCtaLabel = root.querySelector<HTMLElement>(
+      "#summary-cta-label",
+    );
+
+    if (
+      !agentInput ||
+      !agentRange ||
+      !extraToggle ||
+      !extraPanel ||
+      !extraInput ||
+      !dataListToggle ||
+      !dataListPanel ||
+      !customListSizePanel ||
+      !customListSizeInput ||
+      !dataListCard ||
+      !dataListRate ||
+      !dataListCost ||
+      !summaryPlanName ||
+      !summaryBillingBadge ||
+      !summaryAgentsNote ||
+      !summaryPlanCost ||
+      !summaryNumbersNote ||
+      !summaryNumbersCost ||
+      !summaryDataRow ||
+      !summaryDataCost ||
+      !summaryMonthlyLabel ||
+      !summaryMonthlyAmount ||
+      !summaryMonthlySuffix ||
+      !summaryAnnualRow ||
+      !summaryAnnualCost ||
+      !summaryFirstPayment ||
+      !summarySavings ||
+      !summaryCustomNote ||
+      !summaryCta ||
+      !summaryCtaLabel
+    ) {
+      return;
+    }
+
+    const initialPlanId =
+      planButtons.find((button) => button.dataset.active === "true")?.dataset
+        .plan ??
+      config.plans[0]?.id ??
+      "starter";
+
+    let billing: BillingCycle = "monthly";
+    let selectedPlanId = initialPlanId;
+
+    const clamp = (value: number, min: number, max: number) =>
+      Math.min(max, Math.max(min, value));
+
+    const toInt = (value: string, fallback: number) => {
+      const parsed = Number.parseInt(value, 10);
+      return Number.isFinite(parsed) ? parsed : fallback;
+    };
+
+    const formatMoney = (value: number) =>
+      new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2,
+      }).format(value);
+
+    const formatRate = (rate: number) =>
+      `$${rate.toFixed(3).replace(/0+$/, "").replace(/\.$/, "")}`;
+
+    const getRate = (records: number) => {
+      const tier =
+        config.listTiers.find(
+          (item) => item.maxRecords === null || records <= item.maxRecords,
+        ) ?? config.listTiers[config.listTiers.length - 1];
+      return tier?.rate ?? 0;
+    };
+
+    const update = () => {
+      const plan =
+        config.plans.find((item) => item.id === selectedPlanId) ??
+        config.plans[0];
+      if (!plan) return;
+
+      const agentCount = clamp(toInt(agentInput.value, 1), 1, 50);
+      const extraCount = extraToggle.checked
+        ? clamp(toInt(extraInput.value, 1), 1, 100)
+        : 0;
+      const extraCost = extraCount * config.extraNumberPrice;
+
+      const selectedSizeRadio = root.querySelector<HTMLInputElement>(
+        'input[name="data-list-size"]:checked',
+      );
+      const selectedSize =
+        selectedSizeRadio?.value ?? String(config.defaultListSize);
+      const isCustomSize = selectedSize === "custom";
+      const customRecords = clamp(
+        toInt(customListSizeInput.value, 15000),
+        10001,
+        100000,
+      );
+      const listRecords = isCustomSize
+        ? customRecords
+        : clamp(toInt(selectedSize, config.defaultListSize), 100, 100000);
+      const listRate = getRate(listRecords);
+      const listCost = listRecords * listRate;
+      const dataCost = dataListToggle.checked ? listCost : 0;
+
+      customListSizePanel.classList.toggle("hidden", !isCustomSize);
+      dataListRate.textContent = `${formatRate(listRate)} / record`;
+      dataListCost.textContent = `${formatMoney(listCost)}/mo`;
+
+      const includedNumbersElements = root.querySelectorAll<HTMLElement>(
+        "[data-included-numbers]",
+      );
+      includedNumbersElements.forEach((element) => {
+        element.textContent = String(plan.includedNumbers);
+      });
+
+      planButtons.forEach((button) => {
+        const buttonPlan = config.plans.find(
+          (item) => item.id === button.dataset.plan,
+        );
+        const priceElement = button.querySelector<HTMLElement>(
+          "[data-plan-price]",
+        );
+        const metaElement = button.querySelector<HTMLElement>("[data-plan-meta]");
+        const suffixElement = button.querySelector<HTMLElement>(
+          "[data-plan-suffix]",
+        );
+
+        button.dataset.active =
+          buttonPlan?.id === plan.id ? "true" : "false";
+
+        if (!buttonPlan) return;
+
+        if (priceElement) {
+          priceElement.textContent = buttonPlan.custom
+            ? "Custom"
+            : `$${billing === "annual" ? buttonPlan.annual : buttonPlan.monthly}`;
+        }
+
+        if (suffixElement) {
+          suffixElement.classList.toggle("hidden", buttonPlan.custom);
+        }
+
+        if (metaElement) {
+          metaElement.textContent = buttonPlan.custom
+            ? "Tailored quote"
+            : `${buttonPlan.includedNumbers} numbers included`;
+        }
+      });
+
+      billingButtons.forEach((button) => {
+        button.dataset.active =
+          button.dataset.billing === billing ? "true" : "false";
+      });
+
+      summaryPlanName.textContent = plan.name;
+      summaryBillingBadge.textContent =
+        billing === "annual"
+          ? plan.custom
+            ? "Annual"
+            : "Annual · save 20%"
+          : "Monthly";
+      summaryAgentsNote.textContent = `×${agentCount}`;
+      summaryNumbersNote.textContent =
+        extraCount > 0 ? `+${extraCount}` : "included";
+      summaryNumbersCost.textContent = `${formatMoney(extraCost)}/mo`;
+      summaryDataRow.classList.toggle("hidden", dataCost <= 0);
+      summaryDataCost.textContent = `${formatMoney(dataCost)}/mo`;
+
+      const monthlyPlanCost = plan.custom
+        ? null
+        : (billing === "annual" ? plan.annual : plan.monthly) * agentCount;
+      const monthlyTotal = plan.custom
+        ? null
+        : (monthlyPlanCost ?? 0) + extraCost + dataCost;
+      const annualPlanTotal = plan.custom
+        ? null
+        : plan.annual * agentCount * 12;
+      const firstPayment = plan.custom
+        ? null
+        : billing === "annual"
+          ? (annualPlanTotal ?? 0) + extraCost + dataCost
+          : plan.monthly * agentCount + extraCost + dataCost;
+
+      summaryPlanCost.textContent = plan.custom
+        ? "Custom"
+        : `${formatMoney(monthlyPlanCost ?? 0)}/mo`;
+      summaryMonthlyLabel.textContent = plan.custom
+        ? "Estimated total"
+        : billing === "annual"
+          ? "Monthly equivalent"
+          : "Monthly total";
+      summaryMonthlyAmount.textContent =
+        monthlyTotal === null ? "Custom" : formatMoney(monthlyTotal);
+      summaryMonthlySuffix.classList.toggle("hidden", monthlyTotal === null);
+
+      summaryAnnualRow.classList.toggle(
+        "hidden",
+        plan.custom || billing !== "annual",
+      );
+      summaryAnnualCost.textContent = formatMoney(annualPlanTotal ?? 0);
+
+      if (plan.custom) {
+        summaryFirstPayment.textContent =
+          dataCost > 0
+            ? `${formatMoney(dataCost)}/mo + custom quote`
+            : "Tailored quote";
+      } else {
+        summaryFirstPayment.textContent = formatMoney(firstPayment ?? 0);
+      }
+
+      const savings = plan.custom
+        ? 0
+        : (plan.monthly - plan.annual) * agentCount * 12;
+      summarySavings.classList.toggle(
+        "hidden",
+        plan.custom || billing !== "annual" || savings <= 0,
+      );
+      summarySavings.textContent = `You save ${formatMoney(savings)}/year`;
+      summaryCustomNote.classList.toggle("hidden", !plan.custom);
+      summaryCtaLabel.textContent = plan.custom ? "Contact Sales" : "Get started";
+
+      const params = new URLSearchParams();
+      params.set("service", "predictive-dialer");
+      params.set("plan", plan.id);
+      params.set("annual", billing === "annual" ? "Y" : "N");
+      params.set("agents", String(agentCount));
+
+      if (extraCount > 0) params.set("numbers", String(extraCount));
+
+      if (dataCost > 0) {
+        params.set("lists", `${config.dataList.id}:${listRecords}`);
+      }
+
+      summaryCta.href = `/contact?${params.toString()}`;
+    };
+
+    billingButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const nextBilling = button.dataset.billing;
+        if (nextBilling === "monthly" || nextBilling === "annual") {
+          billing = nextBilling;
+          update();
+        }
+      });
+    });
+
+    planButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        if (button.dataset.plan) {
+          selectedPlanId = button.dataset.plan;
+          update();
+        }
+      });
+    });
+
+    root
+      .querySelectorAll<HTMLButtonElement>("[data-agent-step]")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          const step = toInt(button.dataset.agentStep ?? "0", 0);
+          const next = clamp(toInt(agentInput.value, 1) + step, 1, 50);
+          agentInput.value = String(next);
+          agentRange.value = String(next);
+          update();
+        });
+      });
+
+    agentInput.addEventListener("input", () => {
+      const value = clamp(toInt(agentInput.value, 1), 1, 50);
+      agentRange.value = String(value);
+      update();
+    });
+
+    agentInput.addEventListener("blur", () => {
+      const value = clamp(toInt(agentInput.value, 1), 1, 50);
+      agentInput.value = String(value);
+      agentRange.value = String(value);
+      update();
+    });
+
+    agentRange.addEventListener("input", () => {
+      agentInput.value = agentRange.value;
+      update();
+    });
+
+    extraToggle.addEventListener("change", () => {
+      extraPanel.classList.toggle("hidden", !extraToggle.checked);
+      if (extraToggle.checked && toInt(extraInput.value, 0) < 1) {
+        extraInput.value = "1";
+      }
+      update();
+    });
+
+    extraInput.addEventListener("input", () => {
+      update();
+    });
+
+    extraInput.addEventListener("blur", () => {
+      const value = clamp(toInt(extraInput.value, 1), 1, 100);
+      extraInput.value = String(value);
+      update();
+    });
+
+    root
+      .querySelectorAll<HTMLButtonElement>("[data-extra-step]")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          if (!extraToggle.checked) {
+            extraToggle.checked = true;
+            extraPanel.classList.remove("hidden");
+          }
+
+          const step = toInt(button.dataset.extraStep ?? "0", 0);
+          const next = clamp(toInt(extraInput.value, 1) + step, 1, 100);
+          extraInput.value = String(next);
+          update();
+        });
+      });
+
+    dataListToggle.addEventListener("change", () => {
+      dataListPanel.classList.toggle("hidden", !dataListToggle.checked);
+      dataListCard.classList.toggle("is-active", dataListToggle.checked);
+      update();
+    });
+
+    listSizeRadios.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        update();
+      });
+    });
+
+    customListSizeInput.addEventListener("input", () => {
+      update();
+    });
+
+    customListSizeInput.addEventListener("blur", () => {
+      const records = clamp(
+        toInt(customListSizeInput.value, 15000),
+        10001,
+        100000,
+      );
+      customListSizeInput.value = String(records);
+      update();
+    });
+
+    dataListPanel.classList.toggle("hidden", !dataListToggle.checked);
+    dataListCard.classList.toggle("is-active", dataListToggle.checked);
+
+    update();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupPlanCalculator);
+  } else {
+    setupPlanCalculator();
+  }
+
+  document.addEventListener("astro:page-load", setupPlanCalculator);
+</script>
+
+<style>
+  .billing-btn[data-active="true"] {
+    background-color: #ffffff;
+    color: var(--color-brand-dark-blue);
+    box-shadow: 0 10px 25px -15px rgba(10, 37, 64, 0.45);
+  }
+
+  .plan-btn[data-active="true"] {
+    border-color: var(--color-brand-blue);
+    background-color: #f3f9fd;
+    box-shadow: 0 0 0 3px rgba(0, 114, 176, 0.12);
+  }
+
+  .plan-btn[data-active="true"] [data-plan-price] {
+    color: var(--color-brand-blue);
+  }
+
+  .list-card.is-active {
+    border-color: var(--color-brand-blue);
+    background-color: #f8fbfe;
+  }
+
+  .no-spinner::-webkit-outer-spin-button,
+  .no-spinner::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .no-spinner {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+</style>
