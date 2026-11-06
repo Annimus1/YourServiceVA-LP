@@ -756,27 +756,37 @@ const labelClass =
       user_agent: navigator.userAgent,
     };
 
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 15000);
+
     try {
-      await fetch(endpoint, {
+      const response = await fetch(endpoint, {
         method: "POST",
-        mode: "no-cors",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
+        signal: controller.signal,
       });
+
+      if (!response.ok) {
+        throw new Error(`Webhook responded with ${response.status}`);
+      }
 
       showSuccess(dialog);
       form.reset();
-    } catch {
+    } catch (error) {
+      console.error("Dialer lead submission failed:", error);
       showError(
         dialog,
-        "We could not send your request. Please try again.",
+        "We could not send your request. Please try again or contact us directly.",
       );
       if (submit) {
         submit.disabled = false;
         submit.textContent = "Send Request";
       }
+    } finally {
+      window.clearTimeout(timeoutId);
     }
   }
 
