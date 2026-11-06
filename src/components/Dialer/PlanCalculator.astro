@@ -1,4 +1,6 @@
 ---
+import DialerPlanCta from "./DialerPlanCta.astro";
+
 type DialerPlan = {
   id: string;
   name: string;
@@ -680,26 +682,22 @@ const calculatorConfig = {
             </p>
           </div>
 
-          <a
+          <DialerPlanCta
             id="summary-cta"
-            href={pricing.starterDialer.linkMonthly ??
-              "/contact?service=predictive-dialer&plan=starter&annual=N"}
-            class="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-brand-green px-4 py-3.5 text-sm font-black text-brand-dark-blue shadow-md shadow-brand-green/20 transition-all duration-200 hover:bg-brand-green/90 active:scale-[0.99]"
-          >
-            <span id="summary-cta-label">Get started</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              class="h-4 w-4"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </a>
+            plan="starter"
+            planName={pricing.starterDialer.title}
+            billing="monthly"
+            agents={1}
+            extraNumbers={0}
+            estimatedMonthly={pricing.starterDialer.monthlyPrice}
+            estimatedFirstPayment={pricing.starterDialer.monthlyPrice}
+            source="calculator"
+            buttonLabel="Get started"
+            showArrow={true}
+            buttonClass="mt-6 rounded-xl bg-brand-green px-4 py-3.5 text-sm font-black text-brand-dark-blue shadow-md shadow-brand-green/20 hover:bg-brand-green/90"
+            modalTitle="Complete your dialer request"
+            modalDescription="We'll use your selected configuration to prepare the next steps."
+          />
 
           <p class="mt-3 text-center text-[10px] font-medium text-gray-400">
             No setup fees · Cancel anytime · Final pricing confirmed by our team.
@@ -846,10 +844,7 @@ const calculatorConfig = {
     const summaryCustomNote = root.querySelector<HTMLElement>(
       "#summary-custom-note",
     );
-    const summaryCta = root.querySelector<HTMLAnchorElement>("#summary-cta");
-    const summaryCtaLabel = root.querySelector<HTMLElement>(
-      "#summary-cta-label",
-    );
+    const summaryCta = root.querySelector<HTMLButtonElement>("#summary-cta");
 
     if (
       !agentInput ||
@@ -880,8 +875,7 @@ const calculatorConfig = {
       !summaryFirstPayment ||
       !summarySavings ||
       !summaryCustomNote ||
-      !summaryCta ||
-      !summaryCtaLabel
+      !summaryCta
     ) {
       return;
     }
@@ -1067,21 +1061,24 @@ const calculatorConfig = {
       );
       summarySavings.textContent = `You save ${formatMoney(savings)}/year`;
       summaryCustomNote.classList.toggle("hidden", !plan.custom);
-      summaryCtaLabel.textContent = plan.custom ? "Contact Sales" : "Get started";
 
-      const params = new URLSearchParams();
-      params.set("service", "predictive-dialer");
-      params.set("plan", plan.id);
-      params.set("annual", billing === "annual" ? "Y" : "N");
-      params.set("agents", String(agentCount));
-
-      if (extraCount > 0) params.set("numbers", String(extraCount));
+      summaryCta.dataset.plan = plan.id;
+      summaryCta.dataset.planName = plan.name;
+      summaryCta.dataset.billing = billing;
+      summaryCta.dataset.agents = String(agentCount);
+      summaryCta.dataset.extraNumbers = String(extraCount);
+      summaryCta.dataset.source = "calculator";
 
       if (dataCost > 0) {
-        params.set("lists", `${config.dataList.id}:${listRecords}`);
+        summaryCta.dataset.listSize = String(listRecords);
+      } else {
+        delete summaryCta.dataset.listSize;
       }
 
-      summaryCta.href = `/contact?${params.toString()}`;
+      summaryCta.dataset.estimatedMonthly =
+        monthlyTotal === null ? "" : String(monthlyTotal);
+      summaryCta.dataset.estimatedFirstPayment =
+        firstPayment === null ? "" : String(firstPayment);
     };
 
     billingButtons.forEach((button) => {

@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro"
 import ClientReviews from "../components/Common/ClientReviews.astro"
 import HowItWorks from "../components/Common/HowItWorks.astro"
 import PlanCalculator from "../components/Dialer/PlanCalculator.astro"
+import DialerPlanCta from "../components/Dialer/DialerPlanCta.astro"
 
 // ==========================================
 // CONFIGURACIÓN DE PRECIOS DEL DIALER
@@ -186,15 +187,17 @@ const pricing = {
           </div>
 
           <div class="mt-8">
-            <a 
-              id="starter-btn" 
-              href={pricing.starterDialer.linkMonthly}
-              data-monthly-url={pricing.starterDialer.linkMonthly}
-              data-annual-url={pricing.starterDialer.linkAnnual}
-              class="w-full md:text-lg block text-center bg-gray-50 text-brand-dark-blue border border-gray-200 py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-dark-blue hover:text-white hover:border-transparent transition-all duration-200"
-            >
-              Deploy Starter
-            </a>
+            <DialerPlanCta
+              id="starter-btn"
+              plan="starter"
+              planName={pricing.starterDialer.title}
+              billing="monthly"
+              source="pricing-card-starter"
+              buttonLabel="Deploy Starter"
+              buttonClass="md:text-lg text-center bg-gray-50 text-brand-dark-blue border border-gray-200 py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-dark-blue hover:text-white hover:border-transparent transition-all duration-200"
+              modalTitle={`Request ${pricing.starterDialer.title}`}
+              modalDescription="Share your contact details and we'll prepare your Starter Dialer setup."
+            />
           </div>
         </div>
 
@@ -245,15 +248,17 @@ const pricing = {
           </div>
 
           <div class="mt-8">
-            <a 
-              id="premium-btn" 
-              href={pricing.premiumDialer.linkMonthly}
-              data-monthly-url={pricing.premiumDialer.linkMonthly}
-              data-annual-url={pricing.premiumDialer.linkAnnual}
-              class="w-full block md:text-lg text-center bg-brand-green text-brand-dark-blue py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-green/90 shadow-md shadow-brand-green/20 transition-all duration-200"
-            >
-              Deploy Premium
-            </a>
+            <DialerPlanCta
+              id="premium-btn"
+              plan="premium"
+              planName={pricing.premiumDialer.title}
+              billing="monthly"
+              source="pricing-card-premium"
+              buttonLabel="Deploy Premium"
+              buttonClass="md:text-lg text-center bg-brand-green text-brand-dark-blue py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-green/90 shadow-md shadow-brand-green/20 transition-all duration-200"
+              modalTitle={`Request ${pricing.premiumDialer.title}`}
+              modalDescription="Share your contact details and we'll prepare your Premium Dialer setup."
+            />
           </div>
         </div>
 
@@ -289,15 +294,17 @@ const pricing = {
           </div>
 
           <div class="mt-8">
-            <a 
-              id="enterprise-btn" 
-              href={pricing.enterpriseScale.linkMonthly}
-              data-monthly-url={pricing.enterpriseScale.linkMonthly}
-              data-annual-url={pricing.enterpriseScale.linkAnnual}
-              class="w-full block md:text-lg text-center bg-gray-50 text-brand-dark-blue border border-gray-200 py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-dark-blue hover:text-white hover:border-transparent transition-all duration-200"
-            >
-              Contact Sales
-            </a>
+            <DialerPlanCta
+              id="enterprise-btn"
+              plan="enterprise"
+              planName={pricing.enterpriseScale.title}
+              billing="monthly"
+              source="pricing-card-enterprise"
+              buttonLabel="Contact Sales"
+              buttonClass="md:text-lg text-center bg-gray-50 text-brand-dark-blue border border-gray-200 py-3.5 px-4 rounded-xl text-xs font-bold hover:bg-brand-dark-blue hover:text-white hover:border-transparent transition-all duration-200"
+              modalTitle="Talk to our sales team"
+              modalDescription="Tell us about your operation and we'll build a custom Enterprise quote."
+            />
           </div>
         </div>
 
@@ -403,41 +410,32 @@ const pricing = {
     const starterPrice = document.getElementById('starter-price');
     const starterPeriod = document.getElementById('starter-period');
     const starterSavings = document.getElementById('starter-savings');
-    const starterBtn = document.getElementById('starter-btn') as HTMLAnchorElement | null;
+    const starterBtn = document.getElementById('starter-btn') as HTMLButtonElement | null;
 
     const premiumPrice = document.getElementById('premium-price');
     const premiumPeriod = document.getElementById('premium-period');
     const premiumSavings = document.getElementById('premium-savings');
-    const premiumBtn = document.getElementById('premium-btn') as HTMLAnchorElement | null;
+    const premiumBtn = document.getElementById('premium-btn') as HTMLButtonElement | null;
 
-    const enterpriseBtn = document.getElementById('enterprise-btn') as HTMLAnchorElement | null;
+    const enterpriseBtn = document.getElementById('enterprise-btn') as HTMLButtonElement | null;
 
     if (!toggleBtn || !toggleDot) return;
 
     let isAnnual = false;
 
-    function updateLinks(annualActive: boolean) {
-      const targetAttr = annualActive ? 'data-annual-url' : 'data-monthly-url';
-      
-      if (starterBtn) {
-        const url = starterBtn.getAttribute(targetAttr);
-        if (url) starterBtn.href = url;
-      }
-      if (premiumBtn) {
-        const url = premiumBtn.getAttribute(targetAttr);
-        if (url) premiumBtn.href = url;
-      }
-      if (enterpriseBtn) {
-        const url = enterpriseBtn.getAttribute(targetAttr);
-        if (url) enterpriseBtn.href = url;
-      }
+    function updateCtaBilling(annualActive: boolean) {
+      const value = annualActive ? 'annual' : 'monthly';
+
+      [starterBtn, premiumBtn, enterpriseBtn].forEach((button) => {
+        if (button) button.dataset.billing = value;
+      });
     }
 
     toggleBtn.addEventListener('click', () => {
       isAnnual = !isAnnual;
       
       toggleBtn.setAttribute('aria-checked', isAnnual.toString());
-      updateLinks(isAnnual);
+      updateCtaBilling(isAnnual);
 
       if (isAnnual) {
         toggleDot.classList.remove('translate-x-0');
@@ -473,6 +471,8 @@ const pricing = {
         }
       }
     });
+
+    updateCtaBilling(false);
   }
 
   document.addEventListener('DOMContentLoaded', initBillingToggle);

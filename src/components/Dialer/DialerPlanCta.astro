@@ -1,0 +1,857 @@
+---
+interface Props {
+  endpoint?: string;
+  plan: string;
+  planName: string;
+  billing?: "monthly" | "annual";
+  agents?: number;
+  extraNumbers?: number;
+  listSize?: number;
+  estimatedMonthly?: number;
+  estimatedFirstPayment?: number;
+  service?: string;
+  source?: string;
+  buttonLabel?: string;
+  buttonClass?: string;
+  showArrow?: boolean;
+  modalTitle?: string;
+  modalDescription?: string;
+  id?: string;
+}
+
+const {
+  endpoint,
+  plan,
+  planName,
+  billing = "monthly",
+  agents,
+  extraNumbers,
+  listSize,
+  estimatedMonthly,
+  estimatedFirstPayment,
+  service = "predictive-dialer",
+  source = "dialer-pricing",
+  buttonLabel = "Get started",
+  buttonClass = "rounded-xl bg-brand-green px-4 py-3.5 text-sm font-black text-brand-dark-blue",
+  showArrow = false,
+  modalTitle = "Complete your request",
+  modalDescription = "Share your contact details and we'll send you the next steps.",
+  id,
+} = Astro.props;
+
+const DEFAULT_DIALER_WEBHOOK =
+  "https://n8n-n8n.tfpyme.easypanel.host/webhook/e4c40737-ab65-4694-93ec-ec78c832875f";
+const webhookEndpoint = endpoint ?? DEFAULT_DIALER_WEBHOOK;
+
+const uid = id ?? `dialer-cta-${Math.random().toString(36).slice(2, 10)}`;
+const modalId = `${uid}-modal`;
+const titleId = `${modalId}-title`;
+
+const countryCodes = [
+  { code: "+1", flag: "🇺🇸", label: "USA/CA", id: "US" },
+  { code: "+58", flag: "🇻🇪", label: "VE", id: "VE" },
+  { code: "+44", flag: "🇬🇧", label: "UK", id: "UK" },
+  { code: "+61", flag: "🇦🇺", label: "AU", id: "AU" },
+  { code: "+34", flag: "🇪🇸", label: "ES", id: "ES" },
+  { code: "+52", flag: "🇲🇽", label: "MX", id: "MX" },
+  { code: "+57", flag: "🇨🇴", label: "CO", id: "CO" },
+  { code: "+54", flag: "🇦🇷", label: "AR", id: "AR" },
+  { code: "+56", flag: "🇨🇱", label: "CL", id: "CL" },
+  { code: "+51", flag: "🇵🇪", label: "PE", id: "PE" },
+];
+
+const inputClass =
+  "w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-medium text-brand-dark-blue placeholder-gray-400 outline-none transition focus:border-brand-blue";
+const labelClass =
+  "text-[11px] font-bold uppercase tracking-wide text-brand-dark-blue";
+---
+
+<button
+  type="button"
+  id={uid}
+  data-dialer-cta
+  data-modal-id={modalId}
+  data-plan={plan}
+  data-plan-name={planName}
+  data-billing={billing}
+  data-agents={agents}
+  data-extra-numbers={extraNumbers}
+  data-list-size={listSize}
+  data-estimated-monthly={estimatedMonthly}
+  data-estimated-first-payment={estimatedFirstPayment}
+  data-source={source}
+  aria-haspopup="dialog"
+  aria-controls={modalId}
+  class:list={[
+    "flex w-full cursor-pointer items-center justify-center gap-2 transition-all duration-200 active:scale-[0.99]",
+    buttonClass,
+  ]}
+>
+  <span>{buttonLabel}</span>
+  {
+    showArrow && (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        class="h-4 w-4"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    )
+  }
+</button>
+
+<dialog
+  id={modalId}
+  data-dialer-modal
+  data-webhook={webhookEndpoint}
+  aria-labelledby={titleId}
+  class="dialer-cta-dialog m-0 h-full max-h-none w-full max-w-none border-0 bg-transparent p-4"
+>
+  <div
+    data-dialer-backdrop
+    class="mx-auto flex min-h-full items-center justify-center"
+  >
+    <div
+      class="dialer-cta-card dialer-cta-scroll relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-3xl border border-gray-100 bg-white p-5 shadow-2xl sm:p-8"
+    >
+      <button
+        type="button"
+        data-dialer-close
+        aria-label="Close"
+        class="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-lg font-bold text-gray-500 transition hover:border-brand-blue hover:text-brand-blue"
+      >
+        ×
+      </button>
+
+      <div data-dialer-form-wrap>
+        <div class="pr-10">
+          <p
+            class="text-[11px] font-bold uppercase tracking-widest text-brand-green"
+          >
+            Dialer request
+          </p>
+          <h2
+            id={titleId}
+            class="mt-1 text-2xl font-black tracking-tight text-brand-dark-blue sm:text-3xl"
+          >
+            {modalTitle}
+          </h2>
+          <p class="mt-1 text-sm font-medium leading-relaxed text-gray-500">
+            {modalDescription}
+          </p>
+        </div>
+
+        <div class="mt-5 rounded-2xl border border-gray-100 bg-[#FAF8F5] p-4">
+          <div class="flex items-center justify-between gap-3 py-1 text-sm">
+            <span class="font-medium text-gray-500">Plan</span>
+            <span
+              data-dialer-summary-plan
+              class="text-right font-bold text-brand-dark-blue">{planName}</span
+            >
+          </div>
+          <div class="flex items-center justify-between gap-3 py-1 text-sm">
+            <span class="font-medium text-gray-500">Billing</span>
+            <span
+              data-dialer-summary-billing
+              class="font-bold text-brand-dark-blue"
+              >{billing === "annual" ? "Annual" : "Monthly"}</span
+            >
+          </div>
+          <div data-dialer-summary-agents-row class="hidden">
+            <div class="flex items-center justify-between gap-3 py-1 text-sm">
+              <span class="font-medium text-gray-500">Agents</span>
+              <span
+                data-dialer-summary-agents
+                class="font-bold text-brand-dark-blue"></span>
+            </div>
+          </div>
+          <div data-dialer-summary-extras-row class="hidden">
+            <div class="flex items-center justify-between gap-3 py-1 text-sm">
+              <span class="font-medium text-gray-500">Extra numbers</span>
+              <span
+                data-dialer-summary-extras
+                class="font-bold text-brand-dark-blue"></span>
+            </div>
+          </div>
+          <div data-dialer-summary-list-row class="hidden">
+            <div class="flex items-center justify-between gap-3 py-1 text-sm">
+              <span class="font-medium text-gray-500">List add-on</span>
+              <span
+                data-dialer-summary-list
+                class="font-bold text-brand-dark-blue"></span>
+            </div>
+          </div>
+          <div data-dialer-summary-monthly-row class="hidden">
+            <div class="flex items-center justify-between gap-3 py-1 text-sm">
+              <span class="font-medium text-gray-500">Monthly estimate</span>
+              <span
+                data-dialer-summary-monthly
+                class="font-bold text-brand-dark-blue"></span>
+            </div>
+          </div>
+          <div data-dialer-summary-first-row class="hidden">
+            <div class="flex items-center justify-between gap-3 py-1 text-sm">
+              <span class="font-medium text-gray-500">First payment</span>
+              <span
+                data-dialer-summary-first
+                class="font-bold text-brand-dark-blue"></span>
+            </div>
+          </div>
+          <p
+            data-dialer-summary-note
+            class="mt-2 text-[11px] font-medium leading-relaxed text-gray-400"
+          >
+            Final pricing is confirmed by our team.
+          </p>
+        </div>
+
+        <form data-dialer-form class="mt-5 flex flex-col gap-4">
+          <input type="hidden" name="service" value={service} />
+          <input type="hidden" name="plan" value={plan} />
+          <input type="hidden" name="plan_name" value={planName} />
+          <input
+            type="hidden"
+            name="billing_cycle"
+            value={billing === "annual" ? "annually" : "monthly"}
+          />
+          <input type="hidden" name="source" value={source} />
+          <input type="hidden" name="intent_type" value="hire" />
+          <input type="hidden" name="list_size" value={listSize ?? ""} />
+          <input
+            type="hidden"
+            name="estimated_monthly"
+            value={estimatedMonthly ?? ""}
+          />
+          <input
+            type="hidden"
+            name="estimated_first_payment"
+            value={estimatedFirstPayment ?? ""}
+          />
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div class="flex flex-col gap-1.5">
+              <label for={`${uid}-first-name`} class={labelClass}>
+                First Name <span class="text-[#FF6B4A]">*</span>
+              </label>
+              <input
+                id={`${uid}-first-name`}
+                type="text"
+                name="first_name"
+                required
+                placeholder="Alexander"
+                class={inputClass}
+              />
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label for={`${uid}-last-name`} class={labelClass}>
+                Last Name <span class="text-[#FF6B4A]">*</span>
+              </label>
+              <input
+                id={`${uid}-last-name`}
+                type="text"
+                name="last_name"
+                required
+                placeholder="Wright"
+                class={inputClass}
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div class="flex flex-col gap-1.5">
+              <label for={`${uid}-email`} class={labelClass}>
+                Business Email <span class="text-[#FF6B4A]">*</span>
+              </label>
+              <input
+                id={`${uid}-email`}
+                type="email"
+                name="email"
+                required
+                placeholder="alex@company.com"
+                class={inputClass}
+              />
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label for={`${uid}-phone`} class={labelClass}>
+                Phone Number <span class="text-[#FF6B4A]">*</span>
+              </label>
+              <div
+                class="flex overflow-hidden rounded-xl border border-gray-200 bg-white transition focus-within:border-brand-blue"
+              >
+                <select
+                  name="country_code"
+                  aria-label="Country Code"
+                  class="cursor-pointer border-r border-gray-200 bg-[#FAF8F5] px-2 text-sm font-bold text-brand-dark-blue outline-none"
+                >
+                  {
+                    countryCodes.map((country) => (
+                      <option value={country.code} data-country-id={country.id}>
+                        {country.flag} {country.code}
+                      </option>
+                    ))
+                  }
+                </select>
+                <input
+                  id={`${uid}-phone`}
+                  type="tel"
+                  name="phone"
+                  required
+                  placeholder="Phone number"
+                  class="w-full bg-white px-3.5 py-2.5 text-sm font-medium text-brand-dark-blue placeholder-gray-400 outline-none"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label for={`${uid}-company`} class={labelClass}>
+              Company Name <span class="text-[#FF6B4A]">*</span>
+            </label>
+            <input
+              id={`${uid}-company`}
+              type="text"
+              name="company_name"
+              required
+              placeholder="Acme Logistics LLC"
+              class={inputClass}
+            />
+          </div>
+
+          {
+            agents === undefined ? (
+              <div class="flex flex-col gap-1.5">
+                <label for={`${uid}-agents`} class={labelClass}>
+                  Number of Agents <span class="text-[#FF6B4A]">*</span>
+                </label>
+                <input
+                  id={`${uid}-agents`}
+                  type="number"
+                  name="agent_count"
+                  min="1"
+                  max="50"
+                  value="1"
+                  required
+                  class={inputClass}
+                />
+              </div>
+            ) : (
+              <input type="hidden" name="agent_count" value={agents} />
+            )
+          }
+
+          {
+            extraNumbers === undefined ? (
+              <div class="flex flex-col gap-1.5">
+                <label for={`${uid}-extra-numbers`} class={labelClass}>
+                  Extra Phone Numbers{" "}
+                  <span class="font-medium normal-case text-gray-400">
+                    (optional)
+                  </span>
+                </label>
+                <input
+                  id={`${uid}-extra-numbers`}
+                  type="number"
+                  name="extra_numbers"
+                  min="0"
+                  max="100"
+                  value="0"
+                  class={inputClass}
+                />
+              </div>
+            ) : (
+              <input type="hidden" name="extra_numbers" value={extraNumbers} />
+            )
+          }
+
+          <div class="flex flex-col gap-1.5">
+            <label for={`${uid}-comments`} class={labelClass}>
+              Additional Questions or Bottlenecks
+            </label>
+            <textarea
+              id={`${uid}-comments`}
+              name="additional_comments"
+              rows="3"
+              placeholder="Tell us about your tools or specific schedule needs..."
+              class:list={[inputClass, "resize-none"]}
+            ></textarea>
+          </div>
+
+          <p
+            data-dialer-error
+            class="hidden rounded-xl bg-red-50 px-3 py-2 text-xs font-bold text-red-600"
+          >
+          </p>
+
+          <button
+            type="submit"
+            class="mt-1 w-full rounded-xl bg-brand-green px-4 py-3.5 text-sm font-black uppercase tracking-wider text-brand-dark-blue transition hover:bg-brand-green/90 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-70"
+          >
+            Send Request
+          </button>
+
+          <p class="text-center text-[10px] font-medium text-gray-400">
+            We'll reply within 24 business hours.
+          </p>
+        </form>
+      </div>
+
+      <div data-dialer-success class="hidden">
+        <div class="flex flex-col items-center gap-4 py-6 text-center">
+          <div
+            class="flex h-16 w-16 items-center justify-center rounded-full bg-brand-green/10 text-3xl font-black text-brand-green"
+          >
+            ✓
+          </div>
+          <h3 class="text-2xl font-black text-brand-dark-blue">
+            Request Sent!
+          </h3>
+          <p class="text-sm font-medium leading-relaxed text-gray-500">
+            We received your details. Our team will contact you within 24
+            business hours.
+          </p>
+          <button
+            type="button"
+            data-dialer-close
+            class="mt-2 w-full rounded-xl bg-brand-blue px-4 py-3.5 text-sm font-black uppercase tracking-wider text-white transition hover:bg-brand-green"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  :global(.dialer-cta-dialog)::backdrop {
+    background: rgba(10, 37, 64, 0.55);
+    backdrop-filter: blur(4px);
+  }
+
+  .dialer-cta-card {
+    animation: dialer-cta-pop 0.2s ease-out;
+  }
+
+  .dialer-cta-scroll {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .dialer-cta-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  @keyframes dialer-cta-pop {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dialer-cta-card {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  type DialerCtaButton = HTMLButtonElement & {
+    dataset: DOMStringMap & {
+      modalId?: string;
+      plan?: string;
+      planName?: string;
+      billing?: string;
+      agents?: string;
+      extraNumbers?: string;
+      listSize?: string;
+      estimatedMonthly?: string;
+      estimatedFirstPayment?: string;
+      source?: string;
+    };
+  };
+
+  function formatCurrency(value: number) {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2,
+    }).format(value);
+  }
+
+  function setFieldValue(
+    form: HTMLFormElement,
+    name: string,
+    value: string | undefined,
+  ) {
+    const field = form.elements.namedItem(name);
+    if (
+      field instanceof HTMLInputElement ||
+      field instanceof HTMLSelectElement ||
+      field instanceof HTMLTextAreaElement
+    ) {
+      field.value = value ?? "";
+    }
+  }
+
+  function showForm(dialog: HTMLDialogElement) {
+    const formWrap = dialog.querySelector<HTMLElement>(
+      "[data-dialer-form-wrap]",
+    );
+    const success = dialog.querySelector<HTMLElement>(
+      "[data-dialer-success]",
+    );
+    formWrap?.classList.remove("hidden");
+    success?.classList.add("hidden");
+  }
+
+  function showSuccess(dialog: HTMLDialogElement) {
+    const formWrap = dialog.querySelector<HTMLElement>(
+      "[data-dialer-form-wrap]",
+    );
+    const success = dialog.querySelector<HTMLElement>(
+      "[data-dialer-success]",
+    );
+    formWrap?.classList.add("hidden");
+    success?.classList.remove("hidden");
+  }
+
+  function showError(dialog: HTMLDialogElement, message: string) {
+    const error = dialog.querySelector<HTMLElement>("[data-dialer-error]");
+    if (!error) return;
+    error.textContent = message;
+    error.classList.toggle("hidden", !message);
+  }
+
+  function hideError(dialog: HTMLDialogElement) {
+    const error = dialog.querySelector<HTMLElement>("[data-dialer-error]");
+    if (!error) return;
+    error.textContent = "";
+    error.classList.add("hidden");
+  }
+
+  function toggleSummaryRow(
+    dialog: HTMLDialogElement,
+    rowSelector: string,
+    visible: boolean,
+  ) {
+    const row = dialog.querySelector<HTMLElement>(rowSelector);
+    row?.classList.toggle("hidden", !visible);
+  }
+
+  function setSummaryText(
+    dialog: HTMLDialogElement,
+    selector: string,
+    text: string,
+  ) {
+    const element = dialog.querySelector<HTMLElement>(selector);
+    if (element) element.textContent = text;
+  }
+
+  function populateDialog(
+    dialog: HTMLDialogElement,
+    button: DialerCtaButton,
+  ) {
+    const form = dialog.querySelector<HTMLFormElement>("[data-dialer-form]");
+    if (!form) return;
+
+    const data = button.dataset;
+    const billing = data.billing === "annual" ? "annually" : "monthly";
+
+    setFieldValue(form, "plan", data.plan);
+    setFieldValue(form, "plan_name", data.planName);
+    setFieldValue(form, "billing_cycle", billing);
+    setFieldValue(form, "source", data.source);
+    setFieldValue(form, "list_size", data.listSize);
+    setFieldValue(form, "estimated_monthly", data.estimatedMonthly);
+    setFieldValue(form, "estimated_first_payment", data.estimatedFirstPayment);
+
+    if (data.agents !== undefined) {
+      setFieldValue(form, "agent_count", data.agents);
+    }
+    if (data.extraNumbers !== undefined) {
+      setFieldValue(form, "extra_numbers", data.extraNumbers);
+    }
+
+    setSummaryText(
+      dialog,
+      "[data-dialer-summary-plan]",
+      data.planName || "Dialer plan",
+    );
+    setSummaryText(
+      dialog,
+      "[data-dialer-summary-billing]",
+      data.billing === "annual" ? "Annual" : "Monthly",
+    );
+
+    const agents = data.agents ? Number(data.agents) : null;
+    toggleSummaryRow(
+      dialog,
+      "[data-dialer-summary-agents-row]",
+      agents !== null,
+    );
+    if (agents !== null) {
+      setSummaryText(
+        dialog,
+        "[data-dialer-summary-agents]",
+        `${agents} ${agents === 1 ? "agent" : "agents"}`,
+      );
+    }
+
+    const extras =
+      data.extraNumbers !== undefined && data.extraNumbers !== ""
+        ? Number(data.extraNumbers)
+        : null;
+    toggleSummaryRow(
+      dialog,
+      "[data-dialer-summary-extras-row]",
+      extras !== null,
+    );
+    if (extras !== null) {
+      setSummaryText(
+        dialog,
+        "[data-dialer-summary-extras]",
+        extras === 0
+          ? "None"
+          : `${extras} ${extras === 1 ? "number" : "numbers"}`,
+      );
+    }
+
+    const listSize = data.listSize ? Number(data.listSize) : null;
+    toggleSummaryRow(
+      dialog,
+      "[data-dialer-summary-list-row]",
+      listSize !== null,
+    );
+    if (listSize !== null) {
+      setSummaryText(
+        dialog,
+        "[data-dialer-summary-list]",
+        `${listSize.toLocaleString("en-US")} records`,
+      );
+    }
+
+    const monthly = data.estimatedMonthly
+      ? Number(data.estimatedMonthly)
+      : null;
+    toggleSummaryRow(
+      dialog,
+      "[data-dialer-summary-monthly-row]",
+      monthly !== null,
+    );
+    if (monthly !== null) {
+      setSummaryText(
+        dialog,
+        "[data-dialer-summary-monthly]",
+        `${formatCurrency(monthly)}/mo`,
+      );
+    }
+
+    const firstPayment = data.estimatedFirstPayment
+      ? Number(data.estimatedFirstPayment)
+      : null;
+    toggleSummaryRow(
+      dialog,
+      "[data-dialer-summary-first-row]",
+      firstPayment !== null,
+    );
+    if (firstPayment !== null) {
+      setSummaryText(
+        dialog,
+        "[data-dialer-summary-first]",
+        formatCurrency(firstPayment),
+      );
+    }
+
+    setSummaryText(
+      dialog,
+      "[data-dialer-summary-note]",
+      monthly !== null
+        ? "Estimate based on your current selection."
+        : "Final pricing is confirmed by our team.",
+    );
+
+    showForm(dialog);
+    hideError(dialog);
+  }
+
+  function resetDialog(dialog: HTMLDialogElement) {
+    const form = dialog.querySelector<HTMLFormElement>("[data-dialer-form]");
+    form?.reset();
+    showForm(dialog);
+    hideError(dialog);
+    const submit = form?.querySelector<HTMLButtonElement>(
+      'button[type="submit"]',
+    );
+    if (submit) {
+      submit.disabled = false;
+      submit.textContent = "Send Request";
+    }
+  }
+
+  async function submitDialog(
+    dialog: HTMLDialogElement,
+    form: HTMLFormElement,
+  ) {
+    const endpoint = dialog.dataset.webhook ?? "";
+
+    if (!endpoint || endpoint.includes("REPLACE_WITH")) {
+      showError(
+        dialog,
+        "The lead webhook is not configured yet. Please contact us directly.",
+      );
+      return;
+    }
+
+    const submit = form.querySelector<HTMLButtonElement>(
+      'button[type="submit"]',
+    );
+    if (submit) {
+      submit.disabled = true;
+      submit.textContent = "Sending...";
+    }
+    hideError(dialog);
+
+    const fieldValue = (name: string) => {
+      const field = form.elements.namedItem(name);
+      return field instanceof HTMLInputElement ||
+        field instanceof HTMLSelectElement ||
+        field instanceof HTMLTextAreaElement
+        ? field.value
+        : "";
+    };
+
+    const payload = {
+      service: fieldValue("service"),
+      plan: fieldValue("plan"),
+      plan_name: fieldValue("plan_name"),
+      billing_cycle: fieldValue("billing_cycle"),
+      source: fieldValue("source"),
+      intent_type: fieldValue("intent_type"),
+      agent_count: fieldValue("agent_count"),
+      extra_numbers: fieldValue("extra_numbers"),
+      list_size: fieldValue("list_size"),
+      estimated_monthly: fieldValue("estimated_monthly"),
+      estimated_first_payment: fieldValue("estimated_first_payment"),
+      first_name: fieldValue("first_name"),
+      last_name: fieldValue("last_name"),
+      email: fieldValue("email"),
+      country_code: fieldValue("country_code"),
+      phone: fieldValue("phone"),
+      company_name: fieldValue("company_name"),
+      additional_comments: fieldValue("additional_comments"),
+      page_url: window.location.href,
+      timestamp: new Date().toISOString(),
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      user_agent: navigator.userAgent,
+    };
+
+    try {
+      await fetch(endpoint, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      showSuccess(dialog);
+      form.reset();
+    } catch {
+      showError(
+        dialog,
+        "We could not send your request. Please try again.",
+      );
+      if (submit) {
+        submit.disabled = false;
+        submit.textContent = "Send Request";
+      }
+    }
+  }
+
+  function initDialerCtas() {
+    document
+      .querySelectorAll<DialerCtaButton>("[data-dialer-cta]")
+      .forEach((button) => {
+        if (button.dataset.ctaReady === "true") return;
+        button.dataset.ctaReady = "true";
+
+        button.addEventListener("click", () => {
+          const modalId = button.dataset.modalId;
+          if (!modalId) return;
+          const dialog = document.getElementById(modalId);
+          if (!(dialog instanceof HTMLDialogElement)) return;
+
+          populateDialog(dialog, button);
+          dialog.dataset.triggerId = button.id;
+          if (!dialog.open) dialog.showModal();
+          document.body.style.overflow = "hidden";
+
+          setTimeout(() => {
+            const firstField = dialog.querySelector<HTMLElement>(
+              'input:not([type="hidden"]), select, textarea',
+            );
+            firstField?.focus();
+          }, 50);
+        });
+      });
+
+    document
+      .querySelectorAll<HTMLDialogElement>("[data-dialer-modal]")
+      .forEach((dialog) => {
+        if (dialog.dataset.modalReady === "true") return;
+        dialog.dataset.modalReady = "true";
+
+        dialog
+          .querySelectorAll<HTMLElement>("[data-dialer-close]")
+          .forEach((button) => {
+            button.addEventListener("click", () => dialog.close());
+          });
+
+        dialog.addEventListener("click", (event) => {
+          const target = event.target as HTMLElement;
+          if (
+            target === dialog ||
+            target.hasAttribute("data-dialer-backdrop")
+          ) {
+            dialog.close();
+          }
+        });
+
+        dialog.addEventListener("close", () => {
+          document.body.style.overflow = "";
+          resetDialog(dialog);
+          const triggerId = dialog.dataset.triggerId;
+          if (triggerId) document.getElementById(triggerId)?.focus();
+        });
+
+        const form = dialog.querySelector<HTMLFormElement>(
+          "[data-dialer-form]",
+        );
+        if (form) {
+          form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            void submitDialog(dialog, form);
+          });
+        }
+      });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initDialerCtas);
+  } else {
+    initDialerCtas();
+  }
+  document.addEventListener("astro:page-load", initDialerCtas);
+</script>
