@@ -2,8 +2,6 @@
 interface Props {
   service?: string;
   industry?: string;
-  plan?: string;
-  anual?: string;
 }
 
 // 1. Intentar leer de Props, si no, capturar directamente de los SearchParams de la URL
@@ -11,10 +9,6 @@ const service =
   Astro.props.service || Astro.url.searchParams.get("service") || "";
 const industry =
   Astro.props.industry || Astro.url.searchParams.get("industry") || "";
-const plan = Astro.props.plan || Astro.url.searchParams.get("plan") || "";
-const anual = Astro.props.anual || Astro.url.searchParams.get("anual") || "";
-
-const isAnualInitial = anual === "Y";
 
 const services = [
   { value: "customer-service", label: "Customer Service" },
@@ -22,7 +16,6 @@ const services = [
   { value: "inside-sales", label: "Inside Sales Agent" },
   { value: "intake-specialist", label: "Intake Specialist" },
   { value: "lead-generation", label: "Lead Generation" },
-  { value: "predictive-dialer", label: "Predictive Dialer" },
   { value: "tech-support", label: "Tech Support" },
   { value: "virtual-assistants", label: "Virtual Assistants" },
 ];
@@ -35,25 +28,6 @@ const industries = [
   { value: "real-estate", label: "Real Estate" },
   { value: "solar", label: "Solar" },
   { value: "other", label: "Other (Please specify)" },
-];
-
-// Alineado con los datos comerciales exactos provistos
-const dialerPlans = [
-  {
-    value: "starter",
-    labelMonthly: "Starter Plan ($80/mo)",
-    labelAnual: "Starter Plan ($64/mo - Billed Annually)",
-  },
-  {
-    value: "premium",
-    labelMonthly: "Premium Plan ($140/mo)",
-    labelAnual: "Premium Plan ($112/mo - Billed Annually)",
-  },
-  {
-    value: "enterprise",
-    labelMonthly: "Enterprise Plan (custom)",
-    labelAnual: "Enterprise Plan (custom)",
-  },
 ];
 
 const countryCodes = [
@@ -69,7 +43,6 @@ const countryCodes = [
   { code: "+51", flag: "🇵🇪", label: "PE", id: "PE" },
 ];
 
-const isDialerActive = service === "predictive-dialer";
 const isOtherIndustryActive = industry === "other";
 ---
 
@@ -408,88 +381,6 @@ const isOtherIndustryActive = industry === "other";
         </div>
 
         <div
-          id="plan-wrapper"
-          style={{ display: isDialerActive ? "flex" : "none" }}
-          class={`flex-col gap-4 bg-white border border-gray-100 rounded-2xl p-5 shadow-2xs transition-all duration-300 transform ${isDialerActive ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
-        >
-          <div class="flex flex-col gap-2">
-            <span
-              class="text-xs font-black tracking-wide uppercase text-[#3d1d0e]"
-              >Billing Cycle</span
-            >
-            <div
-              class="grid grid-cols-2 bg-[#FAF8F5] p-1 rounded-xl border border-gray-200/60 max-w-xs relative"
-            >
-              <label
-                class="flex justify-center items-center gap-1.5 py-2 px-3 rounded-lg text-xs font-black uppercase tracking-wider cursor-pointer transition-all duration-200 text-center select-none z-10 native-tab"
-              >
-                <input
-                  type="radio"
-                  name="billing_cycle"
-                  value="monthly"
-                  class="hidden"
-                  checked={!isAnualInitial}
-                />
-                <span class="tab-text">Monthly</span>
-              </label>
-              <label
-                class="flex justify-center items-center gap-1.5 py-2 px-3 rounded-lg text-xs font-black uppercase tracking-wider cursor-pointer transition-all duration-200 text-center select-none z-10 native-tab"
-              >
-                <input
-                  type="radio"
-                  name="billing_cycle"
-                  value="annually"
-                  class="hidden"
-                  checked={isAnualInitial}
-                />
-                <span class="tab-text">Annually</span>
-                <span
-                  class="bg-brand-green text-white text-[9px] px-1.5 py-0.5 rounded-sm scale-95 origin-right font-black"
-                  >Save</span
-                >
-              </label>
-              <div
-                class="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-white rounded-lg shadow-2xs transition-transform duration-300 ease-out border border-gray-100 tab-slider"
-              >
-              </div>
-            </div>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label
-              for="contact-plan"
-              class="text-xs md:text-lg font-black tracking-wide uppercase text-brand-blue"
-            >
-              Select Dialer Infrastructure Plan <span class="text-[#FF6B4A]"
-                >*</span
-              >
-            </label>
-            <select
-              id="contact-plan"
-              name="plan"
-              required={isDialerActive}
-              class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3.5 text-sm font-medium text-[#3d1d0e] focus:outline-hidden focus:border-brand-blue transition-all duration-200 cursor-pointer"
-            >
-              <option value="" disabled selected={!plan}
-                >Select your dialer tiered plan</option
-              >
-              {
-                dialerPlans.map((p) => (
-                  <option
-                    value={p.value}
-                    selected={plan === p.value}
-                    data-label-monthly={p.labelMonthly}
-                    data-label-anual={p.labelAnual}
-                  >
-                    {isAnualInitial ? p.labelAnual : p.labelMonthly}
-                  </option>
-                ))
-              }
-            </select>
-          </div>
-        </div>
-
-        <div
           id="custom-industry-wrapper"
           style={{ display: isOtherIndustryActive ? "flex" : "none" }}
           class={`flex-col gap-2 transition-all duration-300 transform ${isOtherIndustryActive ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
@@ -733,20 +624,6 @@ const isOtherIndustryActive = industry === "other";
     }
   }
 
-  .native-tab {
-    color: #6b7280;
-  }
-  .native-tab:has(input:checked) {
-    color: #3d1d0e;
-  }
-
-  .grid:has(label:nth-child(1) input:checked) .tab-slider {
-    transform: translateX(0);
-  }
-  .grid:has(label:nth-child(2) input:checked) .tab-slider {
-    transform: translateX(100%);
-  }
-
   input,
   select,
   textarea {
@@ -756,7 +633,7 @@ const isOtherIndustryActive = industry === "other";
 
 <script>
   async function sendContactData(formData: FormData): Promise<{ success: boolean; error?: string }> {
-  const URL = 'https://n8n-n8n.tfpyme.easypanel.host/webhook/72856356-078f-4701-a273-55e80fef1107';
+  const URL = 'https://n8n-n8n.tfpyme.easypanel.host/webhook-test/72856356-078f-4701-a273-55e80fef1107';
 
 
   // 🧱 Extraer y mapear los campos del formulario
@@ -814,12 +691,6 @@ const isOtherIndustryActive = industry === "other";
     ) as HTMLFormElement;
     if (!form) return;
 
-    const serviceSelect = form.querySelector(
-      "#contact-service",
-    ) as HTMLSelectElement;
-    const planWrapper = form.querySelector("#plan-wrapper") as HTMLDivElement;
-    const planSelect = form.querySelector("#contact-plan") as HTMLSelectElement;
-    const billingRadios = form.querySelectorAll('input[name="billing_cycle"]');
     const industrySelect = form.querySelector(
       "#contact-industry",
     ) as HTMLSelectElement;
@@ -908,38 +779,6 @@ const isOtherIndustryActive = industry === "other";
     }
 
     // --- INTERACTIVE LABELS AND VISIBILITY ---
-    function updatePlanLabels(cycle: string) {
-      Array.from(planSelect.options).forEach((option) => {
-        const monthlyLabel = option.getAttribute("data-label-monthly");
-        const anualLabel = option.getAttribute("data-label-anual");
-        if (monthlyLabel && anualLabel) {
-          option.textContent = cycle === "annually" ? anualLabel : monthlyLabel;
-        }
-      });
-    }
-
-    function togglePlanFields(serviceValue: string) {
-      if (serviceValue === "predictive-dialer") {
-        planWrapper.style.setProperty("display", "flex", "important");
-        planSelect.required = true;
-        setTimeout(() => {
-          planWrapper.classList.remove("scale-95", "opacity-0", "hidden");
-          planWrapper.classList.add("scale-100", "opacity-100");
-        }, 50);
-      } else {
-        planSelect.required = false;
-        planWrapper.classList.remove("scale-100", "opacity-100");
-        planWrapper.classList.add("scale-95", "opacity-0");
-        setTimeout(() => {
-          if (serviceSelect.value !== "predictive-dialer") {
-            planWrapper.style.display = "none";
-            planWrapper.classList.add("hidden");
-          }
-        }, 300);
-        planSelect.value = "";
-      }
-    }
-
     function toggleIndustryFields(industryValue: string) {
       if (!customIndustryWrapper || !customIndustryInput) return;
 
@@ -968,53 +807,12 @@ const isOtherIndustryActive = industry === "other";
       }
     }
 
-    // --- SINCRONIZACIÓN DE PARÁMETROS URL ---
-    const urlParams = new URLSearchParams(window.location.search);
-    const annualParam = urlParams.get("anual") || urlParams.get("annual");
-
-    if (annualParam === "Y") {
-      const annualRadio = form.querySelector(
-        'input[name="billing_cycle"][value="annually"]',
-      ) as HTMLInputElement;
-      if (annualRadio) {
-        annualRadio.checked = true;
-        updatePlanLabels("annually");
-      }
-    } else if (annualParam === "N") {
-      const monthlyRadio = form.querySelector(
-        'input[name="billing_cycle"][value="monthly"]',
-      ) as HTMLInputElement;
-      if (monthlyRadio) {
-        monthlyRadio.checked = true;
-        updatePlanLabels("monthly");
-      }
-    }
-
-    if (serviceSelect) {
-      togglePlanFields(serviceSelect.value);
-      serviceSelect.addEventListener("change", () =>
-        togglePlanFields(serviceSelect.value),
-      );
-    }
-
     if (industrySelect) {
       toggleIndustryFields(industrySelect.value);
       industrySelect.addEventListener("change", () =>
         toggleIndustryFields(industrySelect.value),
       );
     }
-
-    const activeRadio = form.querySelector(
-      'input[name="billing_cycle"]:checked',
-    ) as HTMLInputElement;
-    if (activeRadio) updatePlanLabels(activeRadio.value);
-
-    billingRadios.forEach((radio) => {
-      radio.addEventListener("change", (e) => {
-        const target = e.target as HTMLInputElement;
-        if (target.checked) updatePlanLabels(target.value);
-      });
-    });
 
     // --- CLOSE POPUP LISTENERS ---
     const closeButtons = document.querySelectorAll(".close-popup-btn");
@@ -1051,7 +849,6 @@ const isOtherIndustryActive = industry === "other";
         form.reset();
 
         // Reset manual de campos dinámicos
-        if (serviceSelect) togglePlanFields(serviceSelect.value);
         if (industrySelect) toggleIndustryFields(industrySelect.value);
       } else {
         const errMessageElement = document.getElementById(
