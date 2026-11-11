@@ -554,7 +554,7 @@ const calculatorConfig = {
                 <div class="mt-3 flex items-end justify-between gap-3">
                   <span
                     data-list-rate
-                    class="text-[10px] font-bold text-gray-400"
+                    class="text-[10px] font-bold text-brand-green"
                   >
                     {formatRate(defaultListRate)} / record
                   </span>
@@ -597,7 +597,7 @@ const calculatorConfig = {
             <div class="flex items-center justify-between gap-4 text-gray-300">
               <span>
                 Agent credentials
-                <span id="summary-agents-note" class="text-gray-500">×1</span>
+                <span id="summary-agents-note" class="text-brand-green">×1</span>
               </span>
               <span id="summary-plan-cost" class="font-bold text-white">
                 {`$${pricing.starterDialer.monthlyPrice}/mo`}
@@ -607,7 +607,7 @@ const calculatorConfig = {
             <div class="flex items-center justify-between gap-4 text-gray-300">
               <span>
                 Extra phone numbers
-                <span id="summary-numbers-note" class="text-gray-500">
+                <span id="summary-numbers-note" class="text-brand-green">
                   included
                 </span>
               </span>
@@ -648,7 +648,7 @@ const calculatorConfig = {
               <div
                 class="flex items-center justify-between gap-4 text-[11px] font-medium text-gray-400"
               >
-                <span>Plan billed annually</span>
+                <span>Total billed annually</span>
                 <span id="summary-annual-cost" class="font-bold text-gray-300">
                   {`$${pricing.starterDialer.annualPrice * 12}`}
                 </span>
@@ -1010,20 +1010,18 @@ const calculatorConfig = {
       summaryDataRow.classList.toggle("hidden", dataCost <= 0);
       summaryDataCost.textContent = `${formatMoney(dataCost)}/mo`;
 
+      const recurringMonthlyCost = extraCost + dataCost;
       const monthlyPlanCost = plan.custom
         ? null
         : (billing === "annual" ? plan.annual : plan.monthly) * agentCount;
       const monthlyTotal = plan.custom
         ? null
-        : (monthlyPlanCost ?? 0) + extraCost + dataCost;
-      const annualPlanTotal = plan.custom
-        ? null
-        : plan.annual * agentCount * 12;
+        : (monthlyPlanCost ?? 0) + recurringMonthlyCost;
       const firstPayment = plan.custom
         ? null
         : billing === "annual"
-          ? (annualPlanTotal ?? 0) + extraCost + dataCost
-          : plan.monthly * agentCount + extraCost + dataCost;
+          ? ((monthlyPlanCost ?? 0) + recurringMonthlyCost) * 12
+          : plan.monthly * agentCount + recurringMonthlyCost;
 
       summaryPlanCost.textContent = plan.custom
         ? "Custom"
@@ -1041,7 +1039,7 @@ const calculatorConfig = {
         "hidden",
         plan.custom || billing !== "annual",
       );
-      summaryAnnualCost.textContent = formatMoney(annualPlanTotal ?? 0);
+      summaryAnnualCost.textContent = formatMoney(firstPayment ?? 0);
 
       if (plan.custom) {
         summaryFirstPayment.textContent =
