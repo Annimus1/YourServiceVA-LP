@@ -1,0 +1,345 @@
+---
+import ClassicContactForm from "./ClassicContactForm.astro";
+import OfferQuiz from "./OfferQuiz.astro";
+
+interface Props {
+  variant?: "form" | "quiz";
+  service?: string;
+  industry?: string;
+}
+
+const { variant = "form", service, industry } = Astro.props;
+---
+
+<section
+  id="contact-section"
+  class="w-full bg-white py-20 px-6 md:py-28 md:px-12 text-[#3d1d0e] overflow-hidden"
+>
+  <div
+    class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start"
+  >
+    <div class="lg:col-span-5 flex flex-col gap-10 scroll-reveal">
+      <div>
+        <span
+          class="text-brand-green font-black uppercase tracking-widest text-xs md:text-lg block mb-2"
+        >
+          Get in Touch
+        </span>
+        <h2
+          class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight text-[#3d1d0e]"
+        >
+          Let’s Build Your Remote Operations.
+        </h2>
+        <p
+          class="text-gray-600 text-sm md:text-xl font-medium mt-3 leading-relaxed"
+        >
+          Have questions about pricing, compliance, or infrastructure setup?
+          Drop us a message and our operational team will reach out within 24
+          hours.
+        </p>
+      </div>
+
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 gap-8 border-y border-gray-100 py-8"
+      >
+        <div class="flex flex-col items-center gap-3 text-center">
+          <div class="flex items-center gap-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6 text-brand-blue"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z"></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"></path>
+            </svg>
+            <h3 class="text-lg md:text-2xl font-black text-[#3d1d0e]">Sales</h3>
+          </div>
+          <p
+            class="text-gray-500 text-xs md:text-lg font-medium leading-relaxed"
+          >
+            Want to speak with our team directly?
+          </p>
+          <button
+            class="open-ticket-trigger mt-2 bg-brand-blue text-white text-xs md:text-lg font-black px-4 py-2.5 rounded-lg hover:bg-brand-green transition-all duration-200 uppercase tracking-wider shadow-2xs hover:scale-105 transform dynamic-btn"
+          >
+            Book a Free Discovery Call
+          </button>
+        </div>
+
+        <div class="flex flex-col items-center gap-3 text-center">
+          <div class="flex items-center gap-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6 text-brand-blue"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M14.25 9.75 16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z"
+              ></path>
+            </svg>
+            <h3 class="text-lg md:text-2xl font-black text-[#3d1d0e]">
+              Support
+            </h3>
+          </div>
+          <p
+            class="text-gray-500 text-xs md:text-lg font-medium leading-relaxed mb-7"
+          >
+            Need Help?
+          </p>
+          <a
+            href="/services/predictive-dialer-software#Dialer-tutos"
+            class="flex items-center justify-center gap-2 mt-2 border border-gray-200 text-brand-dark-blue bg-brand-green hover:border-brand-green text-xs md:text-lg font-black px-4 py-2.5 rounded-lg transition-all duration-200 uppercase tracking-wider hover:scale-105 transform dynamic-btn"
+          >
+            <svg
+              class="w-5 h-5 md:w-8 md:h-8"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"
+              ></path>
+            </svg>
+            Dialer Tutorials
+          </a>
+          <button
+            id="trigger-contact-btn"
+            class="open-contact-modal mt-2 bg-transparent flex items-center justify-center gap-2 border border-gray-200 text-[#3d1d0e] hover:border-brand-blue hover:text-brand-blue text-xs md:text-lg font-black px-4 py-2.5 rounded-lg transition-all duration-200 uppercase tracking-wider hover:scale-105 transform dynamic-btn"
+          >
+            <svg
+              class="inline w-5 h-5 md:w-8 md:h-8"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+              ></path>
+            </svg>
+            Get Help
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="bg-[#FAF8F5] rounded-3xl p-6 md:p-8 border border-gray-100 shadow-2xs"
+      >
+        <div class="flex gap-1 mb-4 text-amber-500">
+          {
+            [...Array(5)].map(() => (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                class="w-4 h-4"
+              >
+                <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z" />
+              </svg>
+            ))
+          }
+          <span class="text-xs md:text-lg font-black text-[#3d1d0e] ml-2"
+            >5.0 / 5.0</span
+          >
+        </div>
+        <p
+          class="text-gray-600 text-sm md:text-lg font-medium leading-relaxed italic mb-4"
+        >
+          "You guys provide an awesome service that I had no idea was possible
+          through Upwork!"
+        </p>
+        <div>
+          <h4 class="text-sm md:text-xl font-extrabold text-[#3d1d0e]">
+            Isham Hipsher
+          </h4>
+          <p
+            class="text-xs md:text-md text-gray-400 font-bold uppercase tracking-wider mt-0.5"
+          >
+            Unwind Land CO
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="lg:col-span-7 w-full bg-[#FAF8F5] rounded-3xl border border-gray-100 shadow-2xs p-8 md:p-12 scroll-reveal scroll-reveal-delayed"
+    >
+      {
+        variant === "quiz" ? (
+          <OfferQuiz service={service} industry={industry} />
+        ) : (
+          <ClassicContactForm service={service} industry={industry} />
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<div
+  id="popup-success"
+  class="fixed inset-0 z-50 items-center justify-center p-4 bg-gray-950/40 backdrop-blur-xs flex hidden opacity-0 transition-opacity duration-300"
+>
+  <div
+    class="bg-white rounded-3xl max-w-md w-full p-8 text-center shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col items-center gap-4 border border-gray-100"
+  >
+    <div
+      class="w-16 h-16 bg-brand-green/10 text-brand-green text-3xl rounded-full flex items-center justify-center font-black animate-bounce"
+    >
+      ✓
+    </div>
+    <h3 class="text-2xl font-black text-gray-950 tracking-tight">
+      Message Received!
+    </h3>
+    <p class="text-gray-500 text-sm font-medium leading-relaxed">
+      Your inquiry has been successfully captured. Our operations lead will
+      review your infrastructure requirements and contact you within 24 business
+      hours.
+    </p>
+    <button
+      type="button"
+      class="close-popup-btn w-full bg-brand-blue text-white font-bold py-3.5 px-4 rounded-xl text-sm hover:bg-brand-green transition-colors duration-200 cursor-pointer mt-2 uppercase tracking-wider"
+    >
+      Got it, thanks
+    </button>
+  </div>
+</div>
+
+<div
+  id="popup-error"
+  class="fixed inset-0 z-50 items-center justify-center p-4 bg-gray-950/40 backdrop-blur-xs flex hidden opacity-0 transition-opacity duration-300"
+>
+  <div
+    class="bg-white rounded-3xl max-w-md w-full p-8 text-center shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col items-center gap-4 border border-gray-100"
+  >
+    <div
+      class="w-16 h-16 bg-red-50 text-red-500 text-3xl rounded-full flex items-center justify-center font-black"
+    >
+      ✕
+    </div>
+    <h3 class="text-2xl font-black text-red-600 tracking-tight">
+      Submission Failed
+    </h3>
+    <p
+      id="popup-error-message"
+      class="text-gray-500 text-sm font-medium leading-relaxed"
+    >
+      An unexpected corporate server error occurred while trying to submit your
+      operational requirements.
+    </p>
+    <button
+      type="button"
+      class="close-popup-btn w-full bg-red-600 text-white font-bold py-3.5 px-4 rounded-xl text-sm hover:bg-red-700 transition-colors duration-200 cursor-pointer mt-2 uppercase tracking-wider"
+    >
+      Review and Try Again
+    </button>
+  </div>
+</div>
+
+<div
+  id="quiz-popup-success"
+  class="fixed inset-0 z-50 flex hidden items-center justify-center bg-gray-950/40 p-4 opacity-0 backdrop-blur-xs transition-opacity duration-300"
+>
+  <div class="flex w-full max-w-md flex-col items-center gap-4 rounded-3xl border border-gray-100 bg-white p-8 text-center shadow-2xl">
+    <div class="flex h-16 w-16 items-center justify-center rounded-full bg-brand-green/10 text-3xl font-black text-brand-green">
+      ✓
+    </div>
+    <h3 class="text-2xl font-black tracking-tight text-gray-950">Quiz complete!</h3>
+    <p class="text-sm font-medium leading-relaxed text-gray-500">
+      Thanks for the details. Our team will review your answers and contact you within 24 business hours with the best offer.
+    </p>
+    <button
+      type="button"
+      class="close-quiz-popup-btn mt-2 w-full cursor-pointer rounded-xl bg-brand-blue px-4 py-3.5 text-sm font-bold uppercase tracking-wider text-white transition-colors duration-200 hover:bg-brand-green"
+    >
+      Got it, thanks
+    </button>
+  </div>
+</div>
+
+<div
+  id="quiz-popup-error"
+  class="fixed inset-0 z-50 flex hidden items-center justify-center bg-gray-950/40 p-4 opacity-0 backdrop-blur-xs transition-opacity duration-300"
+>
+  <div class="flex w-full max-w-md flex-col items-center gap-4 rounded-3xl border border-gray-100 bg-white p-8 text-center shadow-2xl">
+    <div class="flex h-16 w-16 items-center justify-center rounded-full bg-red-50 text-3xl font-black text-red-500">
+      ✕
+    </div>
+    <h3 class="text-2xl font-black tracking-tight text-red-600">Submission Failed</h3>
+    <p id="quiz-popup-error-message" class="text-sm font-medium leading-relaxed text-gray-500">
+      An unexpected error occurred while submitting your answers.
+    </p>
+    <button
+      type="button"
+      class="close-quiz-popup-btn mt-2 w-full cursor-pointer rounded-xl bg-red-600 px-4 py-3.5 text-sm font-bold uppercase tracking-wider text-white transition-colors duration-200 hover:bg-red-700"
+    >
+      Review and Try Again
+    </button>
+  </div>
+</div>
+
+<style>
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    will-change: transform, opacity;
+    transition:
+      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.8s ease-out;
+  }
+
+  .scroll-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .scroll-reveal-delayed.is-visible {
+    transition-delay: 0.15s;
+  }
+</style>
+
+<script>
+  function initRevealAnimations() {
+    const revealElements = document.querySelectorAll(".scroll-reveal");
+    if (!revealElements.length) return;
+
+    const observerOptions = { root: null, threshold: 0.1 };
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    revealElements.forEach((el) => revealObserver.observe(el));
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initRevealAnimations);
+  } else {
+    initRevealAnimations();
+  }
+  document.addEventListener("astro:page-load", initRevealAnimations);
+</script>
