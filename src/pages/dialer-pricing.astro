@@ -11,7 +11,7 @@ import DialerPlanCta from "../components/Dialer/DialerPlanCta.astro"
 const extraNumberPrice = 1;
 const starterIncludedNumbers = 5;
 const premiumIncludedNumbers = 20;
-const enterpriseIncludedNumbers = 45;
+const enterpriseIncludedNumbers = 100;
 
 const listTiers = [
   { maxRecords: 5000, rate: 0.03 },
@@ -76,23 +76,26 @@ const pricing = {
     shortName: "Enterprise",
     badge: "Company Custom",
     description: "For full-scale outbound fleets and operations needing high-volume infrastructure deployment.",
-    price: "Custom",
-    monthlyPrice: 0,
-    annualPrice: 0,
+    monthlyPrice: 500,
+    annualPrice: 400,
+    savings: 1200,
     includedNumbers: enterpriseIncludedNumbers,
+    periodMonthly: "month",
+    periodAnnual: "month, billed annually",
     custom: true,
     linkMonthly: "/contact?service=predictive-dialer&plan=enterprise&annual=N",
     linkAnnual: "/contact?service=predictive-dialer&plan=enterprise&annual=Y",
     includes: [
       "<strong>Everything included in Premium +</strong>",
       "<strong>Custom Agent & Admin licenses volume discounts</strong>",
-      "<strong>Multiline Dialer</strong> (up to 10 lines)",
+      "Multiline Dialer <strong>20 concurrent lines</strong> ",
       `<strong> ${enterpriseIncludedNumbers} Registered Phone Numbers (+${extraNumberPrice}$ per extra Number)</strong>`,
       "<strong>Extended 360 Days Recording Vault Store</strong>",
       "<strong>Dedicated Priority Support</strong>"
     ]
   }
 }
+
 ---
 <Layout title="High-Performance Dialer Software Pricing - YourServiceVA">
   <section class="py-24 bg-white text-gray-900 relative overflow-hidden border-t border-gray-100 font-sans">
@@ -274,10 +277,21 @@ const pricing = {
             </div>
 
             <div class="flex flex-col justify-center min-h-22.5">
-              <div class="flex flex-wrap items-baseline text-brand-dark-blue my-2 md:flex-nowrap">
-                <span class="text-4xl md:text-5xl font-black tracking-tight">{pricing.enterpriseScale.price}</span>
-                <span class="ms-2 text-xs md:text-lg font-bold text-gray-400">Custom Deployment</span>
+              <div class="flex items-baseline text-brand-dark-blue font-black tracking-tight">
+                <span class="text-2xl md:text-4xl font-semibold text-brand-green self-start mt-2">$</span>
+                <span
+                  id="enterprise-price"
+                  class="text-6xl flex items-baseline font-black transition-all duration-200"
+                  data-monthly={pricing.enterpriseScale.monthlyPrice}
+                  data-annual={pricing.enterpriseScale.annualPrice}
+                >
+                  {pricing.enterpriseScale.monthlyPrice}
+                </span>
+                <span id="enterprise-period" class="ms-1 text-xs md:text-lg font-bold text-gray-400 self-end mb-2">/{pricing.enterpriseScale.periodMonthly}</span>
               </div>
+              <p id="enterprise-savings" class="text-[11px] md:text-lg font-black text-brand-green uppercase tracking-wide mt-1 hidden">
+                ✓ Saves ${pricing.enterpriseScale.savings}/year per license
+              </p>
             </div>
 
             <div class="border-t border-gray-100 pt-6">
@@ -418,6 +432,9 @@ const pricing = {
     const premiumBtn = document.getElementById('premium-btn') as HTMLButtonElement | null;
 
     const enterpriseBtn = document.getElementById('enterprise-btn') as HTMLButtonElement | null;
+    const enterprisePrice = document.getElementById('enterprise-price');
+    const enterprisePeriod = document.getElementById('enterprise-period');
+    const enterpriseSavings = document.getElementById('enterprise-savings');
 
     if (!toggleBtn || !toggleDot) return;
 
@@ -453,6 +470,12 @@ const pricing = {
           premiumPeriod.textContent = '/month, billed annually';
           premiumSavings.classList.remove('hidden');
         }
+
+        if (enterprisePrice && enterprisePeriod && enterpriseSavings) {
+          enterprisePrice.textContent = enterprisePrice.getAttribute('data-annual');
+          enterprisePeriod.textContent = '/month, billed annually';
+          enterpriseSavings.classList.remove('hidden');
+        }
       } else {
         toggleDot.classList.remove('translate-x-5');
         toggleDot.classList.add('translate-x-0');
@@ -468,6 +491,12 @@ const pricing = {
           premiumPrice.textContent = premiumPrice.getAttribute('data-monthly');
           premiumPeriod.textContent = '/month';
           premiumSavings.classList.add('hidden');
+        }
+
+        if (enterprisePrice && enterprisePeriod && enterpriseSavings) {
+          enterprisePrice.textContent = enterprisePrice.getAttribute('data-monthly');
+          enterprisePeriod.textContent = '/month';
+          enterpriseSavings.classList.add('hidden');
         }
       }
     });
