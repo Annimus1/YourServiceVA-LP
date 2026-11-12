@@ -1,10 +1,12 @@
 ---
 // src/pages/contact.astro
 import Layout from "../layouts/Layout.astro";
-import ContactForm from "../components/Contact/ContactForm.astro";
+import ContactSection from "../components/Contact/ContactSection.astro";
 import ClientReviews from "../components/Common/ClientReviews.astro";
 import TicketModal from "../components/Contact/TicketModal.astro";
 import MailForm from "../components/Contact/MailForm.astro";
+
+const contactVariant: "form" | "quiz" = "quiz";
 ---
 
 <Layout title="Contact Our Operational Team | Remote Operations & Dialer Infrastructure">
@@ -87,7 +89,7 @@ import MailForm from "../components/Contact/MailForm.astro";
 
     {/* Contenedor con ID para poder enlazar el scroll y la inyección de datos */}
     <div id="contact-section">
-      <ContactForm />
+      <ContactSection variant={contactVariant} />
     </div>
     
     <section class="border-t border-gray-100 bg-[#FAF8F5]/30">
