@@ -1,0 +1,770 @@
+---
+interface Props {
+  service?: string;
+  industry?: string;
+}
+
+const service = Astro.props.service || "";
+const industry = Astro.props.industry || "";
+
+const industries = [
+  { value: "finance", label: "Finance" },
+  { value: "healthcare", label: "Healthcare" },
+  { value: "home-improvement", label: "Home Improvement" },
+  { value: "legal", label: "Legal" },
+  { value: "real-estate", label: "Real Estate" },
+  { value: "solar", label: "Solar" },
+  { value: "other", label: "Other (Please specify)" },
+];
+
+const countryCodes = [
+  { code: "+1", flag: "🇺🇸", label: "USA/CA", id: "US" },
+  { code: "+58", flag: "🇻🇪", label: "VE", id: "VE" },
+  { code: "+44", flag: "🇬🇧", label: "UK", id: "UK" },
+  { code: "+61", flag: "🇦🇺", label: "AU", id: "AU" },
+  { code: "+34", flag: "🇪🇸", label: "ES", id: "ES" },
+  { code: "+52", flag: "🇲🇽", label: "MX", id: "MX" },
+  { code: "+57", flag: "🇨🇴", label: "CO", id: "CO" },
+  { code: "+54", flag: "🇦🇷", label: "AR", id: "AR" },
+  { code: "+56", flag: "🇨🇱", label: "CL", id: "CL" },
+  { code: "+51", flag: "🇵🇪", label: "PE", id: "PE" },
+];
+
+const stages = [
+  { value: "starting-out", label: "Starting out", hint: "I'm just getting off the ground." },
+  { value: "selling", label: "Selling", hint: "I have an offer and I'm closing deals." },
+  { value: "growing", label: "Growing", hint: "I need to scale the operation." },
+];
+
+const timelines = [
+  { value: "asap", label: "ASAP" },
+  { value: "1-2-weeks", label: "1–2 weeks" },
+  { value: "1-3-months", label: "1–3 months" },
+  { value: "exploring", label: "Just exploring" },
+];
+---
+
+<form
+  id="offer-quiz-form"
+  novalidate
+  class="flex flex-col gap-8"
+>
+  <!-- Hidden compatibility fields (n8n) -->
+  <input type="hidden" id="quiz-service" name="service" value={service} />
+  <input type="hidden" id="quiz-plan" name="plan" value="" />
+  <input type="hidden" id="quiz-billing-cycle" name="billing_cycle" value="monthly" />
+  <input type="hidden" id="quiz-timezone" name="timezone" value="" />
+  <input type="hidden" name="shift_structure" value="full-time" />
+  <input type="hidden" name="intent_type" value="hire" />
+
+  <!-- Header -->
+  <div class="flex flex-col gap-3">
+    <span class="text-brand-green font-black uppercase tracking-widest text-xs md:text-sm">
+      Interactive Quiz
+    </span>
+    <h3 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight text-[#3d1d0e]">
+      Let’s find the best offer for you
+    </h3>
+    <p class="text-gray-600 text-sm md:text-lg font-medium leading-relaxed">
+      Answer a few quick questions and our team will match you with the right setup.
+    </p>
+  </div>
+
+  <!-- Progress -->
+  <div class="flex flex-col gap-3">
+    <div class="flex items-center justify-between text-xs md:text-sm font-black uppercase tracking-wider text-[#3d1d0e]">
+      <span>Step <span id="quiz-step-current">1</span> of 6</span>
+      <span id="quiz-step-label" class="text-brand-blue">Your stage</span>
+    </div>
+    <div class="h-2 w-full overflow-hidden rounded-full bg-white border border-gray-200/70">
+      <div
+        id="quiz-progress-bar"
+        class="h-full rounded-full bg-brand-green transition-all duration-300 ease-out"
+        style="width: 16.666%"
+      ></div>
+    </div>
+  </div>
+
+  <!-- Step 1: Stage -->
+  <div class="quiz-step flex flex-col gap-4" data-quiz-step="1">
+    <fieldset class="flex flex-col gap-3">
+      <legend class="text-xs md:text-lg font-black tracking-wide uppercase text-[#3d1d0e] mb-1">
+        What stage are you at? <span class="text-[#FF6B4A]">*</span>
+      </legend>
+      {
+        stages.map((stage) => (
+          <label class="group flex cursor-pointer items-start gap-4 rounded-2xl border border-gray-200/80 bg-white p-4 transition-all duration-200 hover:border-brand-blue/50 has-[:checked]:border-brand-blue has-[:checked]:bg-brand-blue/5">
+            <input
+              type="radio"
+              name="quiz_stage"
+              value={stage.value}
+              data-quiz-required="1"
+              class="mt-1 h-4 w-4 shrink-0 cursor-pointer text-brand-blue focus:ring-brand-blue"
+            />
+            <span class="flex flex-col gap-0.5">
+              <span class="text-sm md:text-lg font-black text-[#3d1d0e]">{stage.label}</span>
+              <span class="text-xs md:text-sm font-medium text-gray-500">{stage.hint}</span>
+            </span>
+          </label>
+        ))
+      }
+    </fieldset>
+    <p class="quiz-error hidden text-xs md:text-sm font-bold text-[#FF6B4A]" data-quiz-error="1"></p>
+  </div>
+
+  <!-- Step 2: Goal -->
+  <div class="quiz-step hidden flex-col gap-4" data-quiz-step="2">
+    <label
+      for="quiz-goal"
+      class="text-xs md:text-lg font-black tracking-wide uppercase text-[#3d1d0e]"
+    >
+      What is your goal?
+    </label>
+    <textarea
+      id="quiz-goal"
+      name="quiz_goal"
+      rows="4"
+      placeholder="e.g. Book more discovery calls, cover inbound support, scale my outbound team..."
+      class="w-full resize-none rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+    ></textarea>
+    <p class="text-[11px] md:text-xs font-medium text-gray-400">Optional — skip if you’re not sure yet.</p>
+    <p class="quiz-error hidden text-xs md:text-sm font-bold text-[#FF6B4A]" data-quiz-error="2"></p>
+  </div>
+
+  <!-- Step 3: Tried before -->
+  <div class="quiz-step hidden flex-col gap-4" data-quiz-step="3">
+    <label
+      for="quiz-tried"
+      class="text-xs md:text-lg font-black tracking-wide uppercase text-[#3d1d0e]"
+    >
+      What have you tried before and why didn’t it work?
+    </label>
+    <textarea
+      id="quiz-tried"
+      name="quiz_tried_before"
+      rows="4"
+      placeholder="e.g. Hired in-house, tried cold email, worked with another agency..."
+      class="w-full resize-none rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+    ></textarea>
+    <p class="text-[11px] md:text-xs font-medium text-gray-400">Optional — but the more context, the better the match.</p>
+    <p class="quiz-error hidden text-xs md:text-sm font-bold text-[#FF6B4A]" data-quiz-error="3"></p>
+  </div>
+
+  <!-- Step 4: Blockers -->
+  <div class="quiz-step hidden flex-col gap-4" data-quiz-step="4">
+    <fieldset class="flex flex-col gap-3">
+      <legend class="text-xs md:text-lg font-black tracking-wide uppercase text-[#3d1d0e] mb-1">
+        What’s holding you back today? <span class="text-[#FF6B4A]">*</span>
+      </legend>
+      <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+        {
+          ["time", "money", "fear"].map((blocker) => (
+            <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 transition-all duration-200 hover:border-brand-blue/50 has-[:checked]:border-brand-blue has-[:checked]:bg-brand-blue/5">
+              <input
+                type="checkbox"
+                name="quiz_blockers"
+                value={blocker}
+                class="h-4 w-4 shrink-0 cursor-pointer rounded text-brand-blue focus:ring-brand-blue"
+              />
+              <span class="text-sm md:text-base font-bold capitalize text-[#3d1d0e]">{blocker}</span>
+            </label>
+          ))
+        }
+      </div>
+      <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 transition-all duration-200 hover:border-brand-blue/50 has-[:checked]:border-brand-blue has-[:checked]:bg-brand-blue/5">
+        <input
+          type="checkbox"
+          id="quiz-blocker-other-checkbox"
+          name="quiz_blockers"
+          value="other"
+          class="h-4 w-4 shrink-0 cursor-pointer rounded text-brand-blue focus:ring-brand-blue"
+        />
+        <span class="text-sm md:text-base font-bold text-[#3d1d0e]">Other</span>
+      </label>
+      <input
+        type="text"
+        id="quiz-blocker-other"
+        name="quiz_blockers_other"
+        placeholder="Tell us what’s holding you back..."
+        class="hidden w-full rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+      />
+    </fieldset>
+    <p class="quiz-error hidden text-xs md:text-sm font-bold text-[#FF6B4A]" data-quiz-error="4"></p>
+  </div>
+
+  <!-- Step 5: Timeline -->
+  <div class="quiz-step hidden flex-col gap-4" data-quiz-step="5">
+    <fieldset class="flex flex-col gap-3">
+      <legend class="text-xs md:text-lg font-black tracking-wide uppercase text-[#3d1d0e] mb-1">
+        When do you want to start? <span class="text-[#FF6B4A]">*</span>
+      </legend>
+      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        {
+          timelines.map((timeline) => (
+            <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 transition-all duration-200 hover:border-brand-blue/50 has-[:checked]:border-brand-blue has-[:checked]:bg-brand-blue/5">
+              <input
+                type="radio"
+                name="quiz_start_timeline"
+                value={timeline.value}
+                data-quiz-required="1"
+                class="h-4 w-4 shrink-0 cursor-pointer text-brand-blue focus:ring-brand-blue"
+              />
+              <span class="text-sm md:text-base font-bold text-[#3d1d0e]">{timeline.label}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+    <p class="quiz-error hidden text-xs md:text-sm font-bold text-[#FF6B4A]" data-quiz-error="5"></p>
+  </div>
+
+  <!-- Step 6: Contact details -->
+  <div class="quiz-step hidden flex-col gap-5" data-quiz-step="6">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div class="flex flex-col gap-2">
+        <label for="quiz-first-name" class="text-xs md:text-sm font-black uppercase tracking-wide text-[#3d1d0e]">
+          First Name <span class="text-[#FF6B4A]">*</span>
+        </label>
+        <input
+          type="text"
+          id="quiz-first-name"
+          name="first_name"
+          data-quiz-required="1"
+          placeholder="Alexander"
+          class="w-full rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+        />
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="quiz-last-name" class="text-xs md:text-sm font-black uppercase tracking-wide text-[#3d1d0e]">
+          Last Name <span class="text-[#FF6B4A]">*</span>
+        </label>
+        <input
+          type="text"
+          id="quiz-last-name"
+          name="last_name"
+          data-quiz-required="1"
+          placeholder="Wright"
+          class="w-full rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div class="flex flex-col gap-2">
+        <label for="quiz-email" class="text-xs md:text-sm font-black uppercase tracking-wide text-[#3d1d0e]">
+          Business Email <span class="text-[#FF6B4A]">*</span>
+        </label>
+        <input
+          type="email"
+          id="quiz-email"
+          name="email"
+          data-quiz-required="1"
+          placeholder="alex@company.com"
+          class="w-full rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+        />
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="quiz-phone" class="text-xs md:text-sm font-black uppercase tracking-wide text-[#3d1d0e]">
+          Phone Number <span class="text-[#FF6B4A]">*</span>
+        </label>
+        <div class="flex overflow-hidden rounded-xl border border-gray-200/80 bg-white focus-within:border-brand-blue">
+          <select
+            id="quiz-country-code"
+            name="country_code"
+            aria-label="Country Code"
+            class="cursor-pointer border-r border-gray-200 bg-[#FAF8F5] px-3 text-sm font-bold text-[#3d1d0e] focus:outline-hidden"
+          >
+            {
+              countryCodes.map((c) => (
+                <option value={c.code} data-country-id={c.id}>
+                  {c.flag} {c.code}
+                </option>
+              ))
+            }
+          </select>
+          <input
+            type="tel"
+            id="quiz-phone"
+            name="phone"
+            data-quiz-required="1"
+            placeholder="Phone Number"
+            class="w-full bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 focus:outline-hidden"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="quiz-company" class="text-xs md:text-sm font-black uppercase tracking-wide text-[#3d1d0e]">
+        Company Name <span class="text-[#FF6B4A]">*</span>
+      </label>
+      <input
+        type="text"
+        id="quiz-company"
+        name="company_name"
+        data-quiz-required="1"
+        placeholder="Acme Logistics LLC"
+        class="w-full rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+      />
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div class="flex flex-col gap-2">
+        <label for="quiz-industry" class="text-xs md:text-sm font-black uppercase tracking-wide text-[#3d1d0e]">
+          Industry <span class="text-[#FF6B4A]">*</span>
+        </label>
+        <select
+          id="quiz-industry"
+          name="industry"
+          data-quiz-required="1"
+          class="w-full cursor-pointer rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+        >
+          <option value="">Select your industry</option>
+          {
+            industries.map((i) => (
+              <option value={i.value} selected={industry === i.value}>
+                {i.label}
+              </option>
+            ))
+          }
+        </select>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="quiz-agents" class="text-xs md:text-sm font-black uppercase tracking-wide text-[#3d1d0e]">
+          Number of Agents <span class="font-medium normal-case text-gray-400">(optional)</span>
+        </label>
+        <input
+          type="number"
+          id="quiz-agents"
+          name="agent_count"
+          min="1"
+          step="1"
+          placeholder="e.g. 3"
+          class="w-full rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+        />
+      </div>
+    </div>
+
+    <div id="quiz-custom-industry-wrapper" class="hidden flex-col gap-2">
+      <label for="quiz-custom-industry" class="text-xs md:text-sm font-black uppercase tracking-wide text-brand-blue">
+        Please specify your industry <span class="text-[#FF6B4A]">*</span>
+      </label>
+      <input
+        type="text"
+        id="quiz-custom-industry"
+        name="custom_industry"
+        placeholder="E.g. Logistics, Operations..."
+        class="w-full rounded-xl border border-brand-blue/30 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+      />
+    </div>
+
+    <p class="quiz-error hidden text-xs md:text-sm font-bold text-[#FF6B4A]" data-quiz-error="6"></p>
+  </div>
+
+  <!-- Navigation -->
+  <div class="flex items-center gap-3 pt-2">
+    <button
+      type="button"
+      id="quiz-back-btn"
+      class="hidden flex-1 cursor-pointer rounded-xl border border-gray-200 bg-white px-6 py-3.5 text-xs font-black uppercase tracking-wider text-[#3d1d0e] transition-all duration-200 hover:border-brand-blue hover:text-brand-blue md:text-base"
+    >
+      Back
+    </button>
+    <button
+      type="button"
+      id="quiz-next-btn"
+      class="flex-1 cursor-pointer rounded-xl bg-brand-blue px-6 py-3.5 text-xs font-black uppercase tracking-wider text-white shadow-xs transition-all duration-200 hover:bg-brand-green md:text-base"
+    >
+      Next
+    </button>
+    <button
+      type="submit"
+      id="quiz-submit-btn"
+      class="hidden flex-1 cursor-pointer rounded-xl bg-brand-green px-6 py-3.5 text-xs font-black uppercase tracking-wider text-white shadow-xs transition-all duration-200 hover:bg-brand-green/90 md:text-base"
+    >
+      Find my offer
+    </button>
+  </div>
+</form>
+
+<style>
+  #offer-quiz-form input,
+  #offer-quiz-form select,
+  #offer-quiz-form textarea {
+    will-change: transform, border-color;
+  }
+</style>
+
+<script>
+  const QUIZ_WEBHOOK =
+    "https://n8n-n8n.tfpyme.easypanel.host/webhook/72856356-078f-4701-a273-55e80fef1107";
+
+  const STEP_LABELS: Record<number, string> = {
+    1: "Your stage",
+    2: "Your goal",
+    3: "Past attempts",
+    4: "What's blocking you",
+    5: "Your timeline",
+    6: "Final details",
+  };
+
+  function showQuizPopup(id: string) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    modal.classList.remove("hidden");
+    setTimeout(() => modal.classList.add("opacity-100"), 10);
+    const container = modal.firstElementChild as HTMLElement | null;
+    if (container) container.classList.replace("scale-95", "scale-100");
+  }
+
+  function hideQuizPopup(modal: HTMLElement) {
+    modal.classList.remove("opacity-100");
+    setTimeout(() => modal.classList.add("hidden"), 300);
+  }
+
+  function detectTimezone(select: HTMLSelectElement | null) {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const input = document.getElementById("quiz-timezone") as HTMLInputElement;
+    if (input) input.value = tz;
+
+    if (!select) return;
+
+    const tzLower = tz.toLowerCase();
+    let targetCountryId = "US";
+    if (tzLower.includes("caracas") || tzLower.includes("venezuela")) targetCountryId = "VE";
+    else if (tzLower.includes("london") || tzLower.includes("gb")) targetCountryId = "UK";
+    else if (tzLower.includes("sydney") || tzLower.includes("melbourne")) targetCountryId = "AU";
+    else if (tzLower.includes("madrid") || tzLower.includes("spain")) targetCountryId = "ES";
+    else if (tzLower.includes("mexico")) targetCountryId = "MX";
+    else if (tzLower.includes("bogota") || tzLower.includes("colombia")) targetCountryId = "CO";
+    else if (tzLower.includes("buenos_aires") || tzLower.includes("argentina")) targetCountryId = "AR";
+    else if (tzLower.includes("santiago") || tzLower.includes("chile")) targetCountryId = "CL";
+    else if (tzLower.includes("lima") || tzLower.includes("peru")) targetCountryId = "PE";
+
+    const match = Array.from(select.options).find(
+      (opt) => opt.getAttribute("data-country-id") === targetCountryId,
+    );
+    if (match) select.value = match.value;
+  }
+
+  function prefillFromUrl(form: HTMLFormElement) {
+    const params = new URLSearchParams(window.location.search);
+
+    const service = params.get("service");
+    if (service) {
+      (form.querySelector("#quiz-service") as HTMLInputElement).value = service;
+    }
+
+    const plan = params.get("plan");
+    if (plan) {
+      (form.querySelector("#quiz-plan") as HTMLInputElement).value = plan;
+    }
+
+    const annual = params.get("annual");
+    (form.querySelector("#quiz-billing-cycle") as HTMLInputElement).value =
+      annual === "Y" ? "annual" : "monthly";
+
+    const industry = params.get("industry");
+    if (industry) {
+      const select = form.querySelector("#quiz-industry") as HTMLSelectElement;
+      const exists = Array.from(select.options).some((o) => o.value === industry);
+      if (exists) select.value = industry;
+    }
+  }
+
+  function initOfferQuiz() {
+    const form = document.getElementById("offer-quiz-form") as HTMLFormElement | null;
+    if (!form) return;
+
+    const steps = Array.from(
+      form.querySelectorAll<HTMLElement>(".quiz-step"),
+    );
+    const totalSteps = steps.length;
+    const progressBar = document.getElementById("quiz-progress-bar") as HTMLElement;
+    const currentLabel = document.getElementById("quiz-step-current") as HTMLElement;
+    const stepLabel = document.getElementById("quiz-step-label") as HTMLElement;
+    const backBtn = document.getElementById("quiz-back-btn") as HTMLButtonElement;
+    const nextBtn = document.getElementById("quiz-next-btn") as HTMLButtonElement;
+    const submitBtn = document.getElementById("quiz-submit-btn") as HTMLButtonElement;
+    const industrySelect = form.querySelector("#quiz-industry") as HTMLSelectElement;
+    const customIndustryWrapper = form.querySelector(
+      "#quiz-custom-industry-wrapper",
+    ) as HTMLDivElement;
+    const customIndustryInput = form.querySelector(
+      "#quiz-custom-industry",
+    ) as HTMLInputElement;
+    const blockerOtherCheckbox = form.querySelector(
+      "#quiz-blocker-other-checkbox",
+    ) as HTMLInputElement;
+    const blockerOtherInput = form.querySelector(
+      "#quiz-blocker-other",
+    ) as HTMLInputElement;
+    const countryCodeSelect = form.querySelector(
+      "#quiz-country-code",
+    ) as HTMLSelectElement;
+
+    let currentStep = 1;
+
+    const setError = (step: number, message: string) => {
+      const error = form.querySelector<HTMLElement>(`[data-quiz-error="${step}"]`);
+      if (!error) return;
+      error.textContent = message;
+      error.classList.toggle("hidden", !message);
+    };
+
+    const clearError = (step: number) => setError(step, "");
+
+    const showStep = (step: number, scroll = true) => {
+      currentStep = Math.min(Math.max(step, 1), totalSteps);
+
+      steps.forEach((element) => {
+        const active = Number(element.dataset.quizStep) === currentStep;
+        element.classList.toggle("hidden", !active);
+        element.classList.toggle("flex", active);
+      });
+
+      if (progressBar) {
+        progressBar.style.width = `${(currentStep / totalSteps) * 100}%`;
+      }
+      if (currentLabel) currentLabel.textContent = String(currentStep);
+      if (stepLabel) stepLabel.textContent = STEP_LABELS[currentStep] ?? "";
+
+      if (backBtn) backBtn.classList.toggle("hidden", currentStep === 1);
+      if (nextBtn) nextBtn.classList.toggle("hidden", currentStep === totalSteps);
+      if (submitBtn) submitBtn.classList.toggle("hidden", currentStep !== totalSteps);
+
+      if (scroll) {
+        form.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+
+    const validateStep = (step: number) => {
+      clearError(step);
+      const container = form.querySelector<HTMLElement>(`[data-quiz-step="${step}"]`);
+      if (!container) return true;
+
+      const requiredFields = Array.from(
+        container.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(
+          "[data-quiz-required]",
+        ),
+      );
+
+      const handledRadioGroups = new Set<string>();
+
+      for (const field of requiredFields) {
+        if (field instanceof HTMLInputElement && field.type === "radio") {
+          if (handledRadioGroups.has(field.name)) continue;
+          handledRadioGroups.add(field.name);
+
+          const checked = container.querySelector<HTMLInputElement>(
+            `input[name="${field.name}"]:checked`,
+          );
+          if (!checked) {
+            field.focus();
+            setError(step, "Please select an option to continue.");
+            return false;
+          }
+          continue;
+        }
+
+        const value = field.value.trim();
+        if (!value) {
+          field.focus();
+          setError(step, "Please complete this field to continue.");
+          return false;
+        }
+        if (field.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          field.focus();
+          setError(step, "Please enter a valid email address.");
+          return false;
+        }
+      }
+
+      if (step === 4) {
+        const checked = container.querySelectorAll<HTMLInputElement>(
+          'input[name="quiz_blockers"]:checked',
+        );
+        if (checked.length === 0) {
+          setError(step, "Select at least one option.");
+          return false;
+        }
+        if (
+          blockerOtherCheckbox?.checked &&
+          !(blockerOtherInput?.value.trim().length)
+        ) {
+          blockerOtherInput.focus();
+          setError(step, "Tell us what the other blocker is.");
+          return false;
+        }
+      }
+
+      if (step === 6 && industrySelect?.value === "other") {
+        if (!customIndustryInput.value.trim()) {
+          customIndustryInput.focus();
+          setError(step, "Please specify your industry.");
+          return false;
+        }
+      }
+
+      return true;
+    };
+
+    const toggleCustomIndustry = () => {
+      const isOther = industrySelect?.value === "other";
+      customIndustryWrapper.classList.toggle("hidden", !isOther);
+      customIndustryWrapper.classList.toggle("flex", isOther);
+      if (!isOther) customIndustryInput.value = "";
+    };
+
+    const toggleOtherBlocker = () => {
+      const isOther = blockerOtherCheckbox?.checked ?? false;
+      blockerOtherInput.classList.toggle("hidden", !isOther);
+      if (!isOther) blockerOtherInput.value = "";
+    };
+
+    nextBtn?.addEventListener("click", () => {
+      if (!validateStep(currentStep)) return;
+      showStep(currentStep + 1);
+    });
+
+    backBtn?.addEventListener("click", () => {
+      clearError(currentStep);
+      showStep(currentStep - 1);
+    });
+
+    industrySelect?.addEventListener("change", toggleCustomIndustry);
+    blockerOtherCheckbox?.addEventListener("change", toggleOtherBlocker);
+
+    form.addEventListener("keydown", (event) => {
+      if (
+        event.key === "Enter" &&
+        currentStep < totalSteps &&
+        !(event.target instanceof HTMLTextAreaElement)
+      ) {
+        event.preventDefault();
+        if (validateStep(currentStep)) showStep(currentStep + 1);
+      }
+    });
+
+    document.querySelectorAll(".close-quiz-popup-btn").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const target = event.target as HTMLElement;
+        const modal = target.closest('[id^="quiz-popup-"]') as HTMLElement | null;
+        if (modal) hideQuizPopup(modal);
+      });
+    });
+
+    const buildPayload = () => {
+      const get = (name: string) =>
+        (form.querySelector(`[name="${name}"]`) as HTMLInputElement | HTMLSelectElement | null)
+          ?.value.trim() ?? "";
+
+      const getRadio = (name: string) =>
+        form.querySelector<HTMLInputElement>(`input[name="${name}"]:checked`)?.value ?? "";
+
+      const blockers = Array.from(
+        form.querySelectorAll<HTMLInputElement>('input[name="quiz_blockers"]:checked'),
+      )
+        .map((input) => input.value)
+        .filter((value) => value !== "other");
+
+      const otherBlocker = blockerOtherCheckbox?.checked
+        ? blockerOtherInput.value.trim()
+        : "";
+      if (otherBlocker) blockers.push(`Other: ${otherBlocker}`);
+
+      const stage = getRadio("quiz_stage");
+      const goal = get("quiz_goal");
+      const tried = get("quiz_tried_before");
+      const timeline = getRadio("quiz_start_timeline");
+      const industry = get("industry");
+      const agentRaw = get("agent_count");
+
+      const summary = [
+        `Stage: ${stage || "—"}`,
+        `Goal: ${goal || "—"}`,
+        `Tried before: ${tried || "—"}`,
+        `Blockers: ${blockers.length ? blockers.join(", ") : "—"}`,
+        `Start timeline: ${timeline || "—"}`,
+      ].join("\n");
+
+      return {
+        first_name: get("first_name"),
+        last_name: get("last_name"),
+        email: get("email"),
+        country_code: get("country_code"),
+        phone: get("phone"),
+        company_name: get("company_name"),
+        service: get("service") || "virtual-assistants",
+        industry,
+        custom_industry: industry === "other" ? get("custom_industry") : "",
+        agent_count: agentRaw || "1",
+        shift_structure: "full-time",
+        intent_type: "hire",
+        timezone: get("timezone"),
+        plan: get("plan"),
+        billing_cycle: get("billing_cycle") || "monthly",
+        additional_comments: summary,
+      };
+    };
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      if (currentStep !== totalSteps) {
+        if (validateStep(currentStep)) showStep(currentStep + 1);
+        return;
+      }
+
+      if (!validateStep(totalSteps)) return;
+
+      const originalText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending...";
+      submitBtn.classList.add("opacity-70", "cursor-not-allowed");
+
+      try {
+        const response = await fetch(QUIZ_WEBHOOK, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain" },
+          body: JSON.stringify(buildPayload()),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Server responded with ${response.status}`);
+        }
+
+        showQuizPopup("quiz-popup-success");
+        form.reset();
+        prefillFromUrl(form);
+        detectTimezone(countryCodeSelect);
+        toggleCustomIndustry();
+        toggleOtherBlocker();
+        showStep(1, false);
+      } catch (error: any) {
+        const message = document.getElementById("quiz-popup-error-message");
+        if (message) {
+          message.textContent = `Details: ${error?.message || "Network error"}`;
+        }
+        showQuizPopup("quiz-popup-error");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        submitBtn.classList.remove("opacity-70", "cursor-not-allowed");
+      }
+    });
+
+    prefillFromUrl(form);
+    detectTimezone(countryCodeSelect);
+    toggleCustomIndustry();
+    toggleOtherBlocker();
+    showStep(1, false);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initOfferQuiz);
+  } else {
+    initOfferQuiz();
+  }
+  document.addEventListener("astro:page-load", initOfferQuiz);
+</script>
