@@ -8,6 +8,7 @@ import ClientReview from '../../components/Common/ClientReviews.astro';
 import RolesSupported from '../../components/Common/RolesSupported.astro';
 import BenefitsIndustry from '../../components/Common/BenefitsIndustry.astro';
 import FAQ from '../../components/Common/FAQ.astro';
+import OfferQuiz from '../../components/Contact/OfferQuiz.astro';
 
 const heroData = {
   titleA: "Legal & Law Firm",
@@ -213,5 +214,10 @@ const Benefits = {
   <HowItWorks />  
   <ClientReview />
   <BenefitsIndustry BenefitsData={Benefits} />
+  <section class="w-full bg-white px-6 py-16 text-[#3d1d0e] md:px-12 md:py-24">
+    <div class="mx-auto w-full max-w-3xl rounded-3xl border border-gray-100 bg-[#FAF8F5] p-6 shadow-2xs sm:p-8 md:p-10">
+      <OfferQuiz industry="legal" />
+    </div>
+  </section>
   <FAQ FAQs={FAQs}/>
 </Layout>
