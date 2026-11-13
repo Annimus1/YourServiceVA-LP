@@ -61,7 +61,7 @@ const shiftStructures = Astro.props.shiftStructures ?? [
 <form
   id="offer-quiz-form"
   novalidate
-  class="flex flex-col gap-8"
+  class="flex flex-col gap-6 md:gap-8"
 >
   <!-- Hidden compatibility fields (n8n) -->
   <input type="hidden" id="quiz-service" name="service" value={service} />
@@ -72,20 +72,17 @@ const shiftStructures = Astro.props.shiftStructures ?? [
 
   <!-- Header -->
   <div class="flex flex-col gap-3">
-    <span class="text-brand-green font-black uppercase tracking-widest text-xs md:text-sm">
+    <span class="text-brand-green font-black uppercase tracking-widest text-[11px] md:text-xs">
       Interactive Quiz
     </span>
-    <h3 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight text-[#3d1d0e]">
-      Let’s find the best offer for you
+    <h3 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight leading-tight text-[#3d1d0e]">
+      Get your quote in 24 hours
     </h3>
-    <p class="text-gray-600 text-sm md:text-lg font-medium leading-relaxed">
-      Get your quote in 24 hours with just a few questions.
-    </p>
   </div>
 
   <!-- Progress -->
   <div class="flex flex-col gap-3">
-    <div class="flex items-center justify-between text-xs md:text-sm font-black uppercase tracking-wider text-[#3d1d0e]">
+    <div class="flex items-center justify-between text-[11px] md:text-xs font-black uppercase tracking-wider text-[#3d1d0e]">
       <span>Step <span id="quiz-step-current">1</span> of 7</span>
       <span id="quiz-step-label" class="text-brand-blue">Your stage</span>
     </div>
@@ -101,12 +98,12 @@ const shiftStructures = Astro.props.shiftStructures ?? [
   <!-- Step 1: Stage -->
   <div class="quiz-step flex flex-col gap-4" data-quiz-step="1">
     <fieldset class="flex flex-col gap-3">
-      <legend class="text-xs md:text-lg font-black tracking-wide uppercase text-[#3d1d0e] mb-1">
+      <legend class="text-[11px] sm:text-xs md:text-sm font-black tracking-wide uppercase text-[#3d1d0e] mb-1">
         What stage are you at? <span class="text-[#FF6B4A]">*</span>
       </legend>
       {
         stages.map((stage) => (
-          <label class="group flex cursor-pointer items-start gap-4 rounded-2xl border border-gray-200/80 bg-white p-4 transition-all duration-200 hover:border-brand-blue/50 has-[:checked]:border-brand-blue has-[:checked]:bg-brand-blue/5">
+          <label class="group flex cursor-pointer items-start gap-3 md:gap-4 rounded-2xl border border-gray-200/80 bg-white p-3.5 md:p-4 transition-all duration-200 hover:border-brand-blue/50 has-[:checked]:border-brand-blue has-[:checked]:bg-brand-blue/5">
             <input
               type="radio"
               name="quiz_stage"
@@ -115,7 +112,7 @@ const shiftStructures = Astro.props.shiftStructures ?? [
               class="mt-1 h-4 w-4 shrink-0 cursor-pointer text-brand-blue focus:ring-brand-blue"
             />
             <span class="flex flex-col gap-0.5">
-              <span class="text-sm md:text-lg font-black text-[#3d1d0e]">{stage.label}</span>
+              <span class="text-sm md:text-base font-black text-[#3d1d0e]">{stage.label}</span>
               <span class="text-xs md:text-sm font-medium text-gray-500">{stage.hint}</span>
             </span>
           </label>
@@ -129,7 +126,7 @@ const shiftStructures = Astro.props.shiftStructures ?? [
   <div class="quiz-step hidden flex-col gap-4" data-quiz-step="2">
     <label
       for="quiz-goal"
-      class="text-xs md:text-lg font-black tracking-wide uppercase text-[#3d1d0e]"
+      class="text-[11px] sm:text-xs md:text-sm font-black tracking-wide uppercase text-[#3d1d0e]"
     >
       What is your goal?
     </label>
@@ -138,7 +135,7 @@ const shiftStructures = Astro.props.shiftStructures ?? [
       name="quiz_goal"
       rows="4"
       placeholder="e.g. Book more discovery calls, cover inbound support, scale my outbound team..."
-      class="w-full resize-none rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+      class="w-full resize-none rounded-xl border border-gray-200/80 bg-white px-4 py-3 text-base md:py-3.5 md:text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
     ></textarea>
     <p class="text-[11px] md:text-xs font-medium text-gray-400">Optional — skip if you’re not sure yet.</p>
     <p class="quiz-error hidden text-xs md:text-sm font-bold text-[#FF6B4A]" data-quiz-error="2"></p>
@@ -148,7 +145,7 @@ const shiftStructures = Astro.props.shiftStructures ?? [
   <div class="quiz-step hidden flex-col gap-4" data-quiz-step="3">
     <label
       for="quiz-tried"
-      class="text-xs md:text-lg font-black tracking-wide uppercase text-[#3d1d0e]"
+      class="text-[11px] sm:text-xs md:text-sm font-black tracking-wide uppercase text-[#3d1d0e]"
     >
       What have you tried before and why didn’t it work?
     </label>
@@ -157,7 +154,7 @@ const shiftStructures = Astro.props.shiftStructures ?? [
       name="quiz_tried_before"
       rows="4"
       placeholder="e.g. Hired in-house, tried cold email, worked with another agency..."
-      class="w-full resize-none rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+      class="w-full resize-none rounded-xl border border-gray-200/80 bg-white px-4 py-3 text-base md:py-3.5 md:text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
     ></textarea>
     <p class="text-[11px] md:text-xs font-medium text-gray-400">Optional — but the more context, the better the match.</p>
     <p class="quiz-error hidden text-xs md:text-sm font-bold text-[#FF6B4A]" data-quiz-error="3"></p>
@@ -166,13 +163,13 @@ const shiftStructures = Astro.props.shiftStructures ?? [
   <!-- Step 4: Blockers -->
   <div class="quiz-step hidden flex-col gap-4" data-quiz-step="4">
     <fieldset class="flex flex-col gap-3">
-      <legend class="text-xs md:text-lg font-black tracking-wide uppercase text-[#3d1d0e] mb-1">
+      <legend class="text-[11px] sm:text-xs md:text-sm font-black tracking-wide uppercase text-[#3d1d0e] mb-1">
         What’s holding you back today? <span class="text-[#FF6B4A]">*</span>
       </legend>
       <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
         {
           ["time", "money", "fear"].map((blocker) => (
-            <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 transition-all duration-200 hover:border-brand-blue/50 has-[:checked]:border-brand-blue has-[:checked]:bg-brand-blue/5">
+            <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200/80 bg-white px-3.5 py-3 md:px-4 md:py-3.5 transition-all duration-200 hover:border-brand-blue/50 has-[:checked]:border-brand-blue has-[:checked]:bg-brand-blue/5">
               <input
                 type="checkbox"
                 name="quiz_blockers"
@@ -184,7 +181,7 @@ const shiftStructures = Astro.props.shiftStructures ?? [
           ))
         }
       </div>
-      <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 transition-all duration-200 hover:border-brand-blue/50 has-[:checked]:border-brand-blue has-[:checked]:bg-brand-blue/5">
+      <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200/80 bg-white px-3.5 py-3 md:px-4 md:py-3.5 transition-all duration-200 hover:border-brand-blue/50 has-[:checked]:border-brand-blue has-[:checked]:bg-brand-blue/5">
         <input
           type="checkbox"
           id="quiz-blocker-other-checkbox"
@@ -199,7 +196,7 @@ const shiftStructures = Astro.props.shiftStructures ?? [
         id="quiz-blocker-other"
         name="quiz_blockers_other"
         placeholder="Tell us what’s holding you back..."
-        class="hidden w-full rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+        class="hidden w-full rounded-xl border border-gray-200/80 bg-white px-4 py-3 text-base md:py-3.5 md:text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
       />
     </fieldset>
     <p class="quiz-error hidden text-xs md:text-sm font-bold text-[#FF6B4A]" data-quiz-error="4"></p>
@@ -208,13 +205,13 @@ const shiftStructures = Astro.props.shiftStructures ?? [
   <!-- Step 5: Timeline -->
   <div class="quiz-step hidden flex-col gap-4" data-quiz-step="5">
     <fieldset class="flex flex-col gap-3">
-      <legend class="text-xs md:text-lg font-black tracking-wide uppercase text-[#3d1d0e] mb-1">
+      <legend class="text-[11px] sm:text-xs md:text-sm font-black tracking-wide uppercase text-[#3d1d0e] mb-1">
         When do you want to start? <span class="text-[#FF6B4A]">*</span>
       </legend>
       <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {
           timelines.map((timeline) => (
-            <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 transition-all duration-200 hover:border-brand-blue/50 has-[:checked]:border-brand-blue has-[:checked]:bg-brand-blue/5">
+            <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200/80 bg-white px-3.5 py-3 md:px-4 md:py-3.5 transition-all duration-200 hover:border-brand-blue/50 has-[:checked]:border-brand-blue has-[:checked]:bg-brand-blue/5">
               <input
                 type="radio"
                 name="quiz_start_timeline"
@@ -234,14 +231,14 @@ const shiftStructures = Astro.props.shiftStructures ?? [
   <!-- Step 6: Budget -->
   <div class="quiz-step hidden flex-col gap-4" data-quiz-step="6">
     <fieldset class="flex flex-col gap-3">
-      <legend class="text-xs md:text-lg font-black tracking-wide uppercase text-[#3d1d0e] mb-1">
+      <legend class="text-[11px] sm:text-xs md:text-sm font-black tracking-wide uppercase text-[#3d1d0e] mb-1">
         What budget would you be willing to invest? <span class="text-[#FF6B4A]">*</span>
       </legend>
       <p class="text-[11px] md:text-xs font-medium text-gray-400">Monthly investment in USD — pick the range that fits best.</p>
       <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {
           budgets.map((budget) => (
-            <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 transition-all duration-200 hover:border-brand-blue/50 has-[:checked]:border-brand-blue has-[:checked]:bg-brand-blue/5">
+            <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200/80 bg-white px-3.5 py-3 md:px-4 md:py-3.5 transition-all duration-200 hover:border-brand-blue/50 has-[:checked]:border-brand-blue has-[:checked]:bg-brand-blue/5">
               <input
                 type="radio"
                 name="quiz_budget"
@@ -262,7 +259,7 @@ const shiftStructures = Astro.props.shiftStructures ?? [
   <div class="quiz-step hidden flex-col gap-5" data-quiz-step="7">
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div class="flex flex-col gap-2">
-        <label for="quiz-first-name" class="text-xs md:text-sm font-black uppercase tracking-wide text-[#3d1d0e]">
+        <label for="quiz-first-name" class="text-[11px] md:text-xs font-black uppercase tracking-wide text-[#3d1d0e]">
           First Name <span class="text-[#FF6B4A]">*</span>
         </label>
         <input
@@ -271,11 +268,11 @@ const shiftStructures = Astro.props.shiftStructures ?? [
           name="first_name"
           data-quiz-required="1"
           placeholder="Alexander"
-          class="w-full rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+          class="w-full rounded-xl border border-gray-200/80 bg-white px-4 py-3 text-base md:py-3.5 md:text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
         />
       </div>
       <div class="flex flex-col gap-2">
-        <label for="quiz-last-name" class="text-xs md:text-sm font-black uppercase tracking-wide text-[#3d1d0e]">
+        <label for="quiz-last-name" class="text-[11px] md:text-xs font-black uppercase tracking-wide text-[#3d1d0e]">
           Last Name <span class="text-[#FF6B4A]">*</span>
         </label>
         <input
@@ -284,14 +281,14 @@ const shiftStructures = Astro.props.shiftStructures ?? [
           name="last_name"
           data-quiz-required="1"
           placeholder="Wright"
-          class="w-full rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+          class="w-full rounded-xl border border-gray-200/80 bg-white px-4 py-3 text-base md:py-3.5 md:text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
         />
       </div>
     </div>
 
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div class="flex flex-col gap-2">
-        <label for="quiz-email" class="text-xs md:text-sm font-black uppercase tracking-wide text-[#3d1d0e]">
+        <label for="quiz-email" class="text-[11px] md:text-xs font-black uppercase tracking-wide text-[#3d1d0e]">
           Business Email <span class="text-[#FF6B4A]">*</span>
         </label>
         <input
@@ -300,11 +297,11 @@ const shiftStructures = Astro.props.shiftStructures ?? [
           name="email"
           data-quiz-required="1"
           placeholder="alex@company.com"
-          class="w-full rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+          class="w-full rounded-xl border border-gray-200/80 bg-white px-4 py-3 text-base md:py-3.5 md:text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
         />
       </div>
       <div class="flex flex-col gap-2">
-        <label for="quiz-phone" class="text-xs md:text-sm font-black uppercase tracking-wide text-[#3d1d0e]">
+        <label for="quiz-phone" class="text-[11px] md:text-xs font-black uppercase tracking-wide text-[#3d1d0e]">
           Phone Number <span class="text-[#FF6B4A]">*</span>
         </label>
         <div class="flex overflow-hidden rounded-xl border border-gray-200/80 bg-white focus-within:border-brand-blue">
@@ -312,7 +309,7 @@ const shiftStructures = Astro.props.shiftStructures ?? [
             id="quiz-country-code"
             name="country_code"
             aria-label="Country Code"
-            class="cursor-pointer border-r border-gray-200 bg-[#FAF8F5] px-3 text-sm font-bold text-[#3d1d0e] focus:outline-hidden"
+            class="cursor-pointer border-r border-gray-200 bg-[#FAF8F5] px-3 text-base md:text-sm font-bold text-[#3d1d0e] focus:outline-hidden"
           >
             {
               countryCodes.map((c) => (
@@ -328,14 +325,14 @@ const shiftStructures = Astro.props.shiftStructures ?? [
             name="phone"
             data-quiz-required="1"
             placeholder="Phone Number"
-            class="w-full bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 focus:outline-hidden"
+            class="w-full bg-white px-4 py-3 text-base md:py-3.5 md:text-sm font-medium text-[#3d1d0e] placeholder-gray-400 focus:outline-hidden"
           />
         </div>
       </div>
     </div>
 
     <div class="flex flex-col gap-2">
-      <label for="quiz-company" class="text-xs md:text-sm font-black uppercase tracking-wide text-[#3d1d0e]">
+      <label for="quiz-company" class="text-[11px] md:text-xs font-black uppercase tracking-wide text-[#3d1d0e]">
         Company Name <span class="text-[#FF6B4A]">*</span>
       </label>
       <input
@@ -344,20 +341,20 @@ const shiftStructures = Astro.props.shiftStructures ?? [
         name="company_name"
         data-quiz-required="1"
         placeholder="Acme Logistics LLC"
-        class="w-full rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+        class="w-full rounded-xl border border-gray-200/80 bg-white px-4 py-3 text-base md:py-3.5 md:text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
       />
     </div>
 
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div class="flex flex-col gap-2">
-        <label for="quiz-industry" class="text-xs md:text-sm font-black uppercase tracking-wide text-[#3d1d0e]">
+        <label for="quiz-industry" class="text-[11px] md:text-xs font-black uppercase tracking-wide text-[#3d1d0e]">
           Industry <span class="text-[#FF6B4A]">*</span>
         </label>
         <select
           id="quiz-industry"
           name="industry"
           data-quiz-required="1"
-          class="w-full cursor-pointer rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+          class="w-full cursor-pointer rounded-xl border border-gray-200/80 bg-white px-4 py-3 text-base md:py-3.5 md:text-sm font-medium text-[#3d1d0e] transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
         >
           <option value="">Select your industry</option>
           {
@@ -370,7 +367,7 @@ const shiftStructures = Astro.props.shiftStructures ?? [
         </select>
       </div>
       <div class="flex flex-col gap-2">
-        <label for="quiz-agents" class="text-xs md:text-sm font-black uppercase tracking-wide text-[#3d1d0e]">
+        <label for="quiz-agents" class="text-[11px] md:text-xs font-black uppercase tracking-wide text-[#3d1d0e]">
           Number of Agents <span class="font-medium normal-case text-gray-400">(optional)</span>
         </label>
         <input
@@ -380,13 +377,13 @@ const shiftStructures = Astro.props.shiftStructures ?? [
           min="1"
           step="1"
           placeholder="e.g. 3"
-          class="w-full rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+          class="w-full rounded-xl border border-gray-200/80 bg-white px-4 py-3 text-base md:py-3.5 md:text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
         />
       </div>
     </div>
 
     <div id="quiz-custom-industry-wrapper" class="hidden flex-col gap-2">
-      <label for="quiz-custom-industry" class="text-xs md:text-sm font-black uppercase tracking-wide text-brand-blue">
+      <label for="quiz-custom-industry" class="text-[11px] md:text-xs font-black uppercase tracking-wide text-brand-blue">
         Please specify your industry <span class="text-[#FF6B4A]">*</span>
       </label>
       <input
@@ -394,19 +391,19 @@ const shiftStructures = Astro.props.shiftStructures ?? [
         id="quiz-custom-industry"
         name="custom_industry"
         placeholder="E.g. Logistics, Operations..."
-        class="w-full rounded-xl border border-brand-blue/30 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+        class="w-full rounded-xl border border-brand-blue/30 bg-white px-4 py-3 text-base md:py-3.5 md:text-sm font-medium text-[#3d1d0e] placeholder-gray-400 transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
       />
     </div>
 
     <div class="flex flex-col gap-2">
-      <label for="quiz-shift-structure" class="text-xs md:text-sm font-black uppercase tracking-wide text-[#3d1d0e]">
+      <label for="quiz-shift-structure" class="text-[11px] md:text-xs font-black uppercase tracking-wide text-[#3d1d0e]">
         Shift Structure <span class="text-[#FF6B4A]">*</span>
       </label>
       <select
           id="quiz-shift-structure"
           name="shift_structure"
           data-quiz-required="1"
-          class="w-full cursor-pointer rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+          class="w-full cursor-pointer rounded-xl border border-gray-200/80 bg-white px-4 py-3 text-base md:py-3.5 md:text-sm font-medium text-[#3d1d0e] transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
         >
           <option value="">Select your shift structure</option>
           {
@@ -427,26 +424,68 @@ const shiftStructures = Astro.props.shiftStructures ?? [
     <button
       type="button"
       id="quiz-back-btn"
-      class="hidden flex-1 cursor-pointer rounded-xl border border-gray-200 bg-white px-6 py-3.5 text-xs font-black uppercase tracking-wider text-[#3d1d0e] transition-all duration-200 hover:border-brand-blue hover:text-brand-blue md:text-base"
+      class="hidden flex-1 cursor-pointer rounded-xl border border-gray-200 bg-white px-5 py-3 md:px-6 md:py-3.5 text-xs font-black uppercase tracking-wider text-[#3d1d0e] transition-all duration-200 hover:border-brand-blue hover:text-brand-blue md:text-sm"
     >
       Back
     </button>
     <button
       type="button"
       id="quiz-next-btn"
-      class="flex-1 cursor-pointer rounded-xl bg-brand-blue px-6 py-3.5 text-xs font-black uppercase tracking-wider text-white shadow-xs transition-all duration-200 hover:bg-brand-green md:text-base"
+      class="flex-1 cursor-pointer rounded-xl bg-brand-blue px-5 py-3 md:px-6 md:py-3.5 text-xs font-black uppercase tracking-wider text-white shadow-xs transition-all duration-200 hover:bg-brand-green md:text-sm"
     >
       Next
     </button>
     <button
       type="submit"
       id="quiz-submit-btn"
-      class="hidden flex-1 cursor-pointer rounded-xl bg-brand-green px-6 py-3.5 text-xs font-black uppercase tracking-wider text-white shadow-xs transition-all duration-200 hover:bg-brand-green/90 md:text-base"
+      class="hidden flex-1 cursor-pointer rounded-xl bg-brand-green px-5 py-3 md:px-6 md:py-3.5 text-xs font-black uppercase tracking-wider text-white shadow-xs transition-all duration-200 hover:bg-brand-green/90 md:text-sm"
     >
       Get my quote
     </button>
   </div>
 </form>
+
+<div
+  id="quiz-popup-success"
+  class="fixed inset-0 z-50 flex hidden items-center justify-center bg-gray-950/40 p-4 opacity-0 backdrop-blur-xs transition-opacity duration-300"
+>
+  <div class="flex w-full max-w-md flex-col items-center gap-4 rounded-3xl border border-gray-100 bg-white p-8 text-center shadow-2xl">
+    <div class="flex h-16 w-16 items-center justify-center rounded-full bg-brand-green/10 text-3xl font-black text-brand-green">
+      ✓
+    </div>
+    <h3 class="text-2xl font-black tracking-tight text-gray-950">Quiz complete!</h3>
+    <p class="text-sm font-medium leading-relaxed text-gray-500">
+      Thanks for the details. Our team will review your answers and contact you within 24 business hours with the best offer.
+    </p>
+    <button
+      type="button"
+      class="close-quiz-popup-btn mt-2 w-full cursor-pointer rounded-xl bg-brand-blue px-4 py-3.5 text-sm font-bold uppercase tracking-wider text-white transition-colors duration-200 hover:bg-brand-green"
+    >
+      Got it, thanks
+    </button>
+  </div>
+</div>
+
+<div
+  id="quiz-popup-error"
+  class="fixed inset-0 z-50 flex hidden items-center justify-center bg-gray-950/40 p-4 opacity-0 backdrop-blur-xs transition-opacity duration-300"
+>
+  <div class="flex w-full max-w-md flex-col items-center gap-4 rounded-3xl border border-gray-100 bg-white p-8 text-center shadow-2xl">
+    <div class="flex h-16 w-16 items-center justify-center rounded-full bg-red-50 text-3xl font-black text-red-500">
+      ✕
+    </div>
+    <h3 class="text-2xl font-black tracking-tight text-red-600">Submission Failed</h3>
+    <p id="quiz-popup-error-message" class="text-sm font-medium leading-relaxed text-gray-500">
+      An unexpected error occurred while submitting your answers.
+    </p>
+    <button
+      type="button"
+      class="close-quiz-popup-btn mt-2 w-full cursor-pointer rounded-xl bg-red-600 px-4 py-3.5 text-sm font-bold uppercase tracking-wider text-white transition-colors duration-200 hover:bg-red-700"
+    >
+      Review and Try Again
+    </button>
+  </div>
+</div>
 
 <style>
   #offer-quiz-form input,

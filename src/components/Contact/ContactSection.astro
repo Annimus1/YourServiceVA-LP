@@ -256,48 +256,6 @@ const { variant = "form", service, industry } = Astro.props;
   </div>
 </div>
 
-<div
-  id="quiz-popup-success"
-  class="fixed inset-0 z-50 flex hidden items-center justify-center bg-gray-950/40 p-4 opacity-0 backdrop-blur-xs transition-opacity duration-300"
->
-  <div class="flex w-full max-w-md flex-col items-center gap-4 rounded-3xl border border-gray-100 bg-white p-8 text-center shadow-2xl">
-    <div class="flex h-16 w-16 items-center justify-center rounded-full bg-brand-green/10 text-3xl font-black text-brand-green">
-      ✓
-    </div>
-    <h3 class="text-2xl font-black tracking-tight text-gray-950">Quiz complete!</h3>
-    <p class="text-sm font-medium leading-relaxed text-gray-500">
-      Thanks for the details. Our team will review your answers and contact you within 24 business hours with the best offer.
-    </p>
-    <button
-      type="button"
-      class="close-quiz-popup-btn mt-2 w-full cursor-pointer rounded-xl bg-brand-blue px-4 py-3.5 text-sm font-bold uppercase tracking-wider text-white transition-colors duration-200 hover:bg-brand-green"
-    >
-      Got it, thanks
-    </button>
-  </div>
-</div>
-
-<div
-  id="quiz-popup-error"
-  class="fixed inset-0 z-50 flex hidden items-center justify-center bg-gray-950/40 p-4 opacity-0 backdrop-blur-xs transition-opacity duration-300"
->
-  <div class="flex w-full max-w-md flex-col items-center gap-4 rounded-3xl border border-gray-100 bg-white p-8 text-center shadow-2xl">
-    <div class="flex h-16 w-16 items-center justify-center rounded-full bg-red-50 text-3xl font-black text-red-500">
-      ✕
-    </div>
-    <h3 class="text-2xl font-black tracking-tight text-red-600">Submission Failed</h3>
-    <p id="quiz-popup-error-message" class="text-sm font-medium leading-relaxed text-gray-500">
-      An unexpected error occurred while submitting your answers.
-    </p>
-    <button
-      type="button"
-      class="close-quiz-popup-btn mt-2 w-full cursor-pointer rounded-xl bg-red-600 px-4 py-3.5 text-sm font-bold uppercase tracking-wider text-white transition-colors duration-200 hover:bg-red-700"
-    >
-      Review and Try Again
-    </button>
-  </div>
-</div>
-
 <style>
   .scroll-reveal {
     opacity: 0;
