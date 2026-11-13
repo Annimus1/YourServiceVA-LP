@@ -2,6 +2,7 @@
 interface Props {
   service?: string;
   industry?: string;
+  shiftStructures?: {value: string, label: string}[];
 }
 
 const service = Astro.props.service || "";
@@ -49,6 +50,12 @@ const budgets = [
   { value: "1500-3000", label: "$1,500 – $3,000 / month" },
   { value: "not-sure", label: "Not sure yet" },
 ];
+
+const shiftStructures = Astro.props.shiftStructures ?? [
+  { value: "full-time", label: "Full-time" },
+  { value: "part-time", label: "Part-time" },
+  { value: "flexible", label: "Flexible" },
+];
 ---
 
 <form
@@ -61,7 +68,6 @@ const budgets = [
   <input type="hidden" id="quiz-plan" name="plan" value="" />
   <input type="hidden" id="quiz-billing-cycle" name="billing_cycle" value="monthly" />
   <input type="hidden" id="quiz-timezone" name="timezone" value="" />
-  <input type="hidden" name="shift_structure" value="full-time" />
   <input type="hidden" name="intent_type" value="hire" />
 
   <!-- Header -->
@@ -392,6 +398,27 @@ const budgets = [
       />
     </div>
 
+    <div class="flex flex-col gap-2">
+      <label for="quiz-shift-structure" class="text-xs md:text-sm font-black uppercase tracking-wide text-[#3d1d0e]">
+        Shift Structure <span class="text-[#FF6B4A]">*</span>
+      </label>
+      <select
+          id="quiz-shift-structure"
+          name="shift_structure"
+          data-quiz-required="1"
+          class="w-full cursor-pointer rounded-xl border border-gray-200/80 bg-white px-4 py-3.5 text-sm font-medium text-[#3d1d0e] transition-all duration-200 focus:border-brand-blue focus:outline-hidden"
+        >
+          <option value="">Select your shift structure</option>
+          {
+            shiftStructures.map((s) => (
+              <option value={s.value}>
+                {s.label}
+              </option>
+            ))
+          }
+        </select>
+    </div>
+
     <p class="quiz-error hidden text-xs md:text-sm font-bold text-[#FF6B4A]" data-quiz-error="7"></p>
   </div>
 
@@ -543,6 +570,10 @@ const budgets = [
     ) as HTMLInputElement;
     const countryCodeSelect = form.querySelector(
       "#quiz-country-code",
+    ) as HTMLSelectElement;
+
+    const shiftStructureSelect = form.querySelector(
+      "#quiz-shift-structure",
     ) as HTMLSelectElement;
 
     let currentStep = 1;
@@ -721,6 +752,7 @@ const budgets = [
       const timeline = getRadio("quiz_start_timeline");
       const industry = get("industry");
       const agentRaw = get("agent_count");
+      const shiftStructure = get("shift_structure");
       const budgetValue = getRadio("quiz_budget");
       const budgetLabel = BUDGET_LABELS[budgetValue] ?? "";
 
@@ -744,7 +776,7 @@ const budgets = [
         industry,
         custom_industry: industry === "other" ? get("custom_industry") : "",
         agent_count: agentRaw || "1",
-        shift_structure: "full-time",
+        shift_structure: shiftStructure,
         intent_type: "hire",
         timezone: get("timezone"),
         plan: get("plan"),
